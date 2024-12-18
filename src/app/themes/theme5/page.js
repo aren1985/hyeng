@@ -49,7 +49,7 @@ const Theme4Page = () => {
     if (title) {
       // Fetch sentences based on title
       axios
-        .get(`http://localhost:3033/themes/themik/${title}`)
+        .get(`${process.env.NEXT_PUBLIC_API_URL}/themes/themik/${title}`)
         .then((response) => {
           const fetchedSentences = response.data.sentences || [];
           setSentences(fetchedSentences);

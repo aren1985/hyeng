@@ -47,7 +47,7 @@ const Words2Page = () => {
   useEffect(() => {
     if (title) {
       axios
-        .get(`http://localhost:3033/words/wordik/${title}`)
+        .get(`${process.env.NEXT_PUBLIC_API_URL}/words/wordik/${title}`)
         .then((response) => {
           const fetchedWords = response.data.words || [];
           setWords(fetchedWords);

@@ -50,7 +50,7 @@ const Theme7Page = () => {
   useEffect(() => {
     if (title) {
       axios
-        .get(`http://localhost:3033/themes/themik/${title}`)
+        .get(`${process.env.NEXT_PUBLIC_API_URL}/themes/themik/${title}`)
         .then((response) => {
           const fetchedSentences = response.data.sentences || [];
           const randomizedSentences = shuffleArray(fetchedSentences);

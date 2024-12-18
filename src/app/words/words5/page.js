@@ -23,7 +23,7 @@ const Words5Page = () => {
   useEffect(() => {
     if (title) {
       axios
-        .get(`http://localhost:3033/words/wordik/${title}`)
+        .get(`${process.env.NEXT_PUBLIC_API_URL}/words/wordik/${title}`)
         .then((response) => {
           setWords(response.data.words || []);
         })

@@ -52,7 +52,9 @@ const NextQuiz = () => {
         setImages(cache.current[selectedCategory]);
       } else {
         axios
-          .get(`http://localhost:3033/images/allik/${selectedCategory}`)
+          .get(
+            `${process.env.NEXT_PUBLIC_API_URL}/images/allik/${selectedCategory}`
+          )
           .then((response) => {
             const data = response.data;
             setImages(data);

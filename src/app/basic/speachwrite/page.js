@@ -29,7 +29,9 @@ const SpeechToTextPage = () => {
   useEffect(() => {
     if (selectedCategory) {
       axios
-        .get(`http://localhost:3033/images/allik/${selectedCategory}`)
+        .get(
+          `${process.env.NEXT_PUBLIC_API_URL}/images/allik/${selectedCategory}`
+        )
         .then((response) => {
           setImages(response.data);
         })

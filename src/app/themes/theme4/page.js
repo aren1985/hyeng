@@ -50,7 +50,7 @@ const Theme5Page = () => {
   useEffect(() => {
     if (title) {
       axios
-        .get(`http://localhost:3033/themes/themik/${title}`)
+        .get(`${process.env.NEXT_PUBLIC_API_URL}/themes/themik/${title}`)
         .then((response) => {
           if (response.data && response.data.sentences) {
             const shuffledSentences = response.data.sentences.sort(

@@ -59,9 +59,9 @@ const QuizPage = () => {
       } else {
         axios
           .get(
-            `http://localhost:3033/documents/lessdocuments/${encodeURIComponent(
-              title
-            )}`
+            `${
+              process.env.NEXT_PUBLIC_API_URL
+            }/documents/lessdocuments/${encodeURIComponent(title)}`
           )
           .then((response) => {
             if (response.data && response.data.length > 0) {

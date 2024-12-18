@@ -24,9 +24,7 @@ const ImagesPage = () => {
       } else {
         // Fetch images using then/catch
         axios
-          .get(
-            `${process.env.NEXT_PUBLIC_API_URL}/images/allik/${selectedCategory}`
-          ) // Updated endpoint
+          .get(`http://localhost:3033/images/allik/${selectedCategory}`) // Updated endpoint
           .then((response) => {
             setImages(response.data);
             cache.current[selectedCategory] = response.data; // Cache the response

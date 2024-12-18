@@ -25,9 +25,9 @@ const LessonPage = () => {
         // Fetch lesson using then/catch
         axios
           .get(
-            `http://localhost:3033/documents/lessdocuments/${encodeURIComponent(
-              title
-            )}`
+            `${
+              process.env.NEXT_PUBLIC_API_URL
+            }/documents/lessdocuments/${encodeURIComponent(title)}`
           )
           .then((response) => {
             console.log(response); // Check the data returned
