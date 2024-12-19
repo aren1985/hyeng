@@ -52,7 +52,7 @@ const Sidebar = () => {
                 </Link>
               </li>
               <li className="border-b border-gray-700 pb-2">
-                <Link href="/contact" onClick={() => setIsOpen(false)}>
+                <Link href="/contacts" onClick={() => setIsOpen(false)}>
                   Contact
                 </Link>
               </li>
