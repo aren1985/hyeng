@@ -1,4 +1,4 @@
-"use client";
+/*"use client";
 
 import React, { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
@@ -101,7 +101,7 @@ const Words4Page = () => {
         listen and write
       </h1>
 
-      {/* Button to hear the word with volume-up (listening) icon */}
+      
       <button
         onClick={speakWord}
         className="bg-orange-500 text-white py-2 px-6 rounded mb-6 text-lg font-semibold flex items-center justify-center"
@@ -110,7 +110,7 @@ const Words4Page = () => {
         Listening...
       </button>
 
-      {/* Input Field for user to write the word */}
+      
       <div className="mb-6">
         <input
           type="text"
@@ -121,7 +121,7 @@ const Words4Page = () => {
         />
       </div>
 
-      {/* Check Answer Button */}
+      
       <button
         onClick={checkAnswer}
         className="bg-purple-600 text-white py-2 px-6 rounded mt-6 text-lg"
@@ -130,7 +130,7 @@ const Words4Page = () => {
         Check Answer
       </button>
 
-      {/* Modal */}
+      
       <Modal
         visible={modalVisible}
         imageSrc={modalImage}
@@ -141,4 +141,4 @@ const Words4Page = () => {
   );
 };
 
-export default Words4Page;
+export default Words4Page;*/

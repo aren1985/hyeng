@@ -1,4 +1,4 @@
-"use client";
+/*"use client";
 
 import React, { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
@@ -141,7 +141,7 @@ const Theme2Page = () => {
         Find A Correct
       </h1>
 
-      {/* Display English Sentence */}
+      
       <div className="mb-6 text-center">
         <p className="text-md md:text-xl p-2 font-semibold text-green-800 shadow-md">
           {currentSentence?.englishsentence}
@@ -155,7 +155,7 @@ const Theme2Page = () => {
         </button>
       </div>
 
-      {/* Display Options */}
+      
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-3xl">
         {options.map((option, index) => (
           <button
@@ -175,7 +175,7 @@ const Theme2Page = () => {
         ))}
       </div>
 
-      {/* Modal */}
+      
       <Modal
         visible={modalVisible}
         imageSrc={modalImage}
@@ -183,7 +183,7 @@ const Theme2Page = () => {
         onNext={goToNextSentence}
       />
 
-      {/* Feedback Section */}
+      
       {feedback && (
         <p
           className={`mt-4 text-lg font-semibold ${
@@ -197,4 +197,4 @@ const Theme2Page = () => {
   );
 };
 
-export default Theme2Page;
+export default Theme2Page;*/

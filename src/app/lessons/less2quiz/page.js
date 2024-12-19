@@ -1,4 +1,4 @@
-"use client";
+/*"use client";
 
 import React, { useEffect, useState, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -172,4 +172,4 @@ const QuizPage = () => {
   );
 };
 
-export default QuizPage;
+export default QuizPage;*/

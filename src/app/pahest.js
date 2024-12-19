@@ -1,90 +1,224 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { FaVolumeUp } from "react-icons/fa"; // Import the volume up icon
+import { useRouter, useSearchParams } from "next/navigation";
+import { FaVolumeUp, FaMicrophoneAlt } from "react-icons/fa"; // React listen icon and mic icon
+import Image from "next/image"; // For modal images
 
-const ImagesPage = () => {
-  const [images, setImages] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const searchParams = useSearchParams();
-  const selectedCategory = searchParams.get("category");
-  const router = useRouter();
-  const cache = useRef({}); // Caching mechanism
+// Import images for modal feedback
+import correctImage from "../../Images/newlike.webp";
+import incorrectImage from "../../Images/dislike.webp";
 
-  useEffect(() => {
-    if (selectedCategory) {
-      // Check if we have cached data for this category
-      if (cache.current[selectedCategory]) {
-        setImages(cache.current[selectedCategory]);
-        setLoading(false);
-      } else {
-        // Fetch images using then/catch
-        axios
-          .get(`http://localhost:3033/images/allik/${selectedCategory}`) // Updated endpoint
-          .then((response) => {
-            setImages(response.data);
-            cache.current[selectedCategory] = response.data; // Cache the response
-            setLoading(false);
-          })
-          .catch((err) => {
-            console.error("Error fetching images:", err);
-            setError("Failed to load images. Please try again later.");
-            setLoading(false);
-          });
-      }
-    }
-  }, [selectedCategory]);
-
-  const speakName = (name) => {
-    const utterance = new SpeechSynthesisUtterance(name);
-    window.speechSynthesis.speak(utterance);
-  };
-
-  const nextImage = () => {
-    if (currentIndex < images.length - 1) {
-      setCurrentIndex(currentIndex + 1);
-    } else {
-      // Redirect to the next quiz page when finished
-      router.push(`/basic/next-quiz?category=${selectedCategory}`);
-    }
-  };
-
-  // Loading or error handling
-  if (loading) return <p>Loading images...</p>;
-  if (error) return <p>{error}</p>;
-  if (images.length === 0) return <p>No images available for this category.</p>;
-
-  const currentImage = images[currentIndex] || {};
+const Modal = ({ visible, imageSrc, onNext, isCorrect }) => {
+  if (!visible) return null;
 
   return (
-    <div className="flex flex-col items-center">
-      <h1 className="text-xl md:text-2xl shadow-md font-semibold text-green-800 mb-4">
-        {currentImage.name}
-      </h1>
-      <img
-        src={`data:image/jpeg;base64,${currentImage.image}`}
-        alt={`Image of ${currentImage.name}`}
-        className="w-64 h-36 md:h-44"
-      />
-      <button
-        onClick={() => speakName(currentImage.name)}
-        className="bg-blue-500 text-white py-2 px-4 rounded mb-4 mt-4 flex items-center" // Centering the icon
+    <div
+      className={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50`}
+    >
+      <div
+        className={`p-6 rounded-lg flex flex-col items-center ${
+          isCorrect ? "bg-green-500" : "bg-red-500"
+        }`}
       >
-        <FaVolumeUp className="mr-2" /> {/* Add the icon here */}
-        listen Name
-      </button>
-      <button
-        onClick={nextImage}
-        className="bg-green-500 text-white py-2 px-4 rounded"
-      >
-        Next
-      </button>
+        <Image src={imageSrc} alt="Feedback" width={200} height={200} />
+        <button
+          onClick={onNext}
+          className={`${
+            isCorrect ? "bg-green-500" : "bg-red-500"
+          } text-white py-2 rounded mt-4 text-lg w-full border-2 border-white`}
+          style={{ maxWidth: "200px" }}
+        >
+          Next Sentence
+        </button>
+      </div>
     </div>
   );
 };
 
-export default ImagesPage;
+const Less8QuizPage = () => {
+  const [lesson, setLesson] = useState(null);
+  const [currentSentenceIndex, setCurrentSentenceIndex] = useState(0);
+  const [userSpokenText, setUserSpokenText] = useState(""); // Store the user’s spoken sentence
+  const [isCorrect, setIsCorrect] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [isListening, setIsListening] = useState(false); // Track if the sentence is being spoken
+  const searchParams = useSearchParams();
+  const title = searchParams.get("title");
+  const router = useRouter();
+
+  useEffect(() => {
+    if (title) {
+      axios
+        .get(
+          `${
+            process.env.NEXT_PUBLIC_API_URL
+          }/documents/lessdocuments/${encodeURIComponent(title)}`
+        )
+        .then((response) => {
+          if (response.data && response.data.length > 0) {
+            setLesson(response.data[0]);
+            setLoading(false);
+          } else {
+            setLoading(false);
+          }
+        })
+        .catch((err) => {
+          console.error("Error fetching lesson:", err);
+          setLoading(false);
+        });
+    }
+  }, [title]);
+
+  const handleAudioPlay = () => {
+    if (lesson) {
+      const currentSentence = lesson.themes[0].sentences[currentSentenceIndex];
+
+      const speech = new SpeechSynthesisUtterance(currentSentence.english);
+      speech.lang = "en-US";
+      speech.rate = 0.7; // Adjust speed for clarity
+      window.speechSynthesis.speak(speech);
+
+      setIsListening(true);
+      speech.onend = () => setIsListening(false);
+    }
+  };
+
+  const startListening = () => {
+    const SpeechRecognition =
+      window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+      alert("Your browser does not support speech recognition.");
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = "en-US"; // Set language for speech recognition
+    recognition.interimResults = true; // Option to get results as user speaks
+
+    recognition.start();
+
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript; // Get the spoken text
+      setUserSpokenText(transcript); // Update the spoken text
+    };
+
+    recognition.onerror = (event) => {
+      console.error("Speech Recognition Error:", event.error);
+      setIsListening(false);
+    };
+
+    recognition.onend = () => {
+      setIsListening(false);
+    };
+  };
+
+  const checkAnswer = () => {
+    const correctSentence =
+      lesson.themes[0].sentences[currentSentenceIndex].english;
+
+    // Normalize both the correct sentence and user spoken text
+    const normalize = (text) => {
+      return text
+        .replace(/[^\w\s]/gi, "")
+        .trim()
+        .toLowerCase(); // Remove punctuation and trim
+    };
+
+    const normalizedUserSpokenText = normalize(userSpokenText);
+    const normalizedCorrectSentence = normalize(correctSentence);
+
+    if (normalizedUserSpokenText === normalizedCorrectSentence) {
+      setIsCorrect(true);
+      setShowModal(true); // Show modal when the answer is correct
+    } else {
+      setIsCorrect(false);
+      setShowModal(true); // Show modal even if the answer is incorrect
+    }
+  };
+
+  const nextSentence = () => {
+    const sentences = lesson.themes[0].sentences;
+
+    if (currentSentenceIndex < sentences.length - 1) {
+      const nextIndex = currentSentenceIndex + 1;
+      setCurrentSentenceIndex(nextIndex);
+      setUserSpokenText(""); // Clear previous spoken text
+      setIsCorrect(null);
+      setShowModal(false);
+    } else {
+      router.push(`/lessons/less?title=${title}`);
+    }
+  };
+
+  if (loading) return <p>Loading lesson...</p>;
+  if (!lesson) return <p>No lesson found.</p>;
+
+  const currentSentence = lesson.themes[0].sentences[currentSentenceIndex];
+
+  return (
+    <div className="flex flex-col items-center p-6">
+      <h1 className="text-xl md:text-2xl text-purple-800 font-bold mb-4">
+        Speak the Sentence
+      </h1>
+
+      {/* Button to play TTS audio */}
+      <button
+        onClick={handleAudioPlay}
+        className="px-4 py-2 bg-orange-500 text-white rounded mb-4 flex items-center"
+        disabled={isListening}
+      >
+        <FaVolumeUp className="mr-2" /> {/* React listen icon */}
+        {isListening ? "Listening..." : "Listen to the Sentence"}
+      </button>
+
+      {/* Button to start Speech Recognition */}
+      <button
+        onClick={startListening}
+        className="px-4 py-2 bg-blue-500 text-white rounded mb-4 flex items-center"
+        disabled={isListening}
+      >
+        <FaMicrophoneAlt className="mr-2" /> {/* Mic icon */}
+        {isListening ? "Listening..." : "Speak the Sentence"}
+      </button>
+
+      {/* Display the user’s spoken sentence */}
+      {userSpokenText && (
+        <div className="mb-4">
+          <p className="text-xl">You said-</p>
+          <p className="text-lg">{userSpokenText}</p>
+        </div>
+      )}
+
+      {/* Feedback and next action */}
+      {isCorrect !== null && (
+        <div className="mb-4">
+          {isCorrect ? (
+            <p className="text-green-500">Correct! Well done!</p>
+          ) : null}{" "}
+          {/* Remove Try again text */}
+        </div>
+      )}
+
+      <button
+        onClick={checkAnswer}
+        className="px-4 py-2 bg-purple-600 text-white rounded mb-4"
+      >
+        Check Answer
+      </button>
+
+      {/* Reusable Modal */}
+      <Modal
+        visible={showModal}
+        imageSrc={isCorrect ? correctImage : incorrectImage}
+        isCorrect={isCorrect}
+        onNext={nextSentence}
+      />
+    </div>
+  );
+};
+
+export default Less8QuizPage;

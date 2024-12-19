@@ -1,4 +1,4 @@
-"use client";
+/*"use client";
 
 import React, { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
@@ -70,7 +70,7 @@ const Page = () => {
         <p className="text-gray-500">No words available for this title.</p>
       )}
 
-      {/* Next button to navigate to words2 */}
+      
       <button
         onClick={goToNextPage}
         className="bg-purple-600 text-white py-2 px-6 rounded mt-6 text-lg font-semibold"
@@ -81,4 +81,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default Page;*/

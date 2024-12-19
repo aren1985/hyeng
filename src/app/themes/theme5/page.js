@@ -1,4 +1,4 @@
-"use client";
+/*"use client";
 
 import React, { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
@@ -101,14 +101,14 @@ const Theme4Page = () => {
         Write in english
       </h1>
 
-      {/* Display Armenian Sentence */}
+      
       <div className="mb-6 text-center">
         <p className="text-md shadow-md p-2 md:text-xl text-green-800 font-bold">
           {currentSentence?.armeniansentence}
         </p>
       </div>
 
-      {/* User Input */}
+      
       <textarea
         value={userInput}
         onChange={handleInputChange}
@@ -117,7 +117,7 @@ const Theme4Page = () => {
         rows="4"
       ></textarea>
 
-      {/* Buttons */}
+      
       <div className="flex space-x-4 mt-4">
         <button
           onClick={handleSubmit}
@@ -127,7 +127,7 @@ const Theme4Page = () => {
         </button>
       </div>
 
-      {/* Modal */}
+      
       <Modal
         visible={modalVisible}
         imageSrc={modalImage}
@@ -138,4 +138,4 @@ const Theme4Page = () => {
   );
 };
 
-export default Theme4Page;
+export default Theme4Page;*/

@@ -1,4 +1,4 @@
-"use client";
+/*"use client";
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
@@ -187,4 +187,4 @@ const Theme7Page = () => {
   );
 };
 
-export default Theme7Page;
+export default Theme7Page;*/

@@ -1,4 +1,4 @@
-"use client";
+/*"use client";
 
 import React, { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
@@ -144,7 +144,7 @@ const Theme5Page = () => {
         Listen And Choose
       </h1>
 
-      {/* Play English Sentence */}
+      
       <div className="mb-6 text-center flex flex-col items-center">
         <button
           onClick={playSentence}
@@ -158,7 +158,7 @@ const Theme5Page = () => {
         </p>
       </div>
 
-      {/* Display Options */}
+      
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-3xl">
         {options.map((option, index) => (
           <button
@@ -179,7 +179,7 @@ const Theme5Page = () => {
         ))}
       </div>
 
-      {/* Modal */}
+      
       <Modal
         visible={modalVisible}
         imageSrc={modalImage}
@@ -190,4 +190,4 @@ const Theme5Page = () => {
   );
 };
 
-export default Theme5Page;
+export default Theme5Page;*/

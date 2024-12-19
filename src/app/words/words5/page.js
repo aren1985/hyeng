@@ -1,4 +1,4 @@
-"use client";
+/*"use client";
 
 import React, { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
@@ -93,7 +93,7 @@ const Words5Page = () => {
         Listen and Speak
       </h1>
 
-      {/* Display listen button with listening icon */}
+      
       <div className="mb-6 text-center">
         <button
           onClick={speakWord}
@@ -105,14 +105,14 @@ const Words5Page = () => {
         </button>
       </div>
 
-      {/* Display the spoken word */}
+      
       <div className="mb-6">
         <p className="text-lg font-medium bg-gray-200 p-2">
           You said- {spokenWord}
         </p>
       </div>
 
-      {/* Start Speaking button with microphone icon */}
+      
       <button
         onClick={startListening}
         className="bg-green-500 text-white py-2 px-6 rounded mt-6 text-lg font-semibold flex items-center space-x-2"
@@ -121,7 +121,7 @@ const Words5Page = () => {
         <span>Start Speaking</span>
       </button>
 
-      {/* Check Answer Button */}
+      
       <button
         onClick={checkAnswer}
         className="bg-purple-600  text-white py-2 px-6 rounded mt-6 text-lg font-semibold"
@@ -129,7 +129,7 @@ const Words5Page = () => {
         Check Answer
       </button>
 
-      {/* Modal */}
+      
       {modalVisible && (
         <div
           className={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50`}
@@ -155,4 +155,4 @@ const Words5Page = () => {
   );
 };
 
-export default Words5Page;
+export default Words5Page;*/

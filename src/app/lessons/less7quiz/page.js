@@ -1,4 +1,4 @@
-"use client";
+/*"use client";
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
@@ -231,7 +231,7 @@ const Less7QuizPage = () => {
         </button>
       </div>
 
-      {/* Reusable Modal */}
+      
       <Modal
         visible={showModal}
         imageSrc={modalImage}
@@ -242,4 +242,4 @@ const Less7QuizPage = () => {
   );
 };
 
-export default Less7QuizPage;
+export default Less7QuizPage;*/

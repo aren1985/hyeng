@@ -1,4 +1,6 @@
-"use client";
+// app/themes/theme/ThemePage.js
+
+/*"use client";
 
 import React, { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
@@ -75,7 +77,7 @@ const ThemePage = () => {
         <p className="text-gray-500">No sentences available for this title.</p>
       )}
 
-      {/* Next button to navigate to theme2 */}
+      
       <button
         onClick={goToNextPage}
         className="bg-blue-500 text-white py-2 px-6 rounded mt-6 text-lg font-semibold"
@@ -86,4 +88,4 @@ const ThemePage = () => {
   );
 };
 
-export default ThemePage;
+export default ThemePage;*/

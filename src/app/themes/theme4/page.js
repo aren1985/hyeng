@@ -1,4 +1,4 @@
-"use client";
+/*"use client";
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
@@ -173,7 +173,7 @@ const Theme5Page = () => {
           Select the correct English words
         </p>
 
-        {/* Word Pool */}
+        
         <div className="flex flex-wrap gap-3 mb-6">
           {wordPool.map((word, index) => (
             <button
@@ -186,7 +186,7 @@ const Theme5Page = () => {
           ))}
         </div>
 
-        {/* Selected Words */}
+        
         <div className="flex flex-wrap gap-3 mb-6">
           {selectedWords.map((word, index) => (
             <button
@@ -207,7 +207,7 @@ const Theme5Page = () => {
         </button>
       </div>
 
-      {/* Feedback Modal */}
+      
       <Modal
         visible={showModal}
         imageSrc={modalImage}
@@ -218,4 +218,4 @@ const Theme5Page = () => {
   );
 };
 
-export default Theme5Page;
+export default Theme5Page;*/

@@ -1,4 +1,4 @@
-"use client";
+/*"use client";
 
 import React, { useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
@@ -129,14 +129,14 @@ const Words3Page = () => {
         find the correct
       </h1>
 
-      {/* Display Armenian word */}
+      
       <div className="mb-6 text-center">
         <p className="text-md md:text-xl p-1 font-bold text-green-800 shadow-md">
           {currentWord?.armenian}
         </p>
       </div>
 
-      {/* Options */}
+      
       <div className="flex flex-col gap-4   items-center">
         {options.map((option, index) => {
           const isSelected = option === selectedAnswer;
@@ -160,7 +160,7 @@ const Words3Page = () => {
         })}
       </div>
 
-      {/* Modal */}
+      
       <Modal
         visible={modalVisible}
         imageSrc={modalImage}
@@ -171,4 +171,4 @@ const Words3Page = () => {
   );
 };
 
-export default Words3Page;
+export default Words3Page;*/

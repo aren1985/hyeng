@@ -1,4 +1,4 @@
-"use client";
+/*"use client";
 
 import React, { useEffect, useState, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -177,7 +177,7 @@ const QuizPage = () => {
         <p className="text-purple-800 text-xl md:text-2xl font-semibold mb-2">
           finde a correct
         </p>
-        {/* Display the English word */}
+        
         <p className="text-xl md:text-2xl text-green-800 shadow-md p-1 font-semibold">
           {currentWord.english}
         </p>
@@ -191,7 +191,7 @@ const QuizPage = () => {
       </div>
 
       <div className="flex flex-col gap-4 items-center">
-        {/* Display options only when they are available */}
+        
         {currentOptions.length > 0 ? (
           currentOptions.map((option, index) => (
             <button
@@ -230,4 +230,4 @@ const QuizPage = () => {
   );
 };
 
-export default QuizPage;
+export default QuizPage;*/

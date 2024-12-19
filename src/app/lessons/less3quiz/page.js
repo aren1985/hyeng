@@ -1,4 +1,4 @@
-"use client";
+/*"use client";
 
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
@@ -191,4 +191,4 @@ const QuizPage = () => {
   );
 };
 
-export default QuizPage;
+export default QuizPage;*/

@@ -1,4 +1,4 @@
-"use client";
+/*"use client";
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
@@ -165,27 +165,27 @@ const Less8QuizPage = () => {
         Speak the Sentence
       </h1>
 
-      {/* Button to play TTS audio */}
+      
       <button
         onClick={handleAudioPlay}
         className="px-4 py-2 bg-orange-500 text-white rounded mb-4 flex items-center"
         disabled={isListening}
       >
-        <FaVolumeUp className="mr-2" /> {/* React listen icon */}
+        <FaVolumeUp className="mr-2" /> 
         {isListening ? "Listening..." : "Listen to the Sentence"}
       </button>
 
-      {/* Button to start Speech Recognition */}
+      
       <button
         onClick={startListening}
         className="px-4 py-2 bg-blue-500 text-white rounded mb-4 flex items-center"
         disabled={isListening}
       >
-        <FaMicrophoneAlt className="mr-2" /> {/* Mic icon */}
+        <FaMicrophoneAlt className="mr-2" /> 
         {isListening ? "Listening..." : "Speak the Sentence"}
       </button>
 
-      {/* Display the user’s spoken sentence */}
+      
       {userSpokenText && (
         <div className="mb-4">
           <p className="text-xl">You said-</p>
@@ -193,13 +193,13 @@ const Less8QuizPage = () => {
         </div>
       )}
 
-      {/* Feedback and next action */}
+      
       {isCorrect !== null && (
         <div className="mb-4">
           {isCorrect ? (
             <p className="text-green-500">Correct! Well done!</p>
           ) : null}{" "}
-          {/* Remove Try again text */}
+          
         </div>
       )}
 
@@ -210,7 +210,7 @@ const Less8QuizPage = () => {
         Check Answer
       </button>
 
-      {/* Reusable Modal */}
+      
       <Modal
         visible={showModal}
         imageSrc={isCorrect ? correctImage : incorrectImage}
@@ -221,4 +221,4 @@ const Less8QuizPage = () => {
   );
 };
 
-export default Less8QuizPage;
+export default Less8QuizPage;*/
