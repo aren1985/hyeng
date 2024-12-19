@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
 import { FaVolumeUp } from "react-icons/fa"; // Import the volume up icon
@@ -89,4 +89,10 @@ const ImagesPage = () => {
   );
 };
 
-export default ImagesPage;
+export default function lolo() {
+  return (
+    <Suspense>
+      <ImagesPage />
+    </Suspense>
+  );
+}
