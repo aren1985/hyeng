@@ -76,7 +76,7 @@ const ImagesPage = () => {
         onClick={() => speakName(currentImage.name)}
         className="bg-blue-500 text-white py-2 px-4 rounded mb-4 mt-4 flex items-center" // Centering the icon
       >
-        <FaVolumeUp className="mr-2" /> {/* Add the icon here */}
+        <FaVolumeUp className="mr-2" />
         listen Name
       </button>
       <button

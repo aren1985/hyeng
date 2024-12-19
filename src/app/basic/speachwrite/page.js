@@ -1,4 +1,4 @@
-"use client";
+/*"use client";
 
 import React, { useEffect, useState, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -116,7 +116,7 @@ const SpeechToTextPage = () => {
         />
       </div>
 
-      {/* Hear the name again */}
+      
       <button
         onClick={() =>
           speechSynthesis.speak(new SpeechSynthesisUtterance(currentImage.name))
@@ -127,7 +127,7 @@ const SpeechToTextPage = () => {
         Hear Name Again
       </button>
 
-      {/* Start Speech Recognition */}
+      
       <button
         onClick={startSpeechRecognition}
         className="bg-green-500 text-white py-2 px-6 rounded hover:bg-green-600 transition duration-200 flex items-center mb-6"
@@ -136,12 +136,12 @@ const SpeechToTextPage = () => {
         Start Speaking
       </button>
 
-      {/* Display Spoken Word */}
+      
       <div className="mb-4">
         <p className="text-xl font-semibold">You said- {spokenWord}</p>
       </div>
 
-      {/* Check Answer Button */}
+      
       <button
         onClick={checkAnswer}
         className="bg-blue-500 text-white py-2 px-6 rounded hover:bg-blue-600 transition duration-200"
@@ -183,4 +183,4 @@ const Modal = ({ visible, imageSrc, onNext, isCorrect }) => {
   );
 };
 
-export default SpeechToTextPage;
+export default SpeechToTextPage;*/
