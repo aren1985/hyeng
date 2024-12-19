@@ -1,11 +1,11 @@
-/*"use client";
+"use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import axios from "axios";
 import { FaVolumeUp } from "react-icons/fa";
 
-const Page = () => {
+const W1Page = () => {
   const [words, setWords] = useState([]);
   const [error, setError] = useState(null);
   const searchParams = useSearchParams();
@@ -70,7 +70,6 @@ const Page = () => {
         <p className="text-gray-500">No words available for this title.</p>
       )}
 
-      
       <button
         onClick={goToNextPage}
         className="bg-purple-600 text-white py-2 px-6 rounded mt-6 text-lg font-semibold"
@@ -81,4 +80,10 @@ const Page = () => {
   );
 };
 
-export default Page;*/
+export default function () {
+  return (
+    <Suspense>
+      <W1Page />
+    </Suspense>
+  );
+}
