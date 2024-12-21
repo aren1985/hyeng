@@ -1,6 +1,6 @@
 // app/themes/theme/ThemePage.js
 
-"use client";
+/*"use client";
 
 import React, { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
@@ -87,4 +87,4 @@ const ThemePage = () => {
   );
 };
 
-export default ThemePage;
+export default ThemePage;*/
