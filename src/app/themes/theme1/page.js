@@ -2,7 +2,7 @@
 
 "use client";
 
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import axios from "axios";
 import { FaVolumeUp } from "react-icons/fa";
@@ -87,10 +87,4 @@ const ThemePage = () => {
   );
 };
 
-export default function Mlo() {
-  return (
-    <Suspense>
-      <ThemePage />
-    </Suspense>
-  );
-}
+export default ThemePage;
