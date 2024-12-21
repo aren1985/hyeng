@@ -1,8 +1,8 @@
 // app/themes/theme/ThemePage.js
 
-/*"use client";
+"use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import axios from "axios";
 import { FaVolumeUp } from "react-icons/fa";
@@ -77,7 +77,6 @@ const ThemePage = () => {
         <p className="text-gray-500">No sentences available for this title.</p>
       )}
 
-      
       <button
         onClick={goToNextPage}
         className="bg-blue-500 text-white py-2 px-6 rounded mt-6 text-lg font-semibold"
@@ -88,4 +87,10 @@ const ThemePage = () => {
   );
 };
 
-export default ThemePage;*/
+export default function Mlo() {
+  return (
+    <Suspense>
+      <ThemePage />
+    </Suspense>
+  );
+}
