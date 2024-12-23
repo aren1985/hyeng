@@ -1,8 +1,3 @@
 {
-  "extends": "next/core-web-vitals",
-  "rules": {
-    "no-unused-vars": "off", // Example: Disables unused variable warnings
-    "react/no-unescaped-entities": "warn", // Example: Changes an error to a warning
-    "react/display-name": "off" // Example: Disables a React-specific rule
-  }
+  "extends": "next/core-web-vitals"
 }
