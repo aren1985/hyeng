@@ -80,7 +80,7 @@ const W1Page = () => {
   );
 };
 
-export default function () {
+export default function valo() {
   return (
     <Suspense>
       <W1Page />

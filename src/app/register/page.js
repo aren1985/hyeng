@@ -2,8 +2,8 @@
 
 import React from "react";
 
-const page = () => {
+const Regpage = () => {
   return <div>register page</div>;
 };
 
-export default page;
+export default Regpage;

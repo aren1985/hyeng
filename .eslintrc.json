@@ -1,3 +1,15 @@
 {
   "extends": "next/core-web-vitals"
 }
+
+/*"rules": {
+  "react/display-name": ["warn", { "ignoreTranspilerName": true }]
+},
+"overrides": [
+  {
+    "files": ["node_modules/**"],
+    "rules": {
+      "react/display-name": "off"
+    }
+  }
+]*/

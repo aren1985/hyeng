@@ -1,7 +1,7 @@
 import React from "react";
 
-const paga = () => {
+const Aboutpaga = () => {
   return <div>about paga</div>;
 };
 
-export default paga;
+export default Aboutpaga;

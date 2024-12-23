@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 
-const Page = () => {
+const LevPage = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen ">
       <h1 className="text-xl md:text-2xl p-2 font-bold text-purple-800 mb-6 shadow-md">
@@ -41,4 +41,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default LevPage;
