@@ -12,7 +12,7 @@ const W1Page = () => {
   const title = searchParams.get("title"); // Get title from query params
   const router = useRouter();
 
-  /* useEffect(() => {
+  useEffect(() => {
     if (title) {
       // Fetch words based on the title from query params
       axios
@@ -24,13 +24,6 @@ const W1Page = () => {
           console.error("Error fetching words:", err);
           setError("Failed to load words. Please try again.");
         });
-    }
-  }, [title]);*/
-
-  useEffect(() => {
-    if (title) {
-      const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/words/wordik/${title}`;
-      console.log("API URL in Vercel:", apiUrl); // Log the constructed URL
     }
   }, [title]);
 
