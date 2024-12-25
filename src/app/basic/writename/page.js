@@ -71,6 +71,8 @@ const WriteName = () => {
 
   const speakImageName = (name) => {
     const utterance = new SpeechSynthesisUtterance(name);
+    utterance.lang = "en-US"; // Explicitly set the language to English (US)
+    utterance.rate = 0.7;
     speechSynthesis.speak(utterance);
   };
 

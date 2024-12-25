@@ -123,9 +123,12 @@ const SpeechToTextPage = () => {
       </div>
 
       <button
-        onClick={() =>
-          speechSynthesis.speak(new SpeechSynthesisUtterance(currentImage.name))
-        }
+        onClick={() => {
+          const utterance = new SpeechSynthesisUtterance(currentImage.name);
+          utterance.lang = "en-US"; // Set language to English (US) to fix accent
+          utterance.rate = 0.7; // Adjust speech rate to make it slower
+          speechSynthesis.speak(utterance);
+        }}
         className="bg-yellow-500 text-white py-2 px-6 rounded hover:bg-yellow-600 transition duration-200 flex items-center mb-6"
       >
         <FaVolumeUp className="mr-2" />
