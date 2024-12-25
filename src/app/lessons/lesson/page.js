@@ -1,8 +1,8 @@
 // app/lessons/lesson/LessonPage.js
 
-/*"use client";
+"use client";
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
 import { FaVolumeUp } from "react-icons/fa";
@@ -81,7 +81,6 @@ const LessonPage = () => {
         {currentTheme.themeTitle}
       </h2>
 
-      
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {currentTheme.words.map((word) => (
           <div
@@ -115,4 +114,10 @@ const LessonPage = () => {
   );
 };
 
-export default LessonPage;*/
+export default function LsPg() {
+  return (
+    <Suspense>
+      <LessonPage />
+    </Suspense>
+  );
+}
