@@ -15,7 +15,7 @@ const Sidebar = () => {
     <div className="relative">
       {/* Sidebar Toggle Button */}
       <button
-        className="md:hidden fixed top-3 left-4 z-20 bg-gray-900 text-cyan-300 p-2 rounded-md shadow-md"
+        className="md:hidden fixed top-3 left-4 z-30 bg-gray-900 text-cyan-300 p-2 rounded-md shadow-md"
         onClick={toggleSidebar}
         aria-label="Toggle Sidebar"
       >
@@ -26,7 +26,7 @@ const Sidebar = () => {
       <div
         className={`fixed top-[60px] left-0 h-[calc(100%-64px)] bg-gray-900 text-cyan-300 shadow-lg transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
-        } transition-transform duration-300 z-10 w-64 md:translate-x-0`}
+        } transition-transform duration-300 z-20 w-64 md:translate-x-0`}
       >
         <div className="p-4">
           {/* Menu Header - Centered */}
@@ -66,7 +66,7 @@ const Sidebar = () => {
         </div>
       </div>
 
-      {/* Overlay (optional, for better UX when sidebar is open) */}
+      {/* Overlay */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-gray-900 bg-opacity-10 z-10 md:hidden"
