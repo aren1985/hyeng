@@ -1,6 +1,6 @@
-/*"use client";
+"use client";
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
 import Image from "next/image";
@@ -36,7 +36,7 @@ const Modal = ({ visible, imageSrc, onNext, isCorrect }) => {
   );
 };
 
-const QuizPage = () => {
+const QuizPage2 = () => {
   const [lesson, setLesson] = useState(null);
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [userInput, setUserInput] = useState("");
@@ -172,4 +172,10 @@ const QuizPage = () => {
   );
 };
 
-export default QuizPage;*/
+export default function Qz2() {
+  return (
+    <Suspense>
+      <QuizPage2 />
+    </Suspense>
+  );
+}

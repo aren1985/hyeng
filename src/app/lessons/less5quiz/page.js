@@ -1,6 +1,6 @@
-/*"use client";
+"use client";
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
 import Image from "next/image";
@@ -171,14 +171,13 @@ const SentenceQuizPage6 = () => {
         <p className="text-purple-800 text-xl md:text-2xl mb-2 font-semibold">
           choose a correct
         </p>
-        
+
         <p className="text-md md:text-xl text-green-800 font-semibold shadow-md p-1">
           {currentSentence.armenian}
         </p>
       </div>
 
       <div className="flex flex-col gap-4 items-center">
-        
         {currentOptions.length > 0 ? (
           currentOptions.map((option, index) => (
             <button
@@ -217,4 +216,10 @@ const SentenceQuizPage6 = () => {
   );
 };
 
-export default SentenceQuizPage6;*/
+export default function Sqp() {
+  return (
+    <Suspense>
+      <SentenceQuizPage6 />
+    </Suspense>
+  );
+}
