@@ -118,7 +118,7 @@ const Theme4Page = () => {
       <div className="flex space-x-4 mt-4">
         <button
           onClick={handleSubmit}
-          className="bg-purple-500 text-white p-3 rounded-full shadow-lg"
+          className="bg-purple-700 text-white p-3 mt-6 w-full  rounded shadow-lg font-bold"
         >
           check Answer
         </button>
