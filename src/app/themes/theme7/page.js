@@ -1,6 +1,6 @@
-/*"use client";
+"use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
@@ -187,4 +187,10 @@ const Theme7Page = () => {
   );
 };
 
-export default Theme7Page;*/
+export default function Th7p() {
+  return (
+    <Suspense>
+      <Theme7Page />
+    </Suspense>
+  );
+}

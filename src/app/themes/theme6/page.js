@@ -1,6 +1,6 @@
-/*"use client";
+"use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import axios from "axios";
 import { FaVolumeUp } from "react-icons/fa";
@@ -144,7 +144,6 @@ const Theme5Page = () => {
         Listen And Choose
       </h1>
 
-      
       <div className="mb-6 text-center flex flex-col items-center">
         <button
           onClick={playSentence}
@@ -158,7 +157,6 @@ const Theme5Page = () => {
         </p>
       </div>
 
-      
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-3xl">
         {options.map((option, index) => (
           <button
@@ -179,7 +177,6 @@ const Theme5Page = () => {
         ))}
       </div>
 
-      
       <Modal
         visible={modalVisible}
         imageSrc={modalImage}
@@ -190,4 +187,10 @@ const Theme5Page = () => {
   );
 };
 
-export default Theme5Page;*/
+export default function Th5p() {
+  return (
+    <Suspense>
+      <Theme5Page />
+    </Suspense>
+  );
+}

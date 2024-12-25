@@ -1,6 +1,6 @@
-/*"use client";
+"use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import axios from "axios";
 import Image from "next/image";
@@ -101,14 +101,12 @@ const Theme4Page = () => {
         Write in english
       </h1>
 
-      
       <div className="mb-6 text-center">
         <p className="text-md shadow-md p-2 md:text-xl text-green-800 font-bold">
           {currentSentence?.armeniansentence}
         </p>
       </div>
 
-      
       <textarea
         value={userInput}
         onChange={handleInputChange}
@@ -117,7 +115,6 @@ const Theme4Page = () => {
         rows="4"
       ></textarea>
 
-      
       <div className="flex space-x-4 mt-4">
         <button
           onClick={handleSubmit}
@@ -127,7 +124,6 @@ const Theme4Page = () => {
         </button>
       </div>
 
-      
       <Modal
         visible={modalVisible}
         imageSrc={modalImage}
@@ -138,4 +134,10 @@ const Theme4Page = () => {
   );
 };
 
-export default Theme4Page;*/
+export default function Th4pp() {
+  return (
+    <Suspense>
+      <Theme4Page />
+    </Suspense>
+  );
+}
