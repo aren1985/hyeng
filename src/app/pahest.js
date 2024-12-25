@@ -2,187 +2,97 @@
 
 import React, { useEffect, useState, useRef, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { FaMicrophone, FaVolumeUp } from "react-icons/fa";
-import Image from "next/image";
 import axios from "axios";
+import { FaVolumeUp } from "react-icons/fa"; // Import the volume up icon
 
-// Feedback Images
-import correctImage from "../../Images/newlike.webp";
-import incorrectImage from "../../Images/dislike.webp";
-
-const SpeechRecognition =
-  window.SpeechRecognition || window.webkitSpeechRecognition;
-
-const SpeechToTextPage = () => {
-  const searchParams = useSearchParams();
-  const selectedCategory = searchParams.get("category");
+const ImagesPage = () => {
   const [images, setImages] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [spokenWord, setSpokenWord] = useState(""); // Store the spoken word
-  const [isCorrect, setIsCorrect] = useState(null);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [modalImage, setModalImage] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const searchParams = useSearchParams();
+  const selectedCategory = searchParams.get("category");
   const router = useRouter();
-  const recognition = useRef(null); // Speech recognition instance
-  const [recognitionActive, setRecognitionActive] = useState(false); // Track recognition state
+  const cache = useRef({}); // Caching mechanism
 
   useEffect(() => {
     if (selectedCategory) {
-      axios
-        .get(
-          `${process.env.NEXT_PUBLIC_API_URL}/images/allik/${selectedCategory}`
-        )
-        .then((response) => {
-          setImages(response.data);
-        })
-        .catch((error) => {
-          console.error("Error fetching images:", error);
-        });
-
-      // Initialize Speech Recognition
-      recognition.current = new SpeechRecognition();
-      recognition.current.lang = "en-US";
-      recognition.current.interimResults = false;
-      recognition.current.maxAlternatives = 1;
+      // Check if we have cached data for this category
+      if (cache.current[selectedCategory]) {
+        setImages(cache.current[selectedCategory]);
+        setLoading(false);
+      } else {
+        // Fetch images using then/catch
+        axios
+          .get(
+            `${process.env.NEXT_PUBLIC_API_URL}/images/allik/${selectedCategory}`
+          ) // Updated endpoint
+          .then((response) => {
+            setImages(response.data);
+            cache.current[selectedCategory] = response.data; // Cache the response
+            setLoading(false);
+          })
+          .catch((err) => {
+            console.error("Error fetching images:", err);
+            setError("Failed to load images. Please try again later.");
+            setLoading(false);
+          });
+      }
     }
   }, [selectedCategory]);
 
-  const startSpeechRecognition = () => {
-    if (!recognitionActive) {
-      recognition.current.start();
-      setRecognitionActive(true); // Set recognition state to active
-    }
-  };
-
-  const handleSpeechResult = (event) => {
-    const spokenWord = event.results[0][0].transcript.toLowerCase();
-    setSpokenWord(spokenWord); // Update the spoken word
-  };
-
-  const checkAnswer = () => {
-    const correctName = images[currentIndex]?.name.toLowerCase();
-
-    if (spokenWord === correctName) {
-      setIsCorrect(true);
-      setModalImage(correctImage);
-    } else {
-      setIsCorrect(false);
-      setModalImage(incorrectImage);
-    }
-    setModalVisible(true);
+  const speakName = (name) => {
+    const utterance = new SpeechSynthesisUtterance(name);
+    window.speechSynthesis.speak(utterance);
   };
 
   const nextImage = () => {
     if (currentIndex < images.length - 1) {
       setCurrentIndex(currentIndex + 1);
-      setIsCorrect(null);
-      setModalVisible(false);
-      setSpokenWord(""); // Reset spoken word for next image
     } else {
-      router.push("/basic/allparts");
+      // Redirect to the next quiz page when finished
+      router.push(`/basic/next-quiz?category=${selectedCategory}`);
     }
   };
 
-  useEffect(() => {
-    if (recognition.current) {
-      recognition.current.addEventListener("result", handleSpeechResult);
-      recognition.current.addEventListener("end", () =>
-        setRecognitionActive(false)
-      ); // Reset active state when recognition ends
-    }
+  // Loading or error handling
+  if (loading) return <p>Loading images...</p>;
+  if (error) return <p>{error}</p>;
+  if (images.length === 0) return <p>No images available for this category.</p>;
 
-    return () => {
-      if (recognition.current) {
-        recognition.current.removeEventListener("result", handleSpeechResult);
-      }
-    };
-  }, [currentIndex]);
-
-  if (images.length === 0) return <p>Loading...</p>;
-
-  const currentImage = images[currentIndex];
+  const currentImage = images[currentIndex] || {};
 
   return (
-    <div className="flex flex-col items-center p-6">
-      <h1 className="text-xl md:text-2xl font-bold mb-6 text-purple-800">
-        Listen and speak
+    <div className="flex flex-col items-center">
+      <h1 className="text-xl md:text-2xl shadow-md font-semibold text-green-800 mb-4">
+        {currentImage.name}
       </h1>
-
-      <div className="mb-4">
-        <img
-          src={`data:image/jpeg;base64,${currentImage?.image}`}
-          alt="Current displayed image"
-          className="rounded shadow-md w-64 h-36 md:h-44"
-        />
-      </div>
-
+      <img
+        src={`data:image/jpeg;base64,${currentImage.image}`}
+        alt={`Image of ${currentImage.name}`}
+        className="w-64 h-36 md:h-44"
+      />
       <button
-        onClick={() =>
-          speechSynthesis.speak(new SpeechSynthesisUtterance(currentImage.name))
-        }
-        className="bg-yellow-500 text-white py-2 px-6 rounded hover:bg-yellow-600 transition duration-200 flex items-center mb-6"
+        onClick={() => speakName(currentImage.name)}
+        className="bg-blue-500 text-white py-2 px-4 rounded mb-4 mt-4 flex items-center" // Centering the icon
       >
         <FaVolumeUp className="mr-2" />
-        Hear Name Again
+        listen Name
       </button>
-
       <button
-        onClick={startSpeechRecognition}
-        className="bg-green-500 text-white py-2 px-6 rounded hover:bg-green-600 transition duration-200 flex items-center mb-6"
+        onClick={nextImage}
+        className="bg-green-500 text-white py-2 px-4 rounded"
       >
-        <FaMicrophone className="mr-2" />
-        Start Speaking
+        Next
       </button>
-
-      <div className="mb-4">
-        <p className="text-xl font-semibold">You said- {spokenWord}</p>
-      </div>
-
-      <button
-        onClick={checkAnswer}
-        className="bg-blue-500 text-white py-2 px-6 rounded hover:bg-blue-600 transition duration-200"
-      >
-        Check Answer
-      </button>
-
-      <Modal
-        visible={modalVisible}
-        imageSrc={modalImage}
-        onNext={nextImage}
-        isCorrect={isCorrect}
-      />
     </div>
   );
 };
 
-const Modal = ({ visible, imageSrc, onNext, isCorrect }) => {
-  if (!visible) return null;
-
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div
-        className={`p-6 rounded-lg flex flex-col items-center ${
-          isCorrect ? "bg-green-600" : "bg-red-600"
-        }`}
-      >
-        <Image src={imageSrc} alt="Feedback" width={200} height={200} />
-        <button
-          onClick={onNext}
-          className={`${
-            isCorrect ? "bg-green-600" : "bg-red-600"
-          } text-white py-2 px-6 border-2 w-full border-white rounded mt-4`}
-        >
-          Next Image
-        </button>
-      </div>
-    </div>
-  );
-};
-
-export default function Spch() {
+export default function lolo() {
   return (
     <Suspense>
-      <SpeechToTextPage />
+      <ImagesPage />
     </Suspense>
   );
 }*/
