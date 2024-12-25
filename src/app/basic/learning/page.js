@@ -43,6 +43,12 @@ const ImagesPage = () => {
 
   const speakName = (name) => {
     const utterance = new SpeechSynthesisUtterance(name);
+    utterance.lang = "en-US"; // Explicitly set language to US English
+    const voices = window.speechSynthesis.getVoices();
+    const preferredVoice = voices.find((voice) => voice.lang === "en-US");
+    if (preferredVoice) {
+      utterance.voice = preferredVoice;
+    }
     window.speechSynthesis.speak(utterance);
   };
 
@@ -77,7 +83,7 @@ const ImagesPage = () => {
         className="bg-blue-500 text-white py-2 px-4 rounded mb-4 mt-4 flex items-center" // Centering the icon
       >
         <FaVolumeUp className="mr-2" />
-        listen Name
+        Listen Name
       </button>
       <button
         onClick={nextImage}
