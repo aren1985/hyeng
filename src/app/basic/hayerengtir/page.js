@@ -1,6 +1,6 @@
-/*"use client";
+"use client";
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
 import Image from "next/image";
@@ -142,4 +142,10 @@ const ArmenianQuiz = () => {
   );
 };
 
-export default ArmenianQuiz;*/
+export default function ArmQz() {
+  return (
+    <Suspense>
+      <ArmenianQuiz />
+    </Suspense>
+  );
+}
