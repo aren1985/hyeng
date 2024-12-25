@@ -1,6 +1,6 @@
-/*"use client";
+"use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
@@ -184,7 +184,6 @@ const Less6QuizPage = () => {
       <div className="flex flex-col items-center">
         <p className="text-xl mb-4">Select the correct English words</p>
 
-        
         <div className="flex flex-wrap gap-2 mb-4">
           {wordPool.map((word, index) => (
             <button
@@ -197,7 +196,6 @@ const Less6QuizPage = () => {
           ))}
         </div>
 
-        
         <div className="flex flex-wrap gap-2 mb-4">
           {selectedWords.map((word, index) => (
             <button
@@ -218,7 +216,6 @@ const Less6QuizPage = () => {
         </button>
       </div>
 
-      
       <Modal
         visible={showModal}
         imageSrc={modalImage}
@@ -229,4 +226,10 @@ const Less6QuizPage = () => {
   );
 };
 
-export default Less6QuizPage;*/
+export default function L6p() {
+  return (
+    <Suspense>
+      <Less6QuizPage />
+    </Suspense>
+  );
+}

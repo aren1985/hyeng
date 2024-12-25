@@ -1,6 +1,6 @@
-/*"use client";
+"use client";
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
 import { FaVolumeUp } from "react-icons/fa";
@@ -177,7 +177,7 @@ const QuizPage = () => {
         <p className="text-purple-800 text-xl md:text-2xl font-semibold mb-2">
           finde a correct
         </p>
-        
+
         <p className="text-xl md:text-2xl text-green-800 shadow-md p-1 font-semibold">
           {currentWord.english}
         </p>
@@ -191,7 +191,6 @@ const QuizPage = () => {
       </div>
 
       <div className="flex flex-col gap-4 items-center">
-        
         {currentOptions.length > 0 ? (
           currentOptions.map((option, index) => (
             <button
@@ -230,4 +229,10 @@ const QuizPage = () => {
   );
 };
 
-export default QuizPage;*/
+export default function QPg() {
+  return (
+    <Suspense>
+      <QuizPage />
+    </Suspense>
+  );
+}

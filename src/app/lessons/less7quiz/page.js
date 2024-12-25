@@ -1,6 +1,6 @@
-/*"use client";
+"use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FaVolumeUp } from "react-icons/fa"; // React listen icon
@@ -231,7 +231,6 @@ const Less7QuizPage = () => {
         </button>
       </div>
 
-      
       <Modal
         visible={showModal}
         imageSrc={modalImage}
@@ -242,4 +241,10 @@ const Less7QuizPage = () => {
   );
 };
 
-export default Less7QuizPage;*/
+export default function Ltp() {
+  return (
+    <Suspense>
+      <Less7QuizPage />
+    </Suspense>
+  );
+}

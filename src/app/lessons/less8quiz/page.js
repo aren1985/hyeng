@@ -1,6 +1,6 @@
-/*"use client";
+"use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FaVolumeUp, FaMicrophoneAlt } from "react-icons/fa"; // React listen icon and mic icon
@@ -165,27 +165,24 @@ const Less8QuizPage = () => {
         Speak the Sentence
       </h1>
 
-      
       <button
         onClick={handleAudioPlay}
         className="px-4 py-2 bg-orange-500 text-white rounded mb-4 flex items-center"
         disabled={isListening}
       >
-        <FaVolumeUp className="mr-2" /> 
+        <FaVolumeUp className="mr-2" />
         {isListening ? "Listening..." : "Listen to the Sentence"}
       </button>
 
-      
       <button
         onClick={startListening}
         className="px-4 py-2 bg-blue-500 text-white rounded mb-4 flex items-center"
         disabled={isListening}
       >
-        <FaMicrophoneAlt className="mr-2" /> 
+        <FaMicrophoneAlt className="mr-2" />
         {isListening ? "Listening..." : "Speak the Sentence"}
       </button>
 
-      
       {userSpokenText && (
         <div className="mb-4">
           <p className="text-xl">You said-</p>
@@ -193,13 +190,11 @@ const Less8QuizPage = () => {
         </div>
       )}
 
-      
       {isCorrect !== null && (
         <div className="mb-4">
           {isCorrect ? (
             <p className="text-green-500">Correct! Well done!</p>
           ) : null}{" "}
-          
         </div>
       )}
 
@@ -210,7 +205,6 @@ const Less8QuizPage = () => {
         Check Answer
       </button>
 
-      
       <Modal
         visible={showModal}
         imageSrc={isCorrect ? correctImage : incorrectImage}
@@ -221,4 +215,10 @@ const Less8QuizPage = () => {
   );
 };
 
-export default Less8QuizPage;*/
+export default function L8p() {
+  return (
+    <Suspense>
+      <Less8QuizPage />
+    </Suspense>
+  );
+}
