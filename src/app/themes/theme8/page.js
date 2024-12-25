@@ -1,6 +1,6 @@
-/*"use client";
+"use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FaVolumeUp, FaMicrophone } from "react-icons/fa"; // Added microphone icon
@@ -187,4 +187,10 @@ const Theme8Page = () => {
   );
 };
 
-export default Theme8Page;*/
+export default function Th8p() {
+  return (
+    <Suspense>
+      <Theme8Page />
+    </Suspense>
+  );
+}

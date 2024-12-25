@@ -1,6 +1,6 @@
-/*"use client";
+"use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import axios from "axios";
 import { FaVolumeUp } from "react-icons/fa";
@@ -141,7 +141,6 @@ const Theme2Page = () => {
         Find A Correct
       </h1>
 
-      
       <div className="mb-6 text-center">
         <p className="text-md md:text-xl p-2 font-semibold text-green-800 shadow-md">
           {currentSentence?.englishsentence}
@@ -155,7 +154,6 @@ const Theme2Page = () => {
         </button>
       </div>
 
-      
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-3xl">
         {options.map((option, index) => (
           <button
@@ -175,7 +173,6 @@ const Theme2Page = () => {
         ))}
       </div>
 
-      
       <Modal
         visible={modalVisible}
         imageSrc={modalImage}
@@ -183,7 +180,6 @@ const Theme2Page = () => {
         onNext={goToNextSentence}
       />
 
-      
       {feedback && (
         <p
           className={`mt-4 text-lg font-semibold ${
@@ -197,4 +193,10 @@ const Theme2Page = () => {
   );
 };
 
-export default Theme2Page;*/
+export default function Th2p() {
+  return (
+    <Suspense>
+      <Theme2Page />
+    </Suspense>
+  );
+}

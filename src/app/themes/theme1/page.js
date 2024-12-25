@@ -1,8 +1,8 @@
 // app/themes/theme/ThemePage.js
 
-/*"use client";
+"use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import axios from "axios";
 import { FaVolumeUp } from "react-icons/fa";
@@ -87,4 +87,10 @@ const ThemePage = () => {
   );
 };
 
-export default ThemePage;*/
+export default function ThemP() {
+  return (
+    <Suspense>
+      <ThemePage />
+    </Suspense>
+  );
+}

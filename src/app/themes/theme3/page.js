@@ -1,6 +1,6 @@
-/*"use client";
+"use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import axios from "axios";
 import Image from "next/image";
@@ -146,14 +146,12 @@ const Theme3Page = () => {
         Find English
       </h1>
 
-      
       <div className="mb-6 text-center">
         <p className="text-md md:text-xl shadow-md p-2 font-semibold text-green-800">
           {currentSentence?.armeniansentence}
         </p>
       </div>
 
-      
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-3xl">
         {options.map((option, index) => (
           <button
@@ -173,7 +171,6 @@ const Theme3Page = () => {
         ))}
       </div>
 
-      
       {feedback && (
         <p
           className={`mt-4 text-lg font-semibold ${
@@ -184,7 +181,6 @@ const Theme3Page = () => {
         </p>
       )}
 
-      
       <Modal
         visible={modalVisible}
         imageSrc={modalImage}
@@ -195,4 +191,10 @@ const Theme3Page = () => {
   );
 };
 
-export default Theme3Page;*/
+export default function Th3p() {
+  return (
+    <Suspense>
+      <Theme3Page />
+    </Suspense>
+  );
+}
