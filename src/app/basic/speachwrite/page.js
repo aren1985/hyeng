@@ -10,8 +10,12 @@ import axios from "axios";
 import correctImage from "../../Images/newlike.webp";
 import incorrectImage from "../../Images/dislike.webp";
 
-const SpeechRecognition =
-  window.SpeechRecognition || window.webkitSpeechRecognition;
+let SpeechRecognition;
+if (typeof window !== "undefined") {
+  // Initialize SpeechRecognition only in the browser
+  SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
+}
 
 const SpeechToTextPage = () => {
   const searchParams = useSearchParams();
@@ -39,16 +43,18 @@ const SpeechToTextPage = () => {
           console.error("Error fetching images:", error);
         });
 
-      // Initialize Speech Recognition
-      recognition.current = new SpeechRecognition();
-      recognition.current.lang = "en-US";
-      recognition.current.interimResults = false;
-      recognition.current.maxAlternatives = 1;
+      if (SpeechRecognition) {
+        // Initialize Speech Recognition in the browser
+        recognition.current = new SpeechRecognition();
+        recognition.current.lang = "en-US";
+        recognition.current.interimResults = false;
+        recognition.current.maxAlternatives = 1;
+      }
     }
   }, [selectedCategory]);
 
   const startSpeechRecognition = () => {
-    if (!recognitionActive) {
+    if (!recognitionActive && recognition.current) {
       recognition.current.start();
       setRecognitionActive(true); // Set recognition state to active
     }
