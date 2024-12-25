@@ -121,7 +121,7 @@ const Words4Page = () => {
 
       <button
         onClick={checkAnswer}
-        className="bg-purple-600 text-white py-2 px-6 rounded mt-6 text-lg"
+        className="bg-purple-500 text-white p-3 rounded-full shadow-lg"
         disabled={!userAnswer} // Disable if input field is empty
       >
         Check Answer

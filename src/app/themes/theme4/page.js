@@ -199,7 +199,7 @@ const Theme5Page = () => {
 
         <button
           onClick={checkAnswer}
-          className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition"
+          className="bg-purple-500 text-white p-3 rounded-full shadow-lg"
         >
           Check Answer
         </button>

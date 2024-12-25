@@ -137,7 +137,7 @@ const WriteName = () => {
 
       <button
         onClick={checkAnswer}
-        className="bg-blue-500 text-white py-2 px-6 rounded hover:bg-blue-600 transition duration-200"
+        className="bg-purple-500 text-white p-3 rounded-full shadow-lg"
       >
         Check Answer
       </button>
