@@ -11,9 +11,6 @@ const Header = () => {
         {/* Navigation */}
         <nav className="flex-grow">
           <ul className="flex space-x-4 justify-end">
-            <li>
-              <Link href="/">Home</Link>
-            </li>
             {/* Hide Login and Register on screens smaller than 500px */}
             <li className="hidden md:inline-block">
               <Link href="/login">Login</Link>

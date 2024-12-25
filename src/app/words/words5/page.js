@@ -1,6 +1,6 @@
-/*"use client";
+"use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import axios from "axios";
 import { FaVolumeUp, FaMicrophone } from "react-icons/fa"; // Add both icons
@@ -93,7 +93,6 @@ const Words5Page = () => {
         Listen and Speak
       </h1>
 
-      
       <div className="mb-6 text-center">
         <button
           onClick={speakWord}
@@ -105,14 +104,12 @@ const Words5Page = () => {
         </button>
       </div>
 
-      
       <div className="mb-6">
         <p className="text-lg font-medium bg-gray-200 p-2">
           You said- {spokenWord}
         </p>
       </div>
 
-      
       <button
         onClick={startListening}
         className="bg-green-500 text-white py-2 px-6 rounded mt-6 text-lg font-semibold flex items-center space-x-2"
@@ -121,7 +118,6 @@ const Words5Page = () => {
         <span>Start Speaking</span>
       </button>
 
-      
       <button
         onClick={checkAnswer}
         className="bg-purple-600  text-white py-2 px-6 rounded mt-6 text-lg font-semibold"
@@ -129,7 +125,6 @@ const Words5Page = () => {
         Check Answer
       </button>
 
-      
       {modalVisible && (
         <div
           className={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50`}
@@ -155,4 +150,10 @@ const Words5Page = () => {
   );
 };
 
-export default Words5Page;*/
+export default function W5Pg() {
+  return (
+    <Suspense>
+      <Words5Page />
+    </Suspense>
+  );
+}

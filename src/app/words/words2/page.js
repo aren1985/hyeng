@@ -1,6 +1,6 @@
-/*"use client";
+"use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import axios from "axios";
 import Image from "next/image";
@@ -129,14 +129,12 @@ const Words2Page = () => {
         Find the correct
       </h1>
 
-      
       <div className="mb-6 text-center">
         <p className="text-md md:text-xl p-1 font-bold text-green-800 shadow-md">
           {currentWord?.english}
         </p>
       </div>
 
-      
       <div className="flex flex-col gap-4   items-center">
         {options.map((option, index) => {
           const isSelected = option === selectedAnswer;
@@ -160,7 +158,6 @@ const Words2Page = () => {
         })}
       </div>
 
-      
       <Modal
         visible={modalVisible}
         imageSrc={modalImage}
@@ -171,4 +168,10 @@ const Words2Page = () => {
   );
 };
 
-export default Words2Page;*/
+export default function W2Pg() {
+  return (
+    <Suspense>
+      <Words2Page />
+    </Suspense>
+  );
+}
