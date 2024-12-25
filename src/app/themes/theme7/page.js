@@ -173,7 +173,7 @@ const Theme7Page = () => {
       </div>
       <button
         onClick={checkAnswer}
-        className="bg-green-500 text-white px-6 py-2 rounded shadow hover:bg-green-600"
+        className="bg-purple-500 text-white p-3 rounded-full shadow-lg"
       >
         Check Answer
       </button>

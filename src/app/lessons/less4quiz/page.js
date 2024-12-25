@@ -200,10 +200,10 @@ const SentenceQuizPage4 = () => {
 
       <button
         onClick={checkAnswer}
-        className="bg-purple-600 text-white py-2 px-6 rounded mt-4 text-lg"
+        className="bg-purple-700 text-white p-3 mt-6 w-full  rounded shadow-lg font-bold"
         disabled={isChecked} // Disable Check button after answer is checked
       >
-        Check
+        Check Answer
       </button>
 
       <Modal

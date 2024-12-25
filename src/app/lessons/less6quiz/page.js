@@ -210,7 +210,7 @@ const Less6QuizPage = () => {
 
         <button
           onClick={checkAnswer}
-          className="px-4 py-2 bg-purple-600 text-white rounded"
+          className="bg-purple-700 text-white p-3 mt-6 w-full  rounded shadow-lg font-bold"
         >
           check Answer
         </button>
