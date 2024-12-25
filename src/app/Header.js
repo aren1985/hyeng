@@ -8,16 +8,17 @@ const Header = () => {
         {/* Project Name on the Left */}
         <h1 className="text-xl font-bold ml-14">Your Project</h1>
 
-        {/* Navigation (Flex to push the toggle button to the right) */}
+        {/* Navigation */}
         <nav className="flex-grow">
           <ul className="flex space-x-4 justify-end">
             <li>
               <Link href="/">Home</Link>
             </li>
-            <li>
+            {/* Hide Login and Register on screens smaller than 500px */}
+            <li className="hidden md:inline-block">
               <Link href="/login">Login</Link>
             </li>
-            <li>
+            <li className="hidden md:inline-block">
               <Link href="/register">Register</Link>
             </li>
           </ul>
