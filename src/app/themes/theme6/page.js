@@ -170,8 +170,8 @@ const Theme5Page = () => {
               ${
                 selectedOption === option
                   ? option === correctOption
-                    ? "bg-green-500 text-white"
-                    : "bg-red-500 text-white"
+                    ? "bg-blue-500 text-white"
+                    : "bg-blue-500 text-white"
                   : "bg-gray-200 text-black"
               } 
               border-gray-400`}
@@ -185,7 +185,7 @@ const Theme5Page = () => {
       <button
         onClick={handleCheckAnswer}
         disabled={selectedOption === null} // Disable if no option is selected
-        className="mt-4 bg-blue-500 text-white py-2 px-4 rounded-lg text-lg w-full max-w-xs disabled:bg-gray-400"
+        className="bg-purple-700 hover:bg-purple-500 text-white p-3 mt-10 w-full text-lg  rounded shadow-lg font-bold border-2 border-white"
       >
         Check Answer
       </button>

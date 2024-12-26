@@ -129,7 +129,7 @@ const Words3Page = () => {
       </h1>
 
       <div className="mb-6 text-center">
-        <p className="text-md md:text-xl p-1 font-bold text-green-800 shadow-md">
+        <p className="text-lg md:text-xl p-1 font-bold text-green-800 shadow-md">
           {currentWord?.armenian}
         </p>
       </div>
@@ -156,7 +156,7 @@ const Words3Page = () => {
       {/* Check Answer Button */}
       <button
         onClick={handleAnswer}
-        className="bg-green-600 text-white py-2 px-6 rounded mt-6 text-lg font-semibold"
+        className="bbg-purple-700 hover:bg-purple-500 text-white p-3 mt-10 w-full text-lg  rounded shadow-lg font-bold border-2 border-white"
         disabled={selectedAnswer === null}
       >
         Check Answer
