@@ -44,7 +44,7 @@ const ImagesPage = () => {
   const speakName = (name) => {
     const utterance = new SpeechSynthesisUtterance(name);
     utterance.lang = "en-US"; // Explicitly set language to US English
-    utterance.rate = 0.7;
+    utterance.rate = 0.8;
     const voices = window.speechSynthesis.getVoices();
     const preferredVoice = voices.find((voice) => voice.lang === "en-US");
     if (preferredVoice) {
@@ -63,7 +63,7 @@ const ImagesPage = () => {
   };
 
   // Loading or error handling
-  if (loading) return <p>Loading images...</p>;
+  if (loading) return <p>Loading images...սա կտեվի վայրկյաններ...</p>;
   if (error) return <p>{error}</p>;
   if (images.length === 0) return <p>No images available for this category.</p>;
 
@@ -88,7 +88,7 @@ const ImagesPage = () => {
       </button>
       <button
         onClick={nextImage}
-        className="bg-green-500 text-white py-2 px-4 rounded"
+        className="bg-purple-700 text-white p-3 mt-6 w-full  rounded shadow-lg font-bold"
       >
         Next
       </button>
