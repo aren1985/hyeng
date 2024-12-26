@@ -132,10 +132,8 @@ const QuizPage2 = () => {
 
   return (
     <div className="flex flex-col items-center p-6">
-      <h1 className="text-xl md:text-2xl text-blue-800 font-bold mb-6">
-        {lesson.title}
-      </h1>
-      <h2 className="text-xl md:text-2xl text-purple-800 font-semibold mb-4">
+      <h1 className="text-2xl  text-blue-800 font-bold mb-6">{lesson.title}</h1>
+      <h2 className="text-2xl  text-purple-800 font-semibold mb-4">
         write english
       </h2>
 
