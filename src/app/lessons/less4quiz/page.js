@@ -172,7 +172,7 @@ const SentenceQuizPage4 = () => {
           find a correct
         </p>
 
-        <p className="text-md md:text-xl text-green-800 shadow-md p-1 font-semibold">
+        <p className="text-xl text-green-800 shadow-md p-1 font-semibold">
           {currentSentence.english}
         </p>
       </div>
@@ -182,7 +182,7 @@ const SentenceQuizPage4 = () => {
           currentOptions.map((option, index) => (
             <button
               key={`${option}-${index}`} // Ensure key is unique
-              className={`py-2 px-6 rounded-lg text-md md:text-lg font-semibold ${
+              className={`py-2 px-6 rounded-lg text-xl w-full font-semibold ${
                 selectedAnswer === option
                   ? "bg-gray-700 text-white"
                   : "bg-gray-200"
