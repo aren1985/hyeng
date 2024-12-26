@@ -206,7 +206,7 @@ const Less7QuizPage = () => {
             <button
               key={index}
               onClick={() => handleWordClick(word)}
-              className="px-4 py-2 bg-blue-500 text-white rounded text-[12px] md:text-[15px]"
+              className="px-4 py-2 bg-blue-500 text-white rounded "
             >
               {word}
             </button>
