@@ -118,7 +118,7 @@ const NextQuiz = () => {
               setUserChoice(img.name);
               setSelectedOptionIndex(index);
             }}
-            className={`bg-blue-500 text-white py-2 w-64 font-bold px-6 rounded hover:bg-blue-600 transition duration-200 ${
+            className={`bg-blue-500 text-white text-lg py-2 w-64 font-bold px-6 rounded hover:bg-blue-600 transition duration-200 ${
               selectedOptionIndex === index ? "bg-gray-500" : ""
             }`}
           >
