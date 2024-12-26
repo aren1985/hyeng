@@ -149,7 +149,7 @@ const SpeechToTextPage = () => {
 
       <button
         onClick={checkAnswer}
-        className="bg-purple-700 text-white p-3 mt-6 w-full  rounded shadow-lg font-bold"
+        className="bg-purple-700 hover:bg-purple-500 text-white p-3 mt-10 w-full text-lg  rounded shadow-lg font-bold border-2 border-white"
       >
         Check Answer
       </button>

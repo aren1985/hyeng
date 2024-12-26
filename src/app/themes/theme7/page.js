@@ -137,12 +137,12 @@ const Theme7Page = () => {
 
   return (
     <div className="p-6 flex flex-col items-center">
-      <h1 className="text-2xl font-bold mb-4 text-purple-800">
+      <h1 className="text-xl md:text-2xl font-bold mb-4 text-purple-800">
         Rearrange the Sentence
       </h1>
       <button
         onClick={playSentence}
-        className="flex items-center gap-2 bg-blue-500 text-white p-3 rounded-full shadow mb-4 hover:bg-blue-600 transition"
+        className="flex items-center gap-2 bg-orange-600 text-white p-3 rounded-full shadow mb-4 hover:bg-blue-600 transition"
       >
         <FaVolumeUp className="text-xl" />
         Listen to the Sentence
@@ -173,7 +173,7 @@ const Theme7Page = () => {
       </div>
       <button
         onClick={checkAnswer}
-        className="bg-purple-700 text-white p-3 mt-6 w-full  rounded shadow-lg font-bold"
+        className="bg-purple-700 hover:bg-purple-500 text-white p-3 mt-10 w-full text-lg  rounded shadow-lg font-bold border-2 border-white"
       >
         Check Answer
       </button>

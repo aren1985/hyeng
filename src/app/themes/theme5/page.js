@@ -102,7 +102,7 @@ const Theme4Page = () => {
       </h1>
 
       <div className="mb-6 text-center">
-        <p className="text-md shadow-md p-2 md:text-xl text-green-800 font-bold">
+        <p className="text-md shadow-md p-2 md:text-xl text-green-800 font-semibold">
           {currentSentence?.armeniansentence}
         </p>
       </div>
@@ -115,10 +115,10 @@ const Theme4Page = () => {
         rows="4"
       ></textarea>
 
-      <div className="flex space-x-4 mt-4">
+      <div className="flex space-x-4 w-full mt-4">
         <button
           onClick={handleSubmit}
-          className="bg-purple-700 text-white p-3 mt-6 w-full  rounded shadow-lg font-bold"
+          className="bg-purple-700 hover:bg-purple-500 text-white p-3 mt-10 w-full text-lg  rounded shadow-lg font-bold border-2 border-white"
         >
           check Answer
         </button>

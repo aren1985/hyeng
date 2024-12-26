@@ -177,7 +177,7 @@ const Theme2Page = () => {
       <button
         onClick={checkAnswer}
         disabled={selectedOption === null} // Disable button if no option selected
-        className="bg-blue-500 text-white py-2 rounded mt-4 text-lg w-full border-2 border-white"
+        className="bg-purple-700 hover:bg-purple-500 text-white p-3 mt-10 w-full text-lg  rounded shadow-lg font-bold border-2 border-white"
       >
         Check Answer
       </button>

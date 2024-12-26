@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useEffect, useState, useRef, Suspense } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import React, { useState, useEffect, Suspense } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import axios from "axios";
 import Image from "next/image";
 
-// Feedback Images
+// Import images for feedback
 import correctImage from "../../Images/newlike.webp";
 import incorrectImage from "../../Images/dislike.webp";
 
@@ -16,136 +16,128 @@ const Modal = ({ visible, imageSrc, onNext, isCorrect }) => {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div
         className={`p-6 rounded-lg flex flex-col items-center ${
-          isCorrect ? "bg-green-500" : "bg-red-500"
+          isCorrect ? "bg-green-600" : "bg-red-600"
         }`}
       >
         <Image src={imageSrc} alt="Feedback" width={200} height={200} />
         <button
           onClick={onNext}
           className={`${
-            isCorrect ? "bg-green-500" : "bg-red-500"
-          } text-white border-2 w-full border-white py-2 px-6 rounded mt-4`}
+            isCorrect ? "bg-green-600" : "bg-red-600"
+          } text-white py-2 rounded mt-4 text-lg w-full border-2 border-white`}
+          style={{ maxWidth: "200px" }}
         >
-          Next Word
+          Next Sentence
         </button>
       </div>
     </div>
   );
 };
 
-const ArmenianQuiz = () => {
-  const searchParams = useSearchParams();
-  const selectedCategory = searchParams.get("category");
-  const [images, setImages] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [answerOptions, setAnswerOptions] = useState([]);
+const Theme4Page = () => {
+  const [sentences, setSentences] = useState([]);
+  const [currentSentenceIndex, setCurrentSentenceIndex] = useState(0);
+  const [userInput, setUserInput] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const [modalImage, setModalImage] = useState(null);
-  const [isCorrect, setIsCorrect] = useState(null);
+  const [isCorrect, setIsCorrect] = useState(false);
+  const searchParams = useSearchParams();
+  const title = searchParams.get("title");
   const router = useRouter();
-  const cache = useRef({});
 
-  // Fetch images
   useEffect(() => {
-    if (selectedCategory) {
-      if (cache.current[selectedCategory]) {
-        setImages(cache.current[selectedCategory]);
-        generateAnswerOptions(cache.current[selectedCategory], 0);
-      } else {
-        axios
-          .get(
-            `${process.env.NEXT_PUBLIC_API_URL}/images/allik/${selectedCategory}`
-          )
-          .then((response) => {
-            const data = response.data;
-            setImages(data);
-            cache.current[selectedCategory] = data;
-            if (data.length > 0) generateAnswerOptions(data, 0);
-          })
-          .catch((error) => {
-            console.error("Error fetching images:", error);
-          });
-      }
+    if (title) {
+      // Fetch sentences based on title
+      axios
+        .get(`${process.env.NEXT_PUBLIC_API_URL}/themes/themik/${title}`)
+        .then((response) => {
+          const fetchedSentences = response.data.sentences || [];
+          setSentences(fetchedSentences);
+        })
+        .catch((err) => {
+          console.error("Error fetching sentences:", err);
+        });
     }
-  }, [selectedCategory]);
+  }, [title]);
 
-  const generateAnswerOptions = (images, index) => {
-    const correctEnglishName = images[index]?.name;
-    const incorrectNames = images
-      .filter((_, i) => i !== index)
-      .sort(() => Math.random() - 0.5)
-      .slice(0, 2)
-      .map((img) => img.name);
-
-    const options = [correctEnglishName, ...incorrectNames].sort(
-      () => Math.random() - 0.5
-    );
-    setAnswerOptions(options);
+  const handleInputChange = (e) => {
+    setUserInput(e.target.value);
   };
 
-  const checkAnswer = (selectedName) => {
-    const correctAnswer = images[currentIndex]?.name;
-    if (selectedName === correctAnswer) {
-      setIsCorrect(true);
+  const handleSubmit = () => {
+    const correctAnswer = sentences[currentSentenceIndex]?.englishsentence
+      .trim()
+      .toLowerCase();
+
+    if (userInput.trim().toLowerCase() === correctAnswer) {
       setModalImage(correctImage);
+      setIsCorrect(true);
     } else {
-      setIsCorrect(false);
       setModalImage(incorrectImage);
+      setIsCorrect(false);
     }
     setModalVisible(true);
   };
 
-  const nextWord = () => {
-    if (currentIndex < images.length - 1) {
-      const nextIndex = currentIndex + 1;
-      setCurrentIndex(nextIndex);
-      generateAnswerOptions(images, nextIndex);
+  const goToNextSentence = () => {
+    if (currentSentenceIndex < sentences.length - 1) {
+      setCurrentSentenceIndex(currentSentenceIndex + 1);
+      setUserInput("");
       setModalVisible(false);
-      setIsCorrect(null);
     } else {
-      router.push(`/basic/writename?page=write&category=${selectedCategory}`);
+      router.push(`/themes/theme6?title=${encodeURIComponent(title)}`);
     }
   };
 
-  if (images.length === 0) return <p>Loading images...</p>;
+  if (sentences.length === 0) {
+    return <p>Loading sentences...</p>;
+  }
 
-  const currentArmenianName = images[currentIndex]?.armenianName;
+  const currentSentence = sentences[currentSentenceIndex];
 
   return (
     <div className="flex flex-col items-center p-6">
-      <h1 className="text-xl md:text-2xl text-purple-800 font-bold mb-6">
-        Select the correct English name
+      <h1 className="text-xl md:text-2xl font-bold mb-6 text-purple-800">
+        Write in english
       </h1>
-      <p className="text-xl text-green-800 shadow-md mb-6 p-2 font-semibold">
-        {currentArmenianName || "Armenian name not available"}
-      </p>
 
-      <div className="flex flex-col items-center gap-4 mb-6">
-        {answerOptions.map((name, index) => (
-          <button
-            key={index}
-            onClick={() => checkAnswer(name)}
-            className="bg-blue-500 text-white py-2 w-full font-bold px-6 rounded hover:bg-blue-600 transition duration-200"
-          >
-            {name}
-          </button>
-        ))}
+      <div className="mb-6 text-center">
+        <p className="text-md shadow-md p-2 md:text-xl text-green-800 font-semibold">
+          {currentSentence?.armeniansentence}
+        </p>
+      </div>
+
+      <textarea
+        value={userInput}
+        onChange={handleInputChange}
+        className="w-full max-w-3xl p-4 text-lg border-2 rounded-lg mb-4 h-16"
+        placeholder="Type your answer here..."
+        rows="4"
+      ></textarea>
+
+      <div className="flex space-x-4 mt-4">
+        <button
+          onClick={handleSubmit}
+          className="bg-purple-700 hover:bg-purple-500 text-white p-3 mt-10 w-full text-lg  rounded shadow-lg font-bold border-2 border-white"
+        >
+          check Answer
+        </button>
       </div>
 
       <Modal
         visible={modalVisible}
         imageSrc={modalImage}
         isCorrect={isCorrect}
-        onNext={nextWord}
+        onNext={goToNextSentence}
       />
     </div>
   );
 };
 
-export default function ArmQz() {
+export default function Th4pp() {
   return (
     <Suspense>
-      <ArmenianQuiz />
+      <Theme4Page />
     </Suspense>
   );
 }

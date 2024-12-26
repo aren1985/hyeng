@@ -180,7 +180,7 @@ const Theme3Page = () => {
       <button
         onClick={handleCheckAnswer}
         disabled={selectedOption === null || isChecked} // Disable if no option is selected or answer is already checked
-        className="mt-4 bg-blue-500 text-white py-2 px-4 rounded-lg text-lg w-full max-w-xs disabled:bg-gray-400"
+        className="bg-purple-700 hover:bg-purple-500 text-white p-3 mt-10 w-full text-lg  rounded shadow-lg font-bold border-2 border-white"
       >
         Check Answer
       </button>
