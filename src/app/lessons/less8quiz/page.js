@@ -184,7 +184,7 @@ const Less8QuizPage = () => {
       </button>
 
       {userSpokenText && (
-        <div className="mb-4 bg-white">
+        <div className="mb-4 bg-white p-2">
           <p className="text-xl">You said-</p>
           <p className="text-lg">{userSpokenText}</p>
         </div>

@@ -27,7 +27,7 @@ const Modal = ({ visible, imageSrc, onNext, isCorrect }) => {
             imageSrc === incorrectImage ? "bg-red-600" : "bg-green-600"
           } text-white py-2 rounded mt-4 text-lg w-full border-2 border-white`}
         >
-          Next Word
+          Next Sentence
         </button>
       </div>
     </div>
@@ -39,7 +39,6 @@ const Theme2Page = () => {
   const [currentSentenceIndex, setCurrentSentenceIndex] = useState(0);
   const [options, setOptions] = useState([]);
   const [selectedOption, setSelectedOption] = useState(null);
-  const [feedback, setFeedback] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalImage, setModalImage] = useState(null);
   const [isCorrect, setIsCorrect] = useState(null);
@@ -98,16 +97,20 @@ const Theme2Page = () => {
   };
 
   const handleOptionSelect = (option) => {
+    // Set the selected option to blue immediately after clicking
+    setSelectedOption(option);
+  };
+
+  const checkAnswer = () => {
     const correctOption =
       sentences[currentSentenceIndex]?.armeniansentence || "";
-    if (option === correctOption) {
+    if (selectedOption === correctOption) {
       setIsCorrect(true);
       setModalImage(correctImage);
     } else {
       setIsCorrect(false);
       setModalImage(incorrectImage);
     }
-    setSelectedOption(option);
     setModalVisible(true);
   };
 
@@ -115,7 +118,6 @@ const Theme2Page = () => {
     if (currentSentenceIndex < sentences.length - 1) {
       setCurrentSentenceIndex(currentSentenceIndex + 1);
       setSelectedOption(null);
-      setFeedback(null);
       setModalVisible(false);
     } else {
       router.push(`/themes/theme3?title=${encodeURIComponent(title)}`);
@@ -138,7 +140,7 @@ const Theme2Page = () => {
   return (
     <div className="flex flex-col items-center p-6">
       <h1 className="text-xl md:text-2xl font-bold mb-6 text-purple-800">
-        Find A Correct
+        Find A Correct Translation
       </h1>
 
       <div className="mb-6 text-center">
@@ -162,9 +164,7 @@ const Theme2Page = () => {
             disabled={selectedOption !== null}
             className={`py-2 px-4 rounded-lg border-2 text-md font-semibold ${
               selectedOption === option
-                ? option === currentSentence?.armeniansentence
-                  ? "bg-green-500 text-white border-green-700"
-                  : "bg-red-500 text-white border-red-700"
+                ? "bg-blue-400 text-white border-blue-600"
                 : "bg-gray-200 text-black border-gray-400"
             }`}
           >
@@ -173,22 +173,21 @@ const Theme2Page = () => {
         ))}
       </div>
 
+      {/* Always visible Check Answer button */}
+      <button
+        onClick={checkAnswer}
+        disabled={selectedOption === null} // Disable button if no option selected
+        className="bg-blue-500 text-white py-2 rounded mt-4 text-lg w-full border-2 border-white"
+      >
+        Check Answer
+      </button>
+
       <Modal
         visible={modalVisible}
         imageSrc={modalImage}
         isCorrect={isCorrect}
         onNext={goToNextSentence}
       />
-
-      {feedback && (
-        <p
-          className={`mt-4 text-lg font-semibold ${
-            feedback === "Correct!" ? "text-green-600" : "text-red-600"
-          }`}
-        >
-          {feedback}
-        </p>
-      )}
     </div>
   );
 };

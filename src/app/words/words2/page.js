@@ -92,14 +92,19 @@ const Words2Page = () => {
     return shuffled;
   };
 
-  const handleAnswer = (answer) => {
+  const selectAnswer = (answer) => {
+    setSelectedAnswer(answer);
+  };
+
+  const checkAnswer = () => {
+    if (!selectedAnswer) return;
+
     const correctAnswer = words[currentWordIndex]?.armenian;
-    const correct = answer === correctAnswer;
+    const correct = selectedAnswer === correctAnswer;
 
     setIsCorrect(correct);
     setModalImage(correct ? correctImage : incorrectImage);
     setModalVisible(true);
-    setSelectedAnswer(answer);
   };
 
   const nextWord = () => {
@@ -135,28 +140,26 @@ const Words2Page = () => {
         </p>
       </div>
 
-      <div className="flex flex-col gap-4   items-center">
-        {options.map((option, index) => {
-          const isSelected = option === selectedAnswer;
-          const isCorrectOption = option === words[currentWordIndex]?.armenian;
-          const backgroundColor = isSelected
-            ? isCorrectOption
-              ? "bg-green-500"
-              : "bg-red-500"
-            : "bg-gray-200";
-
-          return (
-            <button
-              key={index}
-              className={`py-2 px-6 rounded-lg text-lg font-bold ${backgroundColor}`}
-              onClick={() => handleAnswer(option)}
-              disabled={selectedAnswer !== null}
-            >
-              {option}
-            </button>
-          );
-        })}
+      <div className="flex flex-col gap-4 items-center">
+        {options.map((option, index) => (
+          <button
+            key={index}
+            className={`py-2 px-6 rounded-lg text-lg font-bold ${
+              selectedAnswer === option ? "bg-blue-400" : "bg-gray-200"
+            }`}
+            onClick={() => selectAnswer(option)}
+          >
+            {option}
+          </button>
+        ))}
       </div>
+
+      <button
+        onClick={checkAnswer}
+        className="bg-green-600 text-white py-2 px-6 rounded mt-6 text-lg font-semibold"
+      >
+        Check Answer
+      </button>
 
       <Modal
         visible={modalVisible}
