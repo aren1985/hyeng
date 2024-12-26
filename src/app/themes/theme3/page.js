@@ -45,6 +45,7 @@ const Theme3Page = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [modalImage, setModalImage] = useState(null);
   const [isCorrect, setIsCorrect] = useState(false);
+  const [isChecked, setIsChecked] = useState(false); // Track if answer is checked
   const searchParams = useSearchParams();
   const title = searchParams.get("title");
   const router = useRouter();
@@ -100,20 +101,25 @@ const Theme3Page = () => {
   };
 
   const handleOptionSelect = (option) => {
+    setSelectedOption(option); // Set selected option
+    setIsChecked(false); // Reset check flag
+    setFeedback(null); // Clear feedback
+  };
+
+  const handleCheckAnswer = () => {
     const correctOption =
       sentences[currentSentenceIndex]?.englishsentence || "";
-    if (option === correctOption) {
+    if (selectedOption === correctOption) {
       setIsCorrect(true);
       setModalImage(correctImage);
+      setFeedback("Correct!");
     } else {
       setIsCorrect(false);
       setModalImage(incorrectImage);
+      setFeedback("Incorrect. Try again!");
     }
-    setFeedback(
-      option === correctOption ? "Correct!" : "Incorrect. Try again!"
-    );
-    setSelectedOption(option);
     setModalVisible(true);
+    setIsChecked(true); // Mark the answer as checked
   };
 
   const goToNextSentence = () => {
@@ -122,6 +128,7 @@ const Theme3Page = () => {
       setSelectedOption(null);
       setFeedback(null);
       setModalVisible(false);
+      setIsChecked(false); // Reset after moving to next sentence
     } else {
       router.push(`/themes/theme4?title=${encodeURIComponent(title)}`);
     }
@@ -157,12 +164,10 @@ const Theme3Page = () => {
           <button
             key={index}
             onClick={() => handleOptionSelect(option)}
-            disabled={selectedOption !== null}
+            disabled={isChecked} // Disable after check
             className={`py-2 px-4 rounded-lg border-2 text-md font-semibold ${
               selectedOption === option
-                ? option === currentSentence?.englishsentence
-                  ? "bg-green-500 text-white border-green-700"
-                  : "bg-red-500 text-white border-red-700"
+                ? "bg-blue-400 text-white border-blue-600"
                 : "bg-gray-200 text-black border-gray-400"
             }`}
           >
@@ -170,6 +175,15 @@ const Theme3Page = () => {
           </button>
         ))}
       </div>
+
+      {/* Check Answer Button */}
+      <button
+        onClick={handleCheckAnswer}
+        disabled={selectedOption === null || isChecked} // Disable if no option is selected or answer is already checked
+        className="mt-4 bg-blue-500 text-white py-2 px-4 rounded-lg text-lg w-full max-w-xs disabled:bg-gray-400"
+      >
+        Check Answer
+      </button>
 
       {feedback && (
         <p

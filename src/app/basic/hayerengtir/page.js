@@ -42,6 +42,8 @@ const ArmenianQuiz = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [modalImage, setModalImage] = useState(null);
   const [isCorrect, setIsCorrect] = useState(null);
+  const [selectedOptionIndex, setSelectedOptionIndex] = useState(null); // Track selected option index
+  const [isAnswered, setIsAnswered] = useState(false); // Track whether an answer has been checked
   const router = useRouter();
   const cache = useRef({});
 
@@ -83,7 +85,8 @@ const ArmenianQuiz = () => {
     setAnswerOptions(options);
   };
 
-  const checkAnswer = (selectedName) => {
+  const checkAnswer = () => {
+    const selectedName = answerOptions[selectedOptionIndex];
     const correctAnswer = images[currentIndex]?.name;
     if (selectedName === correctAnswer) {
       setIsCorrect(true);
@@ -92,7 +95,8 @@ const ArmenianQuiz = () => {
       setIsCorrect(false);
       setModalImage(incorrectImage);
     }
-    setModalVisible(true);
+    setIsAnswered(true); // Mark as answered
+    setModalVisible(true); // Show modal with feedback
   };
 
   const nextWord = () => {
@@ -102,6 +106,8 @@ const ArmenianQuiz = () => {
       generateAnswerOptions(images, nextIndex);
       setModalVisible(false);
       setIsCorrect(null);
+      setSelectedOptionIndex(null); // Reset selected option after moving to next word
+      setIsAnswered(false); // Reset the answered status for the next question
     } else {
       router.push(`/basic/writename?page=write&category=${selectedCategory}`);
     }
@@ -124,13 +130,26 @@ const ArmenianQuiz = () => {
         {answerOptions.map((name, index) => (
           <button
             key={index}
-            onClick={() => checkAnswer(name)}
-            className="bg-blue-500 text-white py-2 w-full font-bold px-6 rounded hover:bg-blue-600 transition duration-200"
+            onClick={() => setSelectedOptionIndex(index)}
+            className={`bg-blue-500 text-white py-2 w-full font-bold px-6 rounded hover:bg-blue-600 transition duration-200 ${
+              selectedOptionIndex === index ? "bg-gray-400" : ""
+            }`}
+            disabled={isAnswered} // Disable options after answer is checked
           >
             {name}
           </button>
         ))}
       </div>
+
+      {/* Check Answer Button */}
+      {!isAnswered && (
+        <button
+          onClick={checkAnswer}
+          className="bg-green-500 text-white py-2 px-6 rounded mt-4 font-bold hover:bg-green-600 transition duration-200"
+        >
+          Check Answer
+        </button>
+      )}
 
       <Modal
         visible={modalVisible}

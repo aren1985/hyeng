@@ -108,10 +108,14 @@ const Theme5Page = () => {
   };
 
   const handleOptionSelect = (option) => {
+    // Store selected option but do not trigger modal yet
+    setSelectedOption(option);
+  };
+
+  const handleCheckAnswer = () => {
     const correctOption =
       sentences[currentSentenceIndex]?.armeniansentence || "";
-    setSelectedOption(option);
-    if (option === correctOption) {
+    if (selectedOption === correctOption) {
       setModalImage(correctImage);
       setIsCorrect(true);
     } else {
@@ -125,7 +129,7 @@ const Theme5Page = () => {
     if (currentSentenceIndex < sentences.length - 1) {
       setCurrentSentenceIndex(currentSentenceIndex + 1);
       setSelectedOption(null); // Reset the selected option
-      setModalVisible(false);
+      setModalVisible(false); // Hide the modal
     } else {
       router.push(`/themes/theme7?title=${encodeURIComponent(title)}`);
     }
@@ -176,6 +180,15 @@ const Theme5Page = () => {
           </button>
         ))}
       </div>
+
+      {/* Check Answer Button */}
+      <button
+        onClick={handleCheckAnswer}
+        disabled={selectedOption === null} // Disable if no option is selected
+        className="mt-4 bg-blue-500 text-white py-2 px-4 rounded-lg text-lg w-full max-w-xs disabled:bg-gray-400"
+      >
+        Check Answer
+      </button>
 
       <Modal
         visible={modalVisible}

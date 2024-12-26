@@ -42,6 +42,7 @@ const NextQuiz = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [modalImage, setModalImage] = useState(null);
   const [isCorrect, setIsCorrect] = useState(null);
+  const [selectedOptionIndex, setSelectedOptionIndex] = useState(null);
   const router = useRouter();
   const cache = useRef({});
 
@@ -67,9 +68,9 @@ const NextQuiz = () => {
     }
   }, [selectedCategory]);
 
-  const checkAnswer = (option) => {
+  const checkAnswer = () => {
     const correctAnswer = images[currentIndex]?.name;
-    if (option === correctAnswer) {
+    if (userChoice === correctAnswer) {
       setIsCorrect(true);
       setModalImage(correctImage);
     } else {
@@ -84,6 +85,7 @@ const NextQuiz = () => {
       setCurrentIndex(currentIndex + 1);
       setIsCorrect(null);
       setModalVisible(false);
+      setSelectedOptionIndex(null); // Reset selected option after moving to next image
     } else {
       router.push(
         `/basic/hayerengtir?page=speachwrite&category=${selectedCategory}`
@@ -97,7 +99,7 @@ const NextQuiz = () => {
 
   return (
     <div className="flex flex-col items-center p-6">
-      <h1 className="text-2xl  text-purple-800 font-bold mb-6">
+      <h1 className="text-xl md:text-2xl  text-purple-800 font-bold mb-6">
         Choose the Correct Name
       </h1>
       <div className="mb-6">
@@ -112,13 +114,26 @@ const NextQuiz = () => {
         {images.map((img, index) => (
           <button
             key={index}
-            onClick={() => checkAnswer(img.name)}
-            className="bg-blue-500 text-white py-2 w-64 font-bold px-6 rounded hover:bg-blue-600 transition duration-200"
+            onClick={() => {
+              setUserChoice(img.name);
+              setSelectedOptionIndex(index);
+            }}
+            className={`bg-blue-500 text-white py-2 w-64 font-bold px-6 rounded hover:bg-blue-600 transition duration-200 ${
+              selectedOptionIndex === index ? "bg-gray-500" : ""
+            }`}
           >
             {img.name}
           </button>
         ))}
       </div>
+
+      {/* Check Answer Button */}
+      <button
+        onClick={checkAnswer}
+        className="mt-4 bg-green-500 text-white py-2 px-6 rounded w-64 font-bold hover:bg-green-600 transition duration-200"
+      >
+        Check Answer
+      </button>
 
       <Modal
         visible={modalVisible}

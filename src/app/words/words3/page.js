@@ -92,14 +92,13 @@ const Words3Page = () => {
     return shuffled;
   };
 
-  const handleAnswer = (answer) => {
+  const handleAnswer = () => {
     const correctAnswer = words[currentWordIndex]?.english; // Correct answer is the English translation
-    const correct = answer === correctAnswer;
+    const correct = selectedAnswer === correctAnswer;
 
     setIsCorrect(correct);
     setModalImage(correct ? correctImage : incorrectImage);
     setModalVisible(true);
-    setSelectedAnswer(answer);
   };
 
   const nextWord = () => {
@@ -126,7 +125,7 @@ const Words3Page = () => {
   return (
     <div className="flex flex-col items-center p-6">
       <h1 className="text-xl md:text-2xl font-bold mb-6 text-purple-800">
-        find the correct
+        Find the correct English translation
       </h1>
 
       <div className="mb-6 text-center">
@@ -135,21 +134,17 @@ const Words3Page = () => {
         </p>
       </div>
 
-      <div className="flex flex-col gap-4   items-center">
+      <div className="flex flex-col gap-4 items-center">
         {options.map((option, index) => {
-          const isSelected = option === selectedAnswer;
-          const isCorrectOption = option === words[currentWordIndex]?.english;
-          const backgroundColor = isSelected
-            ? isCorrectOption
-              ? "bg-green-500"
-              : "bg-red-500"
-            : "bg-gray-200";
+          // Use gray background when selected
+          const backgroundColor =
+            selectedAnswer === option ? "bg-blue-400" : "bg-gray-200";
 
           return (
             <button
               key={index}
               className={`py-2 px-6 rounded-lg text-lg font-bold ${backgroundColor}`}
-              onClick={() => handleAnswer(option)}
+              onClick={() => setSelectedAnswer(option)}
               disabled={selectedAnswer !== null}
             >
               {option}
@@ -158,6 +153,16 @@ const Words3Page = () => {
         })}
       </div>
 
+      {/* Check Answer Button */}
+      <button
+        onClick={handleAnswer}
+        className="bg-green-600 text-white py-2 px-6 rounded mt-6 text-lg font-semibold"
+        disabled={selectedAnswer === null}
+      >
+        Check Answer
+      </button>
+
+      {/* Modal for correct/incorrect feedback */}
       <Modal
         visible={modalVisible}
         imageSrc={modalImage}
