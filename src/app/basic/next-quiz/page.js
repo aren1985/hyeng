@@ -97,7 +97,7 @@ const NextQuiz = () => {
 
   return (
     <div className="flex flex-col items-center p-6">
-      <h1 className="text-xl md:text-2xl text-purple-800 font-bold mb-6">
+      <h1 className="text-2xl  text-purple-800 font-bold mb-6">
         Choose the Correct Name
       </h1>
       <div className="mb-6">
