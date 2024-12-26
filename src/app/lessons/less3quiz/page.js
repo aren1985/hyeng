@@ -160,14 +160,14 @@ const QuizPage3 = () => {
         Listen
       </button>
 
-      <div className="mb-6">
+      <div className="mb-6 flex flex-col gap-3">
         {options.map((option, index) => (
           <button
             key={index}
             onClick={() => setSelectedAnswer(option)}
             className={`${
               selectedAnswer === option ? "bg-green-500" : "bg-blue-500"
-            } text-white py-2 px-6 rounded m-2  text-[12px] md:text-[15px] font-semibold`}
+            } text-white py-2 px-6 rounded m-2  text-lg w-full font-semibold`}
           >
             {option}
           </button>
