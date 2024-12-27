@@ -160,7 +160,7 @@ const QuizPage3 = () => {
         Listen
       </button>
 
-      <div className="mb-6 flex flex-col gap-3">
+      <div className="mb-6 flex flex-col gap-2">
         {options.map((option, index) => (
           <button
             key={index}
@@ -176,7 +176,7 @@ const QuizPage3 = () => {
 
       <button
         onClick={checkAnswer}
-        className="bg-purple-700 text-white p-3 mt-6 w-full  rounded shadow-lg font-bold"
+        className="bg-purple-700 hover:bg-purple-500 text-white p-3 mt-10 w-full text-lg  rounded shadow-lg font-bold border-2 border-white"
       >
         Check Answer
       </button>
