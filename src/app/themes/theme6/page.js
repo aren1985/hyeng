@@ -103,7 +103,7 @@ const Theme5Page = () => {
 
     const utterance = new SpeechSynthesisUtterance(sentence);
     utterance.lang = "en-US";
-    utterance.rate = 0.7;
+    utterance.rate = 0.8;
     speechSynthesis.speak(utterance);
   };
 

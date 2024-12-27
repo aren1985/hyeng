@@ -131,6 +131,8 @@ const QuizPage3 = () => {
   const speakWord = () => {
     const currentWord = lesson.themes[0].words[currentWordIndex].english;
     const speech = new SpeechSynthesisUtterance(currentWord);
+    speech.lang = "en-US";
+    speech.rate = 0.7;
     window.speechSynthesis.speak(speech);
 
     // Ensure options are generated after the word is spoken
@@ -160,7 +162,7 @@ const QuizPage3 = () => {
         Listen
       </button>
 
-      <div className="mb-6 flex flex-col gap-2">
+      <div className="mb-6 flex flex-col items-center gap-2">
         {options.map((option, index) => (
           <button
             key={index}
