@@ -168,7 +168,7 @@ const Theme5Page = () => {
         {currentSentence.armeniansentence}
       </p>
 
-      <div className="flex flex-col items-center w-full max-w-3xl p-8 rounded-lg shadow">
+      <div className="flex flex-col items-center w-full max-w-3xl p-8 rounded-lg ">
         <p className="text-md mb-4 text-gray-800">
           Select the correct English words
         </p>
@@ -178,7 +178,7 @@ const Theme5Page = () => {
             <button
               key={index}
               onClick={() => handleWordClick(word)}
-              className="px-3 py-2 text-[15px]   font-semibold bg-blue-700 text-white rounded hover:bg-blue-500 transition"
+              className="px-3 py-2 text-[15px] bg-blue-700 text-white rounded hover:bg-blue-500 transition"
             >
               {word}
             </button>

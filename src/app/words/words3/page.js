@@ -125,27 +125,27 @@ const Words3Page = () => {
   return (
     <div className="flex flex-col items-center p-6">
       <h1 className="text-xl md:text-2xl font-bold mb-6 text-purple-800">
-        Find the correct English translation
+        Find the correct
       </h1>
 
       <div className="mb-6 text-center">
-        <p className="text-lg md:text-xl p-1 font-bold text-green-800 shadow-md">
+        <p className="text-lg md:text-xl p-1 font-semibold text-green-800 shadow-md">
           {currentWord?.armenian}
         </p>
       </div>
 
       <div className="flex flex-col gap-4 items-center">
         {options.map((option, index) => {
-          // Use gray background when selected
+          // Use gray background when not selected and blue when selected
           const backgroundColor =
             selectedAnswer === option ? "bg-blue-400" : "bg-gray-200";
 
           return (
             <button
               key={index}
-              className={`py-2 px-6 rounded-lg text-lg font-bold ${backgroundColor}`}
+              className={`py-2 px-6 rounded-lg text-lg font-semibold w-64 ${backgroundColor}`}
               onClick={() => setSelectedAnswer(option)}
-              disabled={selectedAnswer !== null}
+              disabled={modalVisible} // Disable only if the modal is visible
             >
               {option}
             </button>
@@ -156,7 +156,7 @@ const Words3Page = () => {
       {/* Check Answer Button */}
       <button
         onClick={handleAnswer}
-        className="bbg-purple-700 hover:bg-purple-500 text-white p-3 mt-10 w-full text-lg  rounded shadow-lg font-bold border-2 border-white"
+        className="bg-purple-700 hover:bg-purple-500 text-white p-3 mt-10 w-full text-lg  rounded shadow-lg font-bold border-2 border-white"
         disabled={selectedAnswer === null}
       >
         Check Answer

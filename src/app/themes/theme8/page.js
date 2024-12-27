@@ -162,13 +162,13 @@ const Theme8Page = () => {
         <p className="text-lg text-gray-600 mt-2">Click to start speaking</p>
       </div>
 
-      <div className="text-center mb-6">
+      <div className="text-center mb-6 bg-white p-2">
         <p className="text-lg text-gray-800">
-          You said: <em>{spokenText}</em>
+          You said- <em>{spokenText}</em>
         </p>
       </div>
 
-      <div className="text-center mb-6">
+      <div className="text-center mb-6 w-full">
         <button
           onClick={checkAnswer}
           className="bg-purple-700 hover:bg-purple-500 text-white p-3 mt-10 w-full text-lg  rounded shadow-lg font-bold border-2 border-white"
