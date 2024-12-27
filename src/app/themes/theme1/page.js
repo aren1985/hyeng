@@ -79,7 +79,7 @@ const ThemePage = () => {
 
       <button
         onClick={goToNextPage}
-        className="bg-blue-500 text-white py-2 px-6 rounded mt-6 text-lg font-semibold"
+        className="bg-purple-700 hover:bg-purple-500 text-white p-3 mt-10 w-full text-lg  rounded shadow-lg font-bold border-2 border-white"
       >
         Next
       </button>
