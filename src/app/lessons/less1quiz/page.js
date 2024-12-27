@@ -192,12 +192,12 @@ const QuizPage = () => {
         </button>
       </div>
 
-      <div className="flex flex-col gap-4 items-center">
+      <div className="flex flex-col gap-4 items-center ">
         {currentOptions.length > 0 ? (
           currentOptions.map((option, index) => (
             <button
               key={`${option}-${index}`} // Ensure key is unique
-              className={`py-2 px-6 rounded-lg text-lg font-semibold  ${
+              className={`py-2 px-6 rounded-lg text-lg font-semibold w-64  ${
                 selectedAnswer === option
                   ? "bg-gray-700 text-white"
                   : "bg-gray-200"
