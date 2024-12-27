@@ -30,6 +30,7 @@ const W1Page = () => {
   const speakWord = (word) => {
     window.speechSynthesis.cancel(); // Stop any ongoing speech
     const utterance = new SpeechSynthesisUtterance(word);
+    utterance.lang = "en-US";
     utterance.rate = 0.8;
     window.speechSynthesis.speak(utterance);
   };
