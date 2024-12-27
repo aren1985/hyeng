@@ -127,6 +127,8 @@ const QuizPage = () => {
   const speakWord = (word) => {
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(word);
+    utterance.lang = "en-US";
+    utterance.rate = 0.7;
     window.speechSynthesis.speak(utterance);
   };
 

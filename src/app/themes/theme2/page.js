@@ -127,6 +127,7 @@ const Theme2Page = () => {
   const speakSentence = (sentence) => {
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(sentence);
+    utterance.lang = "en-US";
     utterance.rate = 0.8;
     window.speechSynthesis.speak(utterance);
   };

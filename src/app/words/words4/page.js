@@ -63,7 +63,7 @@ const Words4Page = () => {
   const speakWord = () => {
     const currentWord = words[currentWordIndex];
     const speech = new SpeechSynthesisUtterance(currentWord?.english);
-
+    utterance.lang = "en-US";
     window.speechSynthesis.speak(speech);
   };
 
