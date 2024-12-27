@@ -148,7 +148,7 @@ const Theme7Page = () => {
         Listen to the Sentence
       </button>
       <div className="mb-6">
-        <div className="flex flex-wrap gap-3 mb-4">
+        <div className="flex flex-wrap gap-3 mb-4 text-[15px]">
           {wordPool.map((word, index) => (
             <button
               key={index}
@@ -159,7 +159,7 @@ const Theme7Page = () => {
             </button>
           ))}
         </div>
-        <div className="flex flex-wrap gap-3 border-t-2 pt-4">
+        <div className="flex flex-wrap gap-3 border-t-2 pt-4 text-[15px]">
           {selectedWords.map((word, index) => (
             <button
               key={index}

@@ -144,7 +144,7 @@ const Theme2Page = () => {
       </h1>
 
       <div className="mb-6 text-center">
-        <p className="text-md md:text-xl p-2 font-semibold text-green-800 shadow-md">
+        <p className="text-md md:text-lg p-2 font-semibold text-green-800 shadow-md">
           {currentSentence?.englishsentence}
         </p>
         <button
@@ -161,7 +161,6 @@ const Theme2Page = () => {
           <button
             key={index}
             onClick={() => handleOptionSelect(option)}
-            disabled={selectedOption !== null}
             className={`py-2 px-4 rounded-lg border-2 text-md font-semibold ${
               selectedOption === option
                 ? "bg-blue-400 text-white border-blue-600"

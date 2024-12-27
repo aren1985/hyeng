@@ -135,7 +135,7 @@ const Words2Page = () => {
       </h1>
 
       <div className="mb-6 text-center">
-        <p className="text-lg md:text-xl p-1 font-bold text-green-800 shadow-md">
+        <p className="text-lg md:text-xl p-1 font-semibold text-green-800 shadow-md">
           {currentWord?.english}
         </p>
       </div>
@@ -144,7 +144,7 @@ const Words2Page = () => {
         {options.map((option, index) => (
           <button
             key={index}
-            className={`py-2 px-6 rounded-lg text-lg font-bold ${
+            className={`py-2 px-6 rounded-lg text-lg font-semibold w-64 ${
               selectedAnswer === option ? "bg-blue-400" : "bg-gray-200"
             }`}
             onClick={() => selectAnswer(option)}
