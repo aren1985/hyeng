@@ -173,7 +173,7 @@ const Theme5Page = () => {
           Select the correct English words
         </p>
 
-        <div className="flex flex-wrap gap-3 mb-6">
+        <div className="flex flex-wrap gap-3 mb-6 ">
           {wordPool.map((word, index) => (
             <button
               key={index}

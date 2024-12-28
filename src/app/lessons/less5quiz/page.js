@@ -182,7 +182,7 @@ const SentenceQuizPage6 = () => {
           currentOptions.map((option, index) => (
             <button
               key={`${option}-${index}`} // Ensure key is unique
-              className={`py-2 px-6 rounded-lg text-lg w-full font-semibold ${
+              className={`py-2 px-6 rounded-lg text-md w-full  font-semibold ${
                 selectedAnswer === option
                   ? "bg-gray-700 text-white"
                   : "bg-gray-200"
