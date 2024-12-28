@@ -11,7 +11,7 @@ const Header = () => {
         {/* Navigation */}
         <nav className="flex-grow">
           <ul className="flex space-x-4 justify-end">
-            <li className="hidden md:inline-block">
+            <li>
               <Link href="/video">video</Link>
             </li>
             {/* Hide Login and Register on screens smaller than 500px */}
