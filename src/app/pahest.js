@@ -1,3 +1,5 @@
+// app/themes/theme/ThemePage.js
+
 "use client";
 
 import React, { useState, useEffect, Suspense } from "react";
@@ -5,8 +7,8 @@ import { useSearchParams, useRouter } from "next/navigation";
 import axios from "axios";
 import { FaVolumeUp } from "react-icons/fa";
 
-const W1Page = () => {
-  const [words, setWords] = useState([]);
+const ThemePage = () => {
+  const [sentences, setSentences] = useState([]);
   const [error, setError] = useState(null);
   const searchParams = useSearchParams();
   const title = searchParams.get("title"); // Get title from query params
@@ -14,62 +16,66 @@ const W1Page = () => {
 
   useEffect(() => {
     if (title) {
-      // Fetch words based on the title from query params
+      // Fetch sentences based on the title from query params
       axios
-        .get(`${process.env.NEXT_PUBLIC_API_URL}/words/wordik/${title}`)
+        .get(`${process.env.NEXT_PUBLIC_API_URL}/themes/themik/${title}`)
         .then((response) => {
-          setWords(response.data.words || []);
+          setSentences(response.data.sentences || []);
         })
         .catch((err) => {
-          console.error("Error fetching words:", err);
-          setError("Failed to load words. Please try again.");
+          console.error("Error fetching sentences:", err);
+          setError("Failed to load sentences. Please try again.");
         });
     }
   }, [title]);
 
-  const speakWord = (word) => {
+  const speakSentence = (sentence) => {
     window.speechSynthesis.cancel(); // Stop any ongoing speech
-    const utterance = new SpeechSynthesisUtterance(word);
+    const utterance = new SpeechSynthesisUtterance(sentence);
     utterance.lang = "en-US";
-    utterance.rate = 0.8;
+    utterance.rate = 0.7;
     window.speechSynthesis.speak(utterance);
   };
 
   const goToNextPage = () => {
-    router.push(`/words/words2?title=${encodeURIComponent(title)}`);
+    router.push(`/themes/theme2?title=${encodeURIComponent(title)}`);
   };
 
   if (error) return <p className="text-red-600">{error}</p>;
 
   return (
     <div className="flex flex-col items-center p-6">
-      <h1 className="text-xl md:text-2xl font-bold mb-6 text-purple-800">{` ${title}`}</h1>
+      <h1 className="text-xl md:text-2xl font-bold mb-6 text-purple-800">
+        Listen And Learn
+      </h1>
 
-      {words.length > 0 ? (
+      {sentences.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-3xl">
-          {words.map((word, index) => (
+          {sentences.map((sentence, index) => (
             <div
               key={index}
               className="flex items-center justify-between p-4 border border-gray-200 shadow-lg rounded-lg bg-white"
             >
               <div>
                 <p className="text-lg font-medium text-gray-900">
-                  {word.english}
+                  {sentence.englishsentence}
                 </p>
-                <p className="text-md text-gray-500">{word.armenian}</p>
+                <p className="text-md text-gray-500">
+                  {sentence.armeniansentence}
+                </p>
               </div>
               <button
-                onClick={() => speakWord(word.english)}
-                className="text-blue-500 ml-4 p-2"
-                aria-label={`Listen to ${word.english}`}
+                onClick={() => speakSentence(sentence.englishsentence)}
+                className="text-blue-500 ml-4 shadow-md p-2"
+                aria-label={`Listen to ${sentence.englishsentence}`}
               >
-                <FaVolumeUp className="text-xl shadow-md " />
+                <FaVolumeUp className="text-xl" />
               </button>
             </div>
           ))}
         </div>
       ) : (
-        <p className="text-gray-500">No words available for this title.</p>
+        <p className="text-gray-500">No sentences available for this title.</p>
       )}
 
       <button
@@ -82,10 +88,10 @@ const W1Page = () => {
   );
 };
 
-export default function valo() {
+export default function ThemP() {
   return (
     <Suspense>
-      <W1Page />
+      <ThemePage />
     </Suspense>
   );
 }

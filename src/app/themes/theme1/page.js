@@ -1,5 +1,3 @@
-// app/themes/theme/ThemePage.js
-
 "use client";
 
 import React, { useState, useEffect, Suspense } from "react";
@@ -10,6 +8,7 @@ import { FaVolumeUp } from "react-icons/fa";
 const ThemePage = () => {
   const [sentences, setSentences] = useState([]);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
   const searchParams = useSearchParams();
   const title = searchParams.get("title"); // Get title from query params
   const router = useRouter();
@@ -21,10 +20,12 @@ const ThemePage = () => {
         .get(`${process.env.NEXT_PUBLIC_API_URL}/themes/themik/${title}`)
         .then((response) => {
           setSentences(response.data.sentences || []);
+          setLoading(false);
         })
         .catch((err) => {
           console.error("Error fetching sentences:", err);
           setError("Failed to load sentences. Please try again.");
+          setLoading(false);
         });
     }
   }, [title]);
@@ -42,6 +43,17 @@ const ThemePage = () => {
   };
 
   if (error) return <p className="text-red-600">{error}</p>;
+
+  if (loading) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
+        <div className="w-16 h-16 border-4 border-blue-500 border-solid border-t-transparent rounded-full animate-spin"></div>
+        <p className="mt-4 text-gray-700 text-lg font-medium">
+          Loading sentences...
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col items-center p-6">
