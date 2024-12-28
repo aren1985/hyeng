@@ -18,6 +18,9 @@ const Header = () => {
             <li className="hidden md:inline-block">
               <Link href="/register">Register</Link>
             </li>
+            <li className="hidden md:inline-block">
+              <Link href="/video">video</Link>
+            </li>
           </ul>
         </nav>
       </div>
