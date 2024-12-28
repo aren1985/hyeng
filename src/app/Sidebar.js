@@ -63,6 +63,11 @@ const Sidebar = () => {
                   A1 Level
                 </Link>
               </li>
+              <li className="border-b border-gray-700 pb-2">
+                <Link href="/auth/signup" onClick={() => setIsOpen(false)}>
+                  Signup
+                </Link>
+              </li>
             </ul>
           </nav>
         </div>
