@@ -69,12 +69,17 @@ const W1Page = () => {
           ))}
         </div>
       ) : (
-        <p className="text-gray-500">No words available for this title.</p>
+        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
+          <div className="w-16 h-16 border-4 border-blue-500 border-solid border-t-transparent rounded-full animate-spin"></div>
+          <p className="mt-4 text-gray-700 text-lg font-medium">
+            Loading words...
+          </p>
+        </div>
       )}
 
       <button
         onClick={goToNextPage}
-        className="bg-purple-700 hover:bg-purple-500 text-white p-3 mt-10 w-full text-lg  rounded shadow-lg font-bold border-2 border-white"
+        className="bg-purple-700 hover:bg-purple-500 text-white p-3 mt-10 w-full text-lg rounded shadow-lg font-bold border-2 border-white"
       >
         Next
       </button>

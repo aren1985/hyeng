@@ -63,14 +63,24 @@ const ImagesPage = () => {
   };
 
   // Loading or error handling
-  if (loading) return <p>Loading images...սա կտեվի վայրկյաններ...</p>;
+  if (loading) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
+        {/* Spinner */}
+        <div className="w-16 h-16 border-4 border-blue-500 border-solid border-t-transparent rounded-full animate-spin"></div>
+        {/* Optional Loading Text */}
+        <p className="mt-4 text-gray-700 text-lg font-medium">Loading...</p>
+      </div>
+    );
+  }
+
   if (error) return <p>{error}</p>;
   if (images.length === 0) return <p>No images available for this category.</p>;
 
   const currentImage = images[currentIndex] || {};
 
   return (
-    <div className="flex flex-col items-center p-2">
+    <div className="flex flex-col items-center">
       <h1 className="text-xl md:text-2xl shadow-md font-semibold text-green-800 mb-4">
         {currentImage.name}
       </h1>
