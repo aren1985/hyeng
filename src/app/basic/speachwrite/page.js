@@ -132,7 +132,7 @@ const SpeechToTextPage = () => {
         className="bg-yellow-500 text-white py-2 px-6 rounded hover:bg-yellow-600 transition duration-200 flex items-center mb-6"
       >
         <FaVolumeUp className="mr-2" />
-        Hear Name Again
+        start listening
       </button>
 
       <button

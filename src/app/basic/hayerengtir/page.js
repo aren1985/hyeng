@@ -16,14 +16,14 @@ const Modal = ({ visible, imageSrc, onNext, isCorrect }) => {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div
         className={`p-6 rounded-lg flex flex-col items-center ${
-          isCorrect ? "bg-green-500" : "bg-red-500"
+          isCorrect ? "bg-green-600" : "bg-red-600"
         }`}
       >
         <Image src={imageSrc} alt="Feedback" width={200} height={200} />
         <button
           onClick={onNext}
           className={`${
-            isCorrect ? "bg-green-500" : "bg-red-500"
+            isCorrect ? "bg-green-600" : "bg-red-600"
           } text-white border-2 w-full border-white py-2 px-6 rounded mt-4`}
         >
           Next Word
@@ -131,8 +131,8 @@ const ArmenianQuiz = () => {
           <button
             key={index}
             onClick={() => setSelectedOptionIndex(index)}
-            className={`bg-blue-500 text-white py-2 w-full font-bold px-6 rounded hover:bg-blue-600 transition duration-200 ${
-              selectedOptionIndex === index ? "bg-gray-400" : ""
+            className={`bg-blue-500 text-white py-2 w-64 font-bold px-6 rounded hover:bg-blue-600 transition duration-200 ${
+              selectedOptionIndex === index ? "bg-blue-700" : ""
             }`}
             disabled={isAnswered} // Disable options after answer is checked
           >

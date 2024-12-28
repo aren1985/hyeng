@@ -148,6 +148,10 @@ const Theme7Page = () => {
         Listen to the Sentence
       </button>
       <div className="mb-6">
+        <p className="text-md mb-4 text-gray-800 text-center">
+          Select the correct English words
+        </p>
+
         <div className="flex flex-wrap gap-3 mb-4 text-[15px]">
           {wordPool.map((word, index) => (
             <button

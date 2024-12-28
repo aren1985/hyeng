@@ -17,14 +17,14 @@ const Modal = ({ visible, imageSrc, onNext, isCorrect }) => {
     >
       <div
         className={`p-6 rounded-lg flex flex-col items-center ${
-          isCorrect ? "bg-green-500" : "bg-red-500"
+          isCorrect ? "bg-green-600" : "bg-red-600"
         }`}
       >
         <Image src={imageSrc} alt="Feedback" width={200} height={200} />
         <button
           onClick={onNext}
           className={`${
-            imageSrc === incorrectImage ? "bg-red-500" : "bg-green-500"
+            imageSrc === incorrectImage ? "bg-red-600" : "bg-green-600"
           } text-white py-2 rounded mt-4 text-lg w-full border-2 border-white`}
           style={{ maxWidth: "200px" }}
         >
