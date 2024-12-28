@@ -11,15 +11,15 @@ const Header = () => {
         {/* Navigation */}
         <nav className="flex-grow">
           <ul className="flex space-x-4 justify-end">
+            <li className="hidden md:inline-block">
+              <Link href="/video">video</Link>
+            </li>
             {/* Hide Login and Register on screens smaller than 500px */}
             <li className="hidden md:inline-block">
               <Link href="/login">Login</Link>
             </li>
             <li className="hidden md:inline-block">
               <Link href="/register">Register</Link>
-            </li>
-            <li className="hidden md:inline-block">
-              <Link href="/video">video</Link>
             </li>
           </ul>
         </nav>
