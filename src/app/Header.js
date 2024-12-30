@@ -13,10 +13,10 @@ const Header = () => {
           <ul className="flex space-x-4 justify-end">
             {/* Hide Login and Register on screens smaller than 500px */}
             <li className="hidden md:inline-block">
-              <Link href="/login">Login</Link>
+              <Link href="auth/login">Login</Link>
             </li>
             <li className="hidden md:inline-block">
-              <Link href="/register">Register</Link>
+              <Link href="auth/signup">sign up</Link>
             </li>
           </ul>
         </nav>

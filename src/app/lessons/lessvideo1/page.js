@@ -58,6 +58,7 @@ const VidPage = () => {
             allowFullScreen
             loading="lazy"
             title="YouTube Video"
+            className="md:w-[500px] w-screen md:h-[300px] h-[200px]"
           ></iframe>
         </div>
       ) : (
