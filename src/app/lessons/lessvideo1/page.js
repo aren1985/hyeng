@@ -43,14 +43,16 @@ const VidPage = () => {
   };
 
   return (
-    <div>
+    <div className="flex flex-col items-center">
       {videoUrl ? (
-        <div className="text-center">
-          <h1>Watch the Video</h1>
+        <div className="text-center mb-6">
+          <h1 className="text-2xl md:text-3xl font-bold text-purple-700 mb-6">
+            Watch the Video
+          </h1>
           <iframe
             src={`https://www.youtube.com/embed/${videoUrl}?rel=0&modestbranding=1&showinfo=0`}
-            width="500"
-            height="300"
+            width={500}
+            height={300}
             frameBorder="0"
             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
@@ -65,7 +67,7 @@ const VidPage = () => {
       {/* Next Button */}
       <button
         onClick={handleNextClick}
-        className="bg-purple-700 hover:bg-purple-500 text-white p-3 mt-10 w-full text-lg rounded shadow-lg font-bold border-2 border-white"
+        className="bg-purple-700 hover:bg-purple-500 text-white p-3 mt-8 w-full  text-lg  rounded-lg shadow-lg font-bold border-2 border-white"
       >
         Next
       </button>

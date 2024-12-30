@@ -15,7 +15,7 @@ const LessonSelection = () => {
   const handleLessonSelect = (lessonId, lessonTitle) => {
     // Navigate to the lesson page with the lesson title as a search param
     router.push(
-      `/lessons/lesson?title=${encodeURIComponent(
+      `/lessons/lessvideo1?title=${encodeURIComponent(
         lessonTitle
       )}&_id=${encodeURIComponent(lessonId)}`
     );
