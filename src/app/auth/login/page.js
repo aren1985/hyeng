@@ -78,7 +78,7 @@ const SignInPage = () => {
           </button>
         </form>
         <p className="text-center mt-4 text-sm text-white">
-          Don't have an account?{" "}
+          Don&apos;t have an account?{" "}
           <a href="/auth/signup" className="text-purple-600 hover:underline">
             Sign up
           </a>
