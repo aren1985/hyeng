@@ -13,7 +13,7 @@ const Lev2Page = () => {
         <ul className="space-y-4 w-full font-bold">
           <li className="w-full">
             <Link
-              href="/words/allwords"
+              href="/words2/allwords2"
               className="block px-4 py-2 text-lg text-white hover:text-blue-800 bg-blue-700 rounded-lg text-center"
             >
               A2 Words
@@ -21,7 +21,7 @@ const Lev2Page = () => {
           </li>
           <li className="w-full">
             <Link
-              href="/themes/allthemes"
+              href="/themes2/allthemes2"
               className="block px-4 py-2 text-lg text-white hover:text-blue-800 bg-blue-700 rounded-lg text-center"
             >
               A2 Themes
