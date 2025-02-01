@@ -1,4 +1,4 @@
-"use client";
+/*"use client";
 
 import { useState } from "react";
 import axios from "axios";
@@ -89,4 +89,4 @@ const SignInPage = () => {
   );
 };
 
-export default SignInPage;
+export default SignInPage;*/
