@@ -168,7 +168,7 @@ const Theme5Page = () => {
         {currentSentence.armeniansentence}
       </p>
 
-      <div className="flex flex-col items-center w-full max-w-3xl p-8 rounded-lg ">
+      <div className="flex flex-col items-center w-full rounded-lg ">
         <p className="text-md mb-4 text-gray-800">
           Select the correct English words
         </p>

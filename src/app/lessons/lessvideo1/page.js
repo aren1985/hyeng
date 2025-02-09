@@ -43,7 +43,7 @@ const VidPage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center p-3">
       {videoUrl ? (
         <div className="text-center mb-6">
           <h1 className="text-2xl md:text-3xl font-bold text-purple-700 mb-6">

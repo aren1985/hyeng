@@ -181,7 +181,7 @@ const Less6QuizPage = () => {
         {currentSentence.armenian}
       </p>
 
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center w-full">
         <p className="text-xl mb-4">Select the correct English words</p>
 
         <div className="flex flex-wrap gap-2 mb-4">

@@ -22,7 +22,7 @@ const LessonSelection2 = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-6">
+    <div className="min-h-screen flex flex-col items-center  p-6">
       <h1
         className="text-4xl font-bold text-purple-800 mb-8 text-center 
         transform-gpu shadow-2xl"
