@@ -1,27 +1,18 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    // Check for token in localStorage to determine if the user is logged in
-    const token = localStorage.getItem("token");
-    if (token) {
-      setIsLoggedIn(true);
-    }
-  }, []); // This ensures this runs once after component mount
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
 
   return (
-    <div className="relative">
+    <div className="relative ">
       {/* Sidebar Toggle Button */}
       <button
         className="md:hidden fixed top-3 left-4 z-30 bg-gray-900 text-cyan-300 p-2 rounded-md shadow-md"
@@ -46,7 +37,6 @@ const Sidebar = () => {
           {/* Navigation - Two Column Grid */}
           <nav className="text-center">
             <ul className="grid grid-cols-2 gap-4 font-bold">
-              {/* Always visible items */}
               <li className="border-b border-gray-700 pb-2">
                 <Link href="/" onClick={() => setIsOpen(false)}>
                   Home
@@ -54,61 +44,35 @@ const Sidebar = () => {
               </li>
 
               <li className="border-b border-gray-700 pb-2">
+                <Link href="/basic/allparts" onClick={() => setIsOpen(false)}>
+                  All Parts
+                </Link>
+              </li>
+              <li className="border-b border-gray-700 pb-2">
                 <Link href="/about" onClick={() => setIsOpen(false)}>
                   About Us
                 </Link>
               </li>
-
+              <li className="border-b border-gray-700 pb-2">
+                <Link href="/levels/aonelevel" onClick={() => setIsOpen(false)}>
+                  A1 Level
+                </Link>
+              </li>
               <li className="border-b border-gray-700 pb-2">
                 <Link href="/contacts" onClick={() => setIsOpen(false)}>
                   Contact
                 </Link>
               </li>
-
-              {/* Conditional items */}
-              {isLoggedIn ? (
-                <>
-                  <li className="border-b border-gray-700 pb-2">
-                    <Link
-                      href="/basic/allparts"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      All Parts
-                    </Link>
-                  </li>
-
-                  <li className="border-b border-gray-700 pb-2">
-                    <Link
-                      href="/levels/aonelevel"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      A1 Level
-                    </Link>
-                  </li>
-
-                  <li className="border-b border-gray-700 pb-2">
-                    <Link
-                      href="/levels/atwolevel"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      A2 Level
-                    </Link>
-                  </li>
-                </>
-              ) : (
-                <>
-                  <li className="border-b border-gray-700 pb-2">
-                    <Link href="/auth/signup" onClick={() => setIsOpen(false)}>
-                      Signup
-                    </Link>
-                  </li>
-                  <li className="border-b border-gray-700 pb-2">
-                    <Link href="/auth/login" onClick={() => setIsOpen(false)}>
-                      Login
-                    </Link>
-                  </li>
-                </>
-              )}
+              <li className="border-b border-gray-700 pb-2">
+                <Link href="/levels/atwolevel" onClick={() => setIsOpen(false)}>
+                  A2 Level
+                </Link>
+              </li>
+              <li className="border-b border-gray-700 pb-2">
+                <Link href="/auth/signup" onClick={() => setIsOpen(false)}>
+                  Signup
+                </Link>
+              </li>
             </ul>
           </nav>
         </div>
