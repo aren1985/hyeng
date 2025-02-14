@@ -1,92 +1,47 @@
 "use client";
 
-import React, { useState } from "react";
-import Link from "next/link";
-import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
+import { useRouter } from "next/navigation";
 
-const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+// Example of lessons with MongoDB _id and title
+const lessons = [
+  { _id: "60d9f7f2e4b0b4d85b97eaf8", title: "lesson1" },
+  { _id: "60d9f7f2e4b0b4d85b97eaf9", title: "lesson2" },
+  // Add more lessons as needed with _id
+];
 
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
+const LessonSelection = () => {
+  const router = useRouter();
+
+  const handleLessonSelect = (lessonId, lessonTitle) => {
+    // Navigate to the lesson page with the lesson title as a search param
+    router.push(
+      `/lessons/lessvideo1?title=${encodeURIComponent(
+        lessonTitle
+      )}&_id=${encodeURIComponent(lessonId)}`
+    );
   };
 
   return (
-    <div className="relative ">
-      {/* Sidebar Toggle Button */}
-      <button
-        className="md:hidden fixed top-3 left-4 z-30 bg-gray-900 text-cyan-300 p-2 rounded-md shadow-md"
-        onClick={toggleSidebar}
-        aria-label="Toggle Sidebar"
+    <div className="min-h-screen flex flex-col items-center  p-6">
+      <h1
+        className="text-xl md:text-2xl font-bold text-purple-800 mb-8 text-center 
+        transform-gpu shadow-2xl"
       >
-        {isOpen ? <AiOutlineClose size={24} /> : <AiOutlineMenu size={24} />}
-      </button>
-
-      {/* Sidebar */}
-      <div
-        className={`fixed top-[60px] left-0 h-[calc(100%-64px)] bg-gray-900 text-cyan-300 shadow-lg transform ${
-          isOpen ? "translate-x-0" : "-translate-x-full "
-        } transition-transform duration-300 z-20 w-full md:w-64 md:translate-x-0`}
-      >
-        <div className="p-4">
-          {/* Menu Header - Centered */}
-          <h2 className="text-xl font-bold text-center mb-4 border-b border-t border-gray-700 pb-2 pt-2">
-            Menu
-          </h2>
-
-          {/* Navigation - Two Column Grid */}
-          <nav className="text-center">
-            <ul className="grid grid-cols-2 gap-4 font-bold">
-              <li className="border-b border-gray-700 pb-2">
-                <Link href="/" onClick={() => setIsOpen(false)}>
-                  Home
-                </Link>
-              </li>
-
-              <li className="border-b border-gray-700 pb-2">
-                <Link href="/basic/allparts" onClick={() => setIsOpen(false)}>
-                  All Parts
-                </Link>
-              </li>
-              <li className="border-b border-gray-700 pb-2">
-                <Link href="/about" onClick={() => setIsOpen(false)}>
-                  About Us
-                </Link>
-              </li>
-              <li className="border-b border-gray-700 pb-2">
-                <Link href="/levels/aonelevel" onClick={() => setIsOpen(false)}>
-                  A1 Level
-                </Link>
-              </li>
-              <li className="border-b border-gray-700 pb-2">
-                <Link href="/contacts" onClick={() => setIsOpen(false)}>
-                  Contact
-                </Link>
-              </li>
-              <li className="border-b border-gray-700 pb-2">
-                <Link href="/levels/atwolevel" onClick={() => setIsOpen(false)}>
-                  A2 Level
-                </Link>
-              </li>
-              <li className="border-b border-gray-700 pb-2">
-                <Link href="/auth/signup" onClick={() => setIsOpen(false)}>
-                  Signup
-                </Link>
-              </li>
-            </ul>
-          </nav>
-        </div>
+        Select a Lesson
+      </h1>
+      <div className="flex flex-col gap-4 w-full max-w-md">
+        {lessons.map((lesson) => (
+          <button
+            key={lesson._id}
+            onClick={() => handleLessonSelect(lesson._id, lesson.title)}
+            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-5 rounded-lg shadow-md transition duration-200 ease-in-out"
+          >
+            {lesson.title}
+          </button>
+        ))}
       </div>
-
-      {/* Overlay */}
-      {isOpen && (
-        <div
-          className="fixed inset-0 bg-gray-900 bg-opacity-10 z-10 md:hidden"
-          onClick={toggleSidebar}
-        />
-      )}
     </div>
   );
 };
 
-export default Sidebar;
+export default LessonSelection;

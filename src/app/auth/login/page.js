@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { AuthContext } from "../../AuthContext"; // Import AuthContext
 
 const SignInPage = () => {
   const [nickname, setNickname] = useState("");
@@ -11,6 +12,17 @@ const SignInPage = () => {
   const [success, setSuccess] = useState("");
   const router = useRouter();
 
+  // Use AuthContext to access login function and auth state
+  const { isLoggedIn, login } = useContext(AuthContext);
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (isLoggedIn) {
+      router.push("/");
+    }
+  }, [isLoggedIn, router]);
+
+  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     setError(""); // Clear previous errors
@@ -23,10 +35,16 @@ const SignInPage = () => {
         email,
       })
       .then((response) => {
-        setSuccess("Sign-in successful!");
-        const { token } = response.data;
-        localStorage.setItem("token", token); // Store the token in localStorage for further use
-        router.push("/"); // Redirect to the home page after successful sign-in
+        const { token, user } = response.data; // user should now be included in the response
+
+        login(user); // Pass user data to AuthContext
+
+        // Store the token and user data in localStorage
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(user));
+
+        // Redirect to home page after successful login
+        router.push("/");
       })
       .catch((err) => {
         setError(err.response?.data?.message || "An error occurred");

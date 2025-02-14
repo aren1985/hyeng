@@ -3,7 +3,14 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 
-const categories = ["animals", "drinks", "transports", "home features"]; // Your defined categories
+const categories = [
+  "animals",
+  "drinks",
+  "transports",
+  "home features",
+  "professions",
+  "nature",
+]; // Your defined categories
 
 const CategorySelection = () => {
   const router = useRouter();

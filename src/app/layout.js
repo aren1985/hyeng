@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "./Header";
 import Footer from "./Footer";
 import Sidebar from "./Sidebar";
+import { AuthProvider } from "./AuthContext";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -26,24 +27,26 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="flex flex-col md:flex-row min-h-screen">
-          {/* Sidebar */}
-          <Sidebar />
+        <AuthProvider>
+          <div className="flex flex-col md:flex-row min-h-screen">
+            {/* Sidebar */}
+            <Sidebar />
 
-          {/* Main Content Area */}
-          <div className="flex-grow flex flex-col">
-            {/* Header */}
-            <Header />
+            {/* Main Content Area */}
+            <div className="flex-grow flex flex-col">
+              {/* Header */}
+              <Header />
 
-            {/* Main Content */}
-            <main className="flex-grow pt-16 pb-20 pl-0 md:pl-64">
-              {children}
-            </main>
+              {/* Main Content */}
+              <main className="flex-grow pt-16 pb-20 pl-0 md:pl-64">
+                {children}
+              </main>
 
-            {/* Footer */}
-            <Footer />
+              {/* Footer */}
+              <Footer />
+            </div>
           </div>
-        </div>
+        </AuthProvider>
       </body>
     </html>
   );

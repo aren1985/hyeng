@@ -1,18 +1,21 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Link from "next/link";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
+import { AuthContext } from "./AuthContext"; // ✅ Keep only AuthContext
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { isLoggedIn, logout } = useContext(AuthContext); // ✅ Now it works globally!
 
+  // Toggle sidebar
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
 
   return (
-    <div className="relative ">
+    <div className="relative">
       {/* Sidebar Toggle Button */}
       <button
         className="md:hidden fixed top-3 left-4 z-30 bg-gray-900 text-cyan-300 p-2 rounded-md shadow-md"
@@ -25,16 +28,14 @@ const Sidebar = () => {
       {/* Sidebar */}
       <div
         className={`fixed top-[60px] left-0 h-[calc(100%-64px)] bg-gray-900 text-cyan-300 shadow-lg transform ${
-          isOpen ? "translate-x-0" : "-translate-x-full "
+          isOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 z-20 w-full md:w-64 md:translate-x-0`}
       >
         <div className="p-4">
-          {/* Menu Header - Centered */}
           <h2 className="text-xl font-bold text-center mb-4 border-b border-t border-gray-700 pb-2 pt-2">
             Menu
           </h2>
 
-          {/* Navigation - Two Column Grid */}
           <nav className="text-center">
             <ul className="grid grid-cols-2 gap-4 font-bold">
               <li className="border-b border-gray-700 pb-2">
@@ -43,11 +44,6 @@ const Sidebar = () => {
                 </Link>
               </li>
 
-              <li className="border-b border-gray-700 pb-2">
-                <Link href="/basic/allparts" onClick={() => setIsOpen(false)}>
-                  All Parts
-                </Link>
-              </li>
               <li className="border-b border-gray-700 pb-2">
                 <Link href="/about" onClick={() => setIsOpen(false)}>
                   About Us
@@ -68,11 +64,32 @@ const Sidebar = () => {
                   A2 Level
                 </Link>
               </li>
-              <li className="border-b border-gray-700 pb-2">
-                <Link href="/auth/signup" onClick={() => setIsOpen(false)}>
-                  Signup
-                </Link>
-              </li>
+              {/* Conditional Rendering for Login/Signup or Logout */}
+              {isLoggedIn ? (
+                <>
+                  <li className="border-b border-gray-700 pb-2">
+                    <Link href="/profile" onClick={() => setIsOpen(false)}>
+                      Profile
+                    </Link>
+                  </li>
+                  <li className="border-b border-gray-700 pb-2">
+                    <button onClick={logout}>Logout</button>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li className="border-b border-gray-700 pb-2">
+                    <Link href="/auth/signup" onClick={() => setIsOpen(false)}>
+                      Signup
+                    </Link>
+                  </li>
+                  <li className="border-b border-gray-700 pb-2">
+                    <Link href="/auth/login" onClick={() => setIsOpen(false)}>
+                      Login
+                    </Link>
+                  </li>
+                </>
+              )}
             </ul>
           </nav>
         </div>

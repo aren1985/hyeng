@@ -35,6 +35,14 @@ const LevPage = () => {
               Lessons for A1 Level
             </Link>
           </li>
+          <li className="w-full">
+            <Link
+              href="/basic/allparts"
+              className="block px-4 py-2 text-lg text-white hover:text-blue-800 bg-blue-700 rounded-lg text-center"
+            >
+              All Parts
+            </Link>
+          </li>
         </ul>
       </div>
     </div>

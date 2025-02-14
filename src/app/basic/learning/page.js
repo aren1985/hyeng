@@ -81,7 +81,7 @@ const ImagesPage = () => {
 
   return (
     <div className="flex flex-col items-center p-3">
-      <h1 className="text-xl md:text-2xl shadow-md font-semibold text-green-800 mb-4">
+      <h1 className="text-xl md:text-2xl shadow-md px-2 font-semibold text-green-800 mb-4">
         {currentImage.name}
       </h1>
       <img
