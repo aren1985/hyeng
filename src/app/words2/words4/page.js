@@ -4,8 +4,8 @@ import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import axios from "axios";
 import Image from "next/image";
-import correctImage from "../../Images/newlike.webp";
-import incorrectImage from "../../Images/dislike.webp";
+import correctImage from "../../images/newlike.webp";
+import incorrectImage from "../../images/dislike.webp";
 import { FaVolumeUp } from "react-icons/fa"; // Using volume-up icon for listening
 
 const Modal = ({ visible, imageSrc, onNext, isCorrect }) => {

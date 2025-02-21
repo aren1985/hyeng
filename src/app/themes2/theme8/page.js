@@ -6,9 +6,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { FaVolumeUp, FaMicrophone } from "react-icons/fa"; // Added microphone icon
 import Image from "next/image";
 
-import correctImage from "../../Images/newlike.webp";
-import incorrectImage from "../../Images/dislike.webp";
-
+import correctImage from "../../images/newlike.webp";
+import incorrectImage from "../../images/dislike.webp";
 const normalizeText = (text) => {
   return text
     .trim()

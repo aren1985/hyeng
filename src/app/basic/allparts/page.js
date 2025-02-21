@@ -10,29 +10,30 @@ const categories = [
   "home features",
   "professions",
   "nature",
-]; // Your defined categories
+  "nature1",
+  "buildings",
+];
 
 const CategorySelection = () => {
   const router = useRouter();
 
   const handleCategorySelect = (category) => {
-    // Navigate to the ImagesPage with the selected category
     router.push(`/basic/learning?category=${encodeURIComponent(category)}`);
   };
 
   return (
-    <div className="flex flex-col items-center">
-      <h1 className="text-xl md:text-2xl text-purple-800 font-bold mb-4 mt-4">
+    <div className="flex flex-col items-center p-6  min-h-screen">
+      <h1 className="text-2xl md:text-3xl text-purple-800 font-bold mb-8 mt-6 shadow-lg p-3 rounded-lg bg-white">
         Select a Category
       </h1>
-      <ul className="space-y-2">
+      <ul className="space-y-4 w-full max-w-md">
         {categories.map((category) => (
-          <li key={category}>
+          <li key={category} className="w-full">
             <button
               onClick={() => handleCategorySelect(category)}
-              className="bg-blue-500 font-bold  text-white py-2 px-4 rounded hover:bg-blue-600 transition"
+              className="w-full bg-purple-800 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-blue-600 transition-all text-center capitalize"
             >
-              {category.charAt(0).toUpperCase() + category.slice(1)}
+              {category}
             </button>
           </li>
         ))}

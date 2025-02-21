@@ -7,9 +7,8 @@ import Image from "next/image";
 import axios from "axios";
 
 // Feedback Images
-import correctImage from "../../Images/newlike.webp";
-import incorrectImage from "../../Images/dislike.webp";
-
+import correctImage from "../../images/newlike.webp";
+import incorrectImage from "../../images/dislike.webp";
 let SpeechRecognition;
 if (typeof window !== "undefined") {
   // Initialize SpeechRecognition only in the browser

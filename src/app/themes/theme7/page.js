@@ -7,9 +7,8 @@ import Image from "next/image";
 import { FaVolumeUp } from "react-icons/fa";
 
 // Import feedback images
-import correctImage from "../../Images/newlike.webp";
-import incorrectImage from "../../Images/dislike.webp";
-
+import correctImage from "../../images/newlike.webp";
+import incorrectImage from "../../images/dislike.webp";
 const Modal = ({ visible, imageSrc, onNext, isCorrect }) => {
   if (!visible) return null;
 

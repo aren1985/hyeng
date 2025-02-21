@@ -1,4 +1,4 @@
-"use client";
+/*"use client";
 
 import { useRouter } from "next/navigation";
 
@@ -44,4 +44,4 @@ const LessonSelection = () => {
   );
 };
 
-export default LessonSelection;
+export default LessonSelection;*/

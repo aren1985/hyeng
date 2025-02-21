@@ -7,9 +7,8 @@ import { FaVolumeUp, FaMicrophoneAlt } from "react-icons/fa"; // React listen ic
 import Image from "next/image"; // For modal images
 
 // Import images for modal feedback
-import correctImage from "../../Images/newlike.webp";
-import incorrectImage from "../../Images/dislike.webp";
-
+import correctImage from "../../images/newlike.webp";
+import incorrectImage from "../../images/dislike.webp";
 const Modal = ({ visible, imageSrc, onNext, isCorrect }) => {
   if (!visible) return null;
 

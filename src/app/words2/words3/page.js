@@ -4,9 +4,8 @@ import React, { useEffect, useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import axios from "axios";
 import Image from "next/image";
-import correctImage from "../../Images/newlike.webp";
-import incorrectImage from "../../Images/dislike.webp";
-
+import correctImage from "../../images/newlike.webp";
+import incorrectImage from "../../images/dislike.webp";
 const Modal = ({ visible, imageSrc, onNext, isCorrect }) => {
   if (!visible) return null;
 
