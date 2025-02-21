@@ -3,7 +3,7 @@ import React from "react";
 const Homepage = () => {
   return (
     <div className="flex flex-col items-center p-4">
-      <h1 className="md:text-4xl text-3xl font-bold text-purple-600 mb-4 p-6 rounded-lg text-shadow-lg">
+      <h1 className="md:text-4xl text-3xl text-center font-bold text-purple-600 mb-4 p-6 rounded-lg text-shadow-lg">
         Welcome to Our School
       </h1>
       <p className="text-white mb-4">Տեսածանոթություն</p>

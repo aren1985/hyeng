@@ -6,9 +6,10 @@ import axios from "axios";
 
 const VidPage = () => {
   const searchParams = useSearchParams();
-  const title = searchParams.get("title"); // Get the title from the query params
+  const title = searchParams.get("title"); // Get the title from query params
   const [videoUrl, setVideoUrl] = useState(null);
-  const router = useRouter(); // Initialize useRouter hook to navigate
+  const [loading, setLoading] = useState(true);
+  const router = useRouter(); // Initialize useRouter hook
 
   useEffect(() => {
     if (title) {
@@ -23,28 +24,38 @@ const VidPage = () => {
           if (data && data.length > 0) {
             const video = data[0]?.themes?.[0]?.video;
             if (video) {
-              setVideoUrl(video); // Set the video URL
-            } else {
-              console.error("No video found for this title.");
+              setVideoUrl(video); // Set video URL
             }
-          } else {
-            console.error("No data found.");
           }
         })
         .catch((error) => {
           console.error("Error fetching data:", error);
+        })
+        .finally(() => {
+          setLoading(false);
         });
     }
   }, [title]);
 
   const handleNextClick = () => {
-    // Redirect to the LessonPage
     router.push(`/lessons/lesson?title=${title}`);
   };
 
   return (
     <div className="flex flex-col items-center p-3">
-      {videoUrl ? (
+      {loading ? (
+        <div className="flex flex-col items-center justify-center h-[50vh]">
+          <div className="relative">
+            <div className="w-16 h-16 border-4 border-blue-500 border-solid border-t-transparent rounded-full animate-spin"></div>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-6 h-6 bg-blue-500 rounded-full animate-ping"></div>
+            </div>
+          </div>
+          <p className="mt-4 text-gray-700 text-lg font-medium">
+            Loading video...
+          </p>
+        </div>
+      ) : videoUrl ? (
         <div className="text-center mb-6">
           <h1 className="text-2xl md:text-3xl font-bold text-purple-700 mb-6">
             Watch the Video
@@ -62,13 +73,13 @@ const VidPage = () => {
           ></iframe>
         </div>
       ) : (
-        <p>No video found.</p>
+        <p className="text-red-500 font-semibold">No video found.</p>
       )}
 
       {/* Next Button */}
       <button
         onClick={handleNextClick}
-        className="bg-purple-700 hover:bg-purple-500 text-white p-3 mt-8 w-full  text-lg  rounded-lg shadow-lg font-bold border-2 border-white"
+        className="bg-purple-700 hover:bg-purple-500 text-white p-3 mt-8 w-full text-lg rounded-lg shadow-lg font-bold border-2 border-white"
       >
         Next
       </button>
