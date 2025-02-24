@@ -32,6 +32,17 @@ const W1Page = () => {
     const utterance = new SpeechSynthesisUtterance(word);
     utterance.lang = "en-US";
     utterance.rate = 0.8;
+
+    // Get available voices and select a specific one
+    const voices = window.speechSynthesis.getVoices();
+    const preferredVoice = voices.find((voice) =>
+      voice.name.includes("Samantha")
+    ); // Example: iOS English voice
+
+    if (preferredVoice) {
+      utterance.voice = preferredVoice;
+    }
+
     window.speechSynthesis.speak(utterance);
   };
 
