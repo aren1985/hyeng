@@ -74,7 +74,7 @@ const Wordstrain = () => {
   return (
     <div className="flex flex-col items-center p-6">
       <h1 className="text-xl md:text-2xl font-bold mb-6 text-purple-800">
-        {title}
+        translate english
       </h1>
 
       {words.length > 0 && currentIndex < words.length ? (
