@@ -5,13 +5,16 @@ import { useSearchParams, useRouter } from "next/navigation";
 import axios from "axios";
 import { FaVolumeUp } from "react-icons/fa";
 
-const Wordstrain = () => {
+const LesTrainPage = () => {
+  const [lesson, setLesson] = useState(null);
   const [words, setWords] = useState([]);
   const [userTranslation, setUserTranslation] = useState("");
-  const [error, setError] = useState(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
   const [isCorrect, setIsCorrect] = useState(null);
   const [attempted, setAttempted] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   const searchParams = useSearchParams();
   const title = searchParams.get("title");
   const router = useRouter();
@@ -19,13 +22,26 @@ const Wordstrain = () => {
   useEffect(() => {
     if (title) {
       axios
-        .get(`${process.env.NEXT_PUBLIC_API_URL}/words/wordik/${title}`)
+        .get(
+          `${
+            process.env.NEXT_PUBLIC_API_URL
+          }/documents/lessdocuments/${encodeURIComponent(title)}`
+        )
         .then((response) => {
-          setWords(response.data.words || []);
+          if (response.data && response.data.length > 0) {
+            const fetchedLesson = response.data[0];
+            setLesson(fetchedLesson);
+            setWords(fetchedLesson.themes[0].words || []);
+            setLoading(false);
+          } else {
+            setError("No lesson found.");
+            setLoading(false);
+          }
         })
         .catch((err) => {
-          console.error("Error fetching words:", err);
-          setError("Failed to load words. Please try again.");
+          console.error("Error fetching lesson:", err);
+          setError("Failed to load lesson. Please try again later.");
+          setLoading(false);
         });
     }
   }, [title]);
@@ -56,25 +72,44 @@ const Wordstrain = () => {
       setUserTranslation("");
       setIsCorrect(null);
       setAttempted(false);
+    } else {
+      // Navigate to next page when all words are finished
+      router.push(`/lessons/less1quiz?title=${encodeURIComponent(title)}`);
     }
   };
 
   const handleRetry = () => {
+    setUserTranslation("");
     setIsCorrect(null);
     setAttempted(false);
-    setUserTranslation("");
   };
 
   const goToNextPage = () => {
-    router.push(`/words/words2?title=${encodeURIComponent(title)}`);
+    router.push(`/lessons/less1quiz?title=${encodeURIComponent(title)}`);
   };
+
+  if (loading) {
+    return (
+      <div className="flex flex-col items-center justify-center h-[50vh]">
+        <div className="relative">
+          <div className="w-16 h-16 border-4 border-blue-500 border-solid border-t-transparent rounded-full animate-spin"></div>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-6 h-6 bg-blue-500 rounded-full animate-ping"></div>
+          </div>
+        </div>
+        <p className="mt-4 text-gray-700 text-lg font-medium">
+          Loading words...
+        </p>
+      </div>
+    );
+  }
 
   if (error) return <p className="text-red-600">{error}</p>;
 
   return (
-    <div className="flex flex-col items-center p-6">
+    <div className="flex flex-col items-center p-6 min-h-screen">
       <h1 className="text-xl md:text-2xl font-bold mb-6 text-purple-800">
-        translate english
+        Translate English
       </h1>
 
       {words.length > 0 && currentIndex < words.length ? (
@@ -93,16 +128,17 @@ const Wordstrain = () => {
             <div className="flex items-center justify-between mt-4">
               <button
                 onClick={checkAnswer}
-                className="bg-purple-700 hover:bg-purple-500 text-white p-2 rounded shadow-lg"
+                className="bg-purple-700 hover:bg-purple-500 text-white font-medium p-2 rounded shadow-lg"
               >
                 Check Answer
               </button>
               <button
                 onClick={() => speakWord(words[currentIndex]?.english)}
-                className="text-purple-700 p-2"
+                className="bg-purple-700 text-white p-2 flex gap-1 font-medium"
                 aria-label={`Listen to ${words[currentIndex]?.english}`}
               >
-                <FaVolumeUp className="text-xl shadow-md" />
+                <p>Listen English</p>
+                <FaVolumeUp className="text-2xl shadow-md" />
               </button>
             </div>
 
@@ -124,41 +160,34 @@ const Wordstrain = () => {
             </div>
           )}
 
-          <div className="mt-4">
-            {isCorrect ? (
-              <button
-                onClick={handleNext}
-                className="bg-purple-700 hover:bg-purple-500 text-white p-3 w-full text-lg rounded shadow-lg font-bold border-2 border-white"
-              >
-                Next Word
-              </button>
-            ) : (
-              <button
-                onClick={handleRetry}
-                className="bg-yellow-600 hover:bg-yellow-400 text-white px-3 w-full text-lg rounded shadow-lg font-bold border-2 border-white"
-              >
-                try again
-              </button>
-            )}
+          {/* ✅ Next & Try Again buttons always visible */}
+          <div className="mt-4 flex gap-4 w-full">
+            <button
+              onClick={handleNext}
+              className="w-1/2 text-white p-3 text-lg rounded shadow-lg font-bold border-2 border-white bg-purple-700 hover:bg-purple-500"
+            >
+              Next Word
+            </button>
+            <button
+              onClick={handleRetry}
+              className="w-1/2 bg-yellow-600 hover:bg-yellow-400 text-white p-3 text-lg rounded shadow-lg font-bold border-2 border-white"
+            >
+              Try Again
+            </button>
           </div>
         </div>
       ) : (
         <div className="flex flex-col items-center justify-center h-[50vh]">
-          <div className="relative">
-            <div className="w-16 h-16 border-4 border-blue-500 border-solid border-t-transparent rounded-full animate-spin"></div>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-6 h-6 bg-blue-500 rounded-full animate-ping"></div>
-            </div>
-          </div>
           <p className="mt-4 text-gray-700 text-lg font-medium">
-            Loading words...
+            No more words. Proceed to the next page.
           </p>
         </div>
       )}
 
+      {/* ✅ Next button always at the bottom */}
       <button
         onClick={goToNextPage}
-        className="bg-purple-700 hover:bg-purple-500 text-white p-3 mt-10 w-full text-lg rounded shadow-lg font-bold border-2 border-white"
+        className="bg-purple-700 hover:bg-purple-500 text-white p-3 mt-8 w-full text-lg rounded-lg shadow-lg font-bold border-2 border-white"
       >
         Next
       </button>
@@ -166,10 +195,10 @@ const Wordstrain = () => {
   );
 };
 
-export default function WordstrainPage() {
+export default function LesTrain() {
   return (
     <Suspense>
-      <Wordstrain />
+      <LesTrainPage />
     </Suspense>
   );
 }

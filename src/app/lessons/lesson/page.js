@@ -63,7 +63,7 @@ const LessonPage = () => {
       setCurrentThemeIndex(currentThemeIndex + 1);
     } else {
       // Redirect to the next quiz page when finished
-      router.push(`/lessons/less1quiz?title=${title}`);
+      router.push(`/lessons/lestrain?title=${title}`);
     }
   };
 

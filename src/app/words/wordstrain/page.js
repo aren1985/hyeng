@@ -56,6 +56,9 @@ const Wordstrain = () => {
       setUserTranslation("");
       setIsCorrect(null);
       setAttempted(false);
+    } else {
+      // Navigate to next page when all words are finished
+      router.push(`/words/words2?title=${encodeURIComponent(title)}`);
     }
   };
 
@@ -74,12 +77,13 @@ const Wordstrain = () => {
   return (
     <div className="flex flex-col items-center p-6">
       <h1 className="text-xl md:text-2xl font-bold mb-6 text-purple-800">
-        translate english
+        Translate English
       </h1>
 
       {words.length > 0 && currentIndex < words.length ? (
         <div className="flex flex-col items-center w-full max-w-xl">
           <div className="mb-6 p-4 border border-gray-200 shadow-lg rounded-lg bg-white w-full">
+            {/* Display Armenian word */}
             <p className="text-lg p-2 font-medium text-white bg-gray-900 text-center">
               {words[currentIndex]?.armenian}
             </p>
@@ -98,9 +102,9 @@ const Wordstrain = () => {
                 Check Answer
               </button>
               <button
-                onClick={() => speakWord(words[currentIndex]?.english)}
+                onClick={() => speakWord(words[currentIndex]?.armenian)}
                 className="text-purple-700 p-2"
-                aria-label={`Listen to ${words[currentIndex]?.english}`}
+                aria-label={`Listen to ${words[currentIndex]?.armenian}`}
               >
                 <FaVolumeUp className="text-xl shadow-md" />
               </button>
@@ -124,22 +128,19 @@ const Wordstrain = () => {
             </div>
           )}
 
-          <div className="mt-4">
-            {isCorrect ? (
-              <button
-                onClick={handleNext}
-                className="bg-purple-700 hover:bg-purple-500 text-white p-3 w-full text-lg rounded shadow-lg font-bold border-2 border-white"
-              >
-                Next Word
-              </button>
-            ) : (
-              <button
-                onClick={handleRetry}
-                className="bg-yellow-600 hover:bg-yellow-400 text-white px-3 w-full text-lg rounded shadow-lg font-bold border-2 border-white"
-              >
-                try again
-              </button>
-            )}
+          <div className="mt-4 flex gap-4 w-full">
+            <button
+              onClick={handleNext}
+              className="bg-purple-700 hover:bg-purple-500 text-white p-3 w-full text-lg rounded shadow-lg font-bold border-2 border-white"
+            >
+              next word
+            </button>
+            <button
+              onClick={handleRetry}
+              className="bg-yellow-600 hover:bg-yellow-400 text-white p-3 w-full text-lg rounded shadow-lg font-bold border-2 border-white"
+            >
+              Try Again
+            </button>
           </div>
         </div>
       ) : (
