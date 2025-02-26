@@ -5,71 +5,86 @@ import { useSearchParams, useRouter } from "next/navigation";
 import axios from "axios";
 import { FaVolumeUp } from "react-icons/fa";
 
-const Wordstrain = () => {
-  const [words, setWords] = useState([]);
-  const [userTranslation, setUserTranslation] = useState("");
-  const [error, setError] = useState(null);
+const ImageTrainPage = () => {
+  const [images, setImages] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isCorrect, setIsCorrect] = useState(null);
+  const [userInput, setUserInput] = useState("");
+  const [feedback, setFeedback] = useState(null);
   const [attempted, setAttempted] = useState(false);
+  const [error, setError] = useState(null);
   const searchParams = useSearchParams();
-  const title = searchParams.get("title");
+  const selectedCategory = searchParams.get("category");
   const router = useRouter();
 
   useEffect(() => {
-    if (title) {
+    if (selectedCategory) {
       axios
-        .get(`${process.env.NEXT_PUBLIC_API_URL}/words/wordik/${title}`)
+        .get(
+          `${process.env.NEXT_PUBLIC_API_URL}/images/allik/${selectedCategory}`
+        )
         .then((response) => {
-          setWords(response.data.words || []);
+          setImages(response.data);
         })
         .catch((err) => {
-          console.error("Error fetching words:", err);
-          setError("Failed to load words. Please try again.");
+          console.error("Error fetching images:", err);
+          setError("Failed to load images. Please try again.");
         });
     }
-  }, [title]);
+  }, [selectedCategory]);
 
-  const speakWord = (word) => {
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(word);
-    utterance.lang = "en-US";
+  const speakName = (name) => {
+    const utterance = new SpeechSynthesisUtterance(name);
+    utterance.lang = "en-GB"; // Explicitly set language to US English
     utterance.rate = 0.8;
+
+    // Get available voices
+    const voices = window.speechSynthesis.getVoices();
+
+    // Find a preferred voice, e.g., "Samantha" for iOS English
+    const preferredVoice = voices.find((voice) =>
+      voice.name.includes("Samantha")
+    );
+
+    // Set the preferred voice if available
+    if (preferredVoice) {
+      utterance.voice = preferredVoice;
+    }
+
+    // Speak the name
     window.speechSynthesis.speak(utterance);
   };
 
   const checkAnswer = () => {
     if (
-      words[currentIndex]?.english.toLowerCase() ===
-      userTranslation.trim().toLowerCase()
+      userInput.trim().toLowerCase() ===
+      images[currentIndex]?.name.toLowerCase()
     ) {
-      setIsCorrect(true);
+      setFeedback("correct");
     } else {
-      setIsCorrect(false);
+      setFeedback("incorrect");
     }
     setAttempted(true);
   };
 
-  const handleNext = () => {
-    if (currentIndex < words.length - 1) {
+  const nextImage = () => {
+    if (currentIndex < images.length - 1) {
       setCurrentIndex(currentIndex + 1);
-      setUserTranslation("");
-      setIsCorrect(null);
+      setUserInput("");
+      setFeedback(null);
       setAttempted(false);
     } else {
-      // Navigate to next page when all words are finished
-      router.push(`/words/words2?title=${encodeURIComponent(title)}`);
+      router.push(`/basic/next-quiz?category=${selectedCategory}`);
     }
   };
 
-  const handleRetry = () => {
-    setIsCorrect(null);
-    setAttempted(false);
-    setUserTranslation("");
+  const goNextPage = () => {
+    router.push(`/basic/next-quiz?category=${selectedCategory}`);
   };
 
-  const goToNextPage = () => {
-    router.push(`/words/words2?title=${encodeURIComponent(title)}`);
+  const retry = () => {
+    setFeedback(null);
+    setAttempted(false);
+    setUserInput("");
   };
 
   if (error) return <p className="text-red-600">{error}</p>;
@@ -80,18 +95,19 @@ const Wordstrain = () => {
         Translate English
       </h1>
 
-      {words.length > 0 && currentIndex < words.length ? (
+      {images.length > 0 && currentIndex < images.length ? (
         <div className="flex flex-col items-center w-full max-w-xl">
           <div className="mb-6 p-4 border border-gray-200 shadow-lg rounded-lg bg-white w-full">
-            {/* Display Armenian word */}
+            {/* Display Armenian name */}
             <p className="text-lg p-2 font-medium text-white bg-gray-900 text-center">
-              {words[currentIndex]?.armenian}
+              {images[currentIndex]?.armenianName}
             </p>
+
             <input
               type="text"
-              value={userTranslation}
-              onChange={(e) => setUserTranslation(e.target.value)}
-              placeholder="Enter English translation"
+              value={userInput}
+              onChange={(e) => setUserInput(e.target.value)}
+              placeholder="Enter the English name"
               className="mt-2 p-2 border border-gray-800 rounded w-full"
             />
             <div className="flex items-center justify-between mt-4">
@@ -102,9 +118,9 @@ const Wordstrain = () => {
                 Check Answer
               </button>
               <button
-                onClick={() => speakWord(words[currentIndex]?.armenian)}
+                onClick={() => speakName(images[currentIndex]?.name)}
                 className="text-white bg-purple-700 hover:bg-purple-500 rounded p-2 flex gap-1 font-medium"
-                aria-label={`Listen to ${words[currentIndex]?.armenian}`}
+                aria-label={`Listen to ${images[currentIndex]?.name}`}
               >
                 <p>Listen English</p>
                 <FaVolumeUp className="text-2xl shadow-md" />
@@ -114,30 +130,30 @@ const Wordstrain = () => {
             {attempted && (
               <div
                 className={`mt-4 p-3 rounded-lg font-bold text-white ${
-                  isCorrect ? "bg-green-500" : "bg-red-500"
+                  feedback === "correct" ? "bg-green-500" : "bg-red-500"
                 }`}
               >
-                {isCorrect ? "Correct!" : "Incorrect!"}
+                {feedback === "correct" ? "Correct!" : "Incorrect!"}
               </div>
             )}
           </div>
 
-          {attempted && !isCorrect && (
-            <div className=" p-4 border border-green-500 rounded-lg bg-red-100 w-full">
+          {attempted && feedback === "incorrect" && (
+            <div className="p-4 border border-green-500 rounded-lg bg-red-100 w-full">
               <h3 className="font-bold text-green-600">Correct Answer</h3>
-              <p>{words[currentIndex]?.english}</p>
+              <p>{images[currentIndex]?.name}</p>
             </div>
           )}
 
           <div className="mt-4 flex gap-4 w-full">
             <button
-              onClick={handleNext}
-              className="bg-purple-700 hover:bg-purple-500  text-white p-3 w-1/2 text-lg rounded shadow-lg font-bold border-2 border-white"
+              onClick={nextImage}
+              className="bg-purple-700 hover:bg-purple-500 text-white p-3 w-1/2 text-lg rounded shadow-lg font-bold border-2 border-white"
             >
-              next word
+              Next word
             </button>
             <button
-              onClick={handleRetry}
+              onClick={retry}
               className="bg-yellow-600 hover:bg-yellow-400 text-white p-3 w-1/2 text-lg rounded shadow-lg font-bold border-2 border-white"
             >
               Try Again
@@ -153,13 +169,12 @@ const Wordstrain = () => {
             </div>
           </div>
           <p className="mt-4 text-gray-700 text-lg font-medium">
-            Loading words...
+            Loading images...
           </p>
         </div>
       )}
-
       <button
-        onClick={goToNextPage}
+        onClick={goNextPage}
         className="bg-purple-700 hover:bg-purple-500 text-white p-3 mt-10 w-full text-lg rounded shadow-lg font-bold border-2 border-white"
       >
         Next
@@ -168,10 +183,10 @@ const Wordstrain = () => {
   );
 };
 
-export default function WordstrainPage() {
+export default function ImageTrainWrapper() {
   return (
     <Suspense>
-      <Wordstrain />
+      <ImageTrainPage />
     </Suspense>
   );
 }

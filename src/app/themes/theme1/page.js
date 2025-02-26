@@ -39,7 +39,7 @@ const ThemePage = () => {
   };
 
   const goToNextPage = () => {
-    router.push(`/themes/theme2?title=${encodeURIComponent(title)}`);
+    router.push(`/themes/themetrain?title=${encodeURIComponent(title)}`);
   };
 
   if (error) return <p className="text-red-600">{error}</p>;

@@ -67,12 +67,26 @@ const WriteName = () => {
       }
     }
   }, [selectedCategory]);
-
   const speakImageName = (name) => {
     const utterance = new SpeechSynthesisUtterance(name);
-    utterance.lang = "en-US"; // Explicitly set the language to English (US)
-    utterance.rate = 0.7;
-    speechSynthesis.speak(utterance);
+    utterance.lang = "en-GB"; // Explicitly set language to US English
+    utterance.rate = 0.8;
+
+    // Get available voices
+    const voices = window.speechSynthesis.getVoices();
+
+    // Find a preferred voice, e.g., "Samantha" for iOS English
+    const preferredVoice = voices.find((voice) =>
+      voice.name.includes("Samantha")
+    );
+
+    // Set the preferred voice if available
+    if (preferredVoice) {
+      utterance.voice = preferredVoice;
+    }
+
+    // Speak the name
+    window.speechSynthesis.speak(utterance);
   };
 
   const checkAnswer = () => {

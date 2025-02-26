@@ -9,6 +9,7 @@ import axios from "axios";
 // Feedback Images
 import correctImage from "../../images/newlike.webp";
 import incorrectImage from "../../images/dislike.webp";
+
 let SpeechRecognition;
 if (typeof window !== "undefined") {
   // Initialize SpeechRecognition only in the browser
@@ -45,11 +46,18 @@ const SpeechToTextPage = () => {
       if (SpeechRecognition) {
         // Initialize Speech Recognition in the browser
         recognition.current = new SpeechRecognition();
-        recognition.current.lang = "en-US";
+        recognition.current.lang = "en-GB"; // Set language to British English (change as needed)
         recognition.current.interimResults = false;
         recognition.current.maxAlternatives = 1;
       }
     }
+
+    // Cleanup on unmount
+    return () => {
+      if (recognition.current) {
+        recognition.current.stop();
+      }
+    };
   }, [selectedCategory]);
 
   const startSpeechRecognition = () => {
@@ -135,8 +143,18 @@ const SpeechToTextPage = () => {
       <button
         onClick={() => {
           const utterance = new SpeechSynthesisUtterance(currentImage.name);
-          utterance.lang = "en-US"; // Set language to English (US) to fix accent
+          utterance.lang = "en-GB"; // Set language to British English (change as needed)
           utterance.rate = 0.8; // Adjust speech rate to make it slower
+
+          // Get available voices and select a specific one
+          const voices = window.speechSynthesis.getVoices();
+          const preferredVoice = voices.find(
+            (voice) => voice.lang === "en-GB" && voice.name.includes("Daniel") // Example voice for en-GB
+          );
+          if (preferredVoice) {
+            utterance.voice = preferredVoice;
+          }
+
           speechSynthesis.speak(utterance);
         }}
         className="bg-yellow-500 text-white py-2 px-6 rounded hover:bg-yellow-600 transition duration-200 flex items-center mb-6"

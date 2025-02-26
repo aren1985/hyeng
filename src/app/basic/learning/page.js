@@ -43,13 +43,23 @@ const ImagesPage = () => {
 
   const speakName = (name) => {
     const utterance = new SpeechSynthesisUtterance(name);
-    utterance.lang = "en-US"; // Explicitly set language to US English
+    utterance.lang = "en-GB"; // Explicitly set language to US English
     utterance.rate = 0.8;
+
+    // Get available voices
     const voices = window.speechSynthesis.getVoices();
-    const preferredVoice = voices.find((voice) => voice.lang === "en-US");
+
+    // Find a preferred voice, e.g., "Samantha" for iOS English
+    const preferredVoice = voices.find((voice) =>
+      voice.name.includes("Samantha")
+    );
+
+    // Set the preferred voice if available
     if (preferredVoice) {
       utterance.voice = preferredVoice;
     }
+
+    // Speak the name
     window.speechSynthesis.speak(utterance);
   };
 
@@ -58,7 +68,7 @@ const ImagesPage = () => {
       setCurrentIndex(currentIndex + 1);
     } else {
       // Redirect to the next quiz page when finished
-      router.push(`/basic/next-quiz?category=${selectedCategory}`);
+      router.push(`/basic/imagetrain?category=${selectedCategory}`);
     }
   };
 

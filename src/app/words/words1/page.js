@@ -30,8 +30,19 @@ const W1Page = () => {
   const speakWord = (word) => {
     window.speechSynthesis.cancel(); // Stop any ongoing speech
     const utterance = new SpeechSynthesisUtterance(word);
-    utterance.lang = "en-US";
+    utterance.lang = "en-GB";
     utterance.rate = 0.8;
+
+    // Get available voices and select a specific one
+    const voices = window.speechSynthesis.getVoices();
+    const preferredVoice = voices.find((voice) =>
+      voice.name.includes("Samantha")
+    ); // Example: iOS English voice
+
+    if (preferredVoice) {
+      utterance.voice = preferredVoice;
+    }
+
     window.speechSynthesis.speak(utterance);
   };
 

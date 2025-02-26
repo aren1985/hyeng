@@ -5,16 +5,13 @@ import { useSearchParams, useRouter } from "next/navigation";
 import axios from "axios";
 import { FaVolumeUp } from "react-icons/fa";
 
-const LesTrainPage = () => {
-  const [lesson, setLesson] = useState(null);
-  const [words, setWords] = useState([]);
+const SentenceTrain = () => {
+  const [sentences, setSentences] = useState([]);
   const [userTranslation, setUserTranslation] = useState("");
+  const [error, setError] = useState(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [isCorrect, setIsCorrect] = useState(null);
   const [attempted, setAttempted] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
   const searchParams = useSearchParams();
   const title = searchParams.get("title");
   const router = useRouter();
@@ -22,33 +19,20 @@ const LesTrainPage = () => {
   useEffect(() => {
     if (title) {
       axios
-        .get(
-          `${
-            process.env.NEXT_PUBLIC_API_URL
-          }/documents/lessdocuments/${encodeURIComponent(title)}`
-        )
+        .get(`${process.env.NEXT_PUBLIC_API_URL}/themes/themik/${title}`)
         .then((response) => {
-          if (response.data && response.data.length > 0) {
-            const fetchedLesson = response.data[0];
-            setLesson(fetchedLesson);
-            setWords(fetchedLesson.themes[0].words || []);
-            setLoading(false);
-          } else {
-            setError("No lesson found.");
-            setLoading(false);
-          }
+          setSentences(response.data.sentences || []);
         })
         .catch((err) => {
-          console.error("Error fetching lesson:", err);
-          setError("Failed to load lesson. Please try again later.");
-          setLoading(false);
+          console.error("Error fetching sentences:", err);
+          setError("Failed to load sentences. Please try again.");
         });
     }
   }, [title]);
 
-  const speakWord = (word) => {
+  const speakSentence = (sentence) => {
     window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(word);
+    const utterance = new SpeechSynthesisUtterance(sentence);
     utterance.lang = "en-US";
     utterance.rate = 0.8;
     window.speechSynthesis.speak(utterance);
@@ -56,7 +40,7 @@ const LesTrainPage = () => {
 
   const checkAnswer = () => {
     if (
-      words[currentIndex]?.english.toLowerCase() ===
+      sentences[currentIndex]?.englishsentence.toLowerCase() ===
       userTranslation.trim().toLowerCase()
     ) {
       setIsCorrect(true);
@@ -67,75 +51,63 @@ const LesTrainPage = () => {
   };
 
   const handleNext = () => {
-    if (currentIndex < words.length - 1) {
+    if (currentIndex < sentences.length - 1) {
       setCurrentIndex(currentIndex + 1);
       setUserTranslation("");
       setIsCorrect(null);
       setAttempted(false);
     } else {
-      // Navigate to next page when all words are finished
-      router.push(`/lessons/less1quiz?title=${encodeURIComponent(title)}`);
+      // Navigate to next page when all sentences are finished
+      router.push(`/themes/theme2?title=${encodeURIComponent(title)}`);
     }
   };
 
   const handleRetry = () => {
-    setUserTranslation("");
     setIsCorrect(null);
     setAttempted(false);
+    setUserTranslation("");
   };
 
   const goToNextPage = () => {
-    router.push(`/lessons/less1quiz?title=${encodeURIComponent(title)}`);
+    router.push(`/themes/theme2?title=${encodeURIComponent(title)}`);
   };
-
-  if (loading) {
-    return (
-      <div className="flex flex-col items-center justify-center h-[50vh]">
-        <div className="relative">
-          <div className="w-16 h-16 border-4 border-blue-500 border-solid border-t-transparent rounded-full animate-spin"></div>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-6 h-6 bg-blue-500 rounded-full animate-ping"></div>
-          </div>
-        </div>
-        <p className="mt-4 text-gray-700 text-lg font-medium">
-          Loading words...
-        </p>
-      </div>
-    );
-  }
 
   if (error) return <p className="text-red-600">{error}</p>;
 
   return (
-    <div className="flex flex-col items-center p-6 min-h-screen">
+    <div className="flex flex-col items-center p-6">
       <h1 className="text-xl md:text-2xl font-bold mb-6 text-purple-800">
         Translate English
       </h1>
 
-      {words.length > 0 && currentIndex < words.length ? (
+      {sentences.length > 0 && currentIndex < sentences.length ? (
         <div className="flex flex-col items-center w-full max-w-xl">
           <div className="mb-6 p-4 border border-gray-200 shadow-lg rounded-lg bg-white w-full">
+            {/* Display Armenian sentence */}
             <p className="text-lg p-2 font-medium text-white bg-gray-800 text-center">
-              {words[currentIndex]?.armenian}
+              {sentences[currentIndex]?.armeniansentence}
             </p>
+
             <input
               type="text"
               value={userTranslation}
               onChange={(e) => setUserTranslation(e.target.value)}
               placeholder="Enter English translation"
-              className="mt-2 p-2 border border-gray-900 rounded w-full"
+              className="mt-2 p-2 border border-gray-800 rounded w-full"
             />
             <div className="flex items-center justify-between mt-4">
               <button
                 onClick={checkAnswer}
-                className="bg-purple-700 hover:bg-purple-500 text-white font-medium p-2 rounded"
+                className="bg-purple-700 hover:bg-purple-500 text-white p-2 rounded font-medium"
               >
                 Check Answer
               </button>
               <button
-                onClick={() => speakWord(words[currentIndex]?.english)}
-                className="bg-purple-700 hover:bg-purple-500 text-white p-2 flex gap-1 font-medium rounded"
-                aria-label={`Listen to ${words[currentIndex]?.english}`}
+                onClick={() =>
+                  speakSentence(sentences[currentIndex]?.englishsentence)
+                }
+                className="text-white bg-purple-700 hover:bg-purple-500 rounded p-2 flex gap-1 font-medium"
+                aria-label={`Listen to ${sentences[currentIndex]?.englishsentence}`}
               >
                 <p>Listen English</p>
                 <FaVolumeUp className="text-2xl shadow-md" />
@@ -156,21 +128,20 @@ const LesTrainPage = () => {
           {attempted && !isCorrect && (
             <div className=" p-4 border border-green-500 rounded-lg bg-red-100 w-full">
               <h3 className="font-bold text-green-600">Correct Answer</h3>
-              <p>{words[currentIndex]?.english}</p>
+              <p>{sentences[currentIndex]?.englishsentence}</p>
             </div>
           )}
 
-          {/* ✅ Next & Try Again buttons always visible */}
           <div className="mt-4 flex gap-4 w-full">
             <button
               onClick={handleNext}
-              className="w-1/2 text-white p-3 text-lg rounded shadow-lg font-bold border-2 border-white bg-purple-700 hover:bg-purple-500"
+              className="bg-purple-700 hover:bg-purple-500  text-white p-3 w-1/2 text-lg rounded shadow-lg font-bold border-2 border-white"
             >
-              Next Word
+              Next Sentence
             </button>
             <button
               onClick={handleRetry}
-              className="w-1/2 bg-yellow-600 hover:bg-yellow-400 text-white p-3 text-lg rounded shadow-lg font-bold border-2 border-white"
+              className="bg-yellow-600 hover:bg-yellow-400 text-white p-3 w-1/2 text-lg rounded shadow-lg font-bold border-2 border-white"
             >
               Try Again
             </button>
@@ -178,16 +149,21 @@ const LesTrainPage = () => {
         </div>
       ) : (
         <div className="flex flex-col items-center justify-center h-[50vh]">
+          <div className="relative">
+            <div className="w-16 h-16 border-4 border-blue-500 border-solid border-t-transparent rounded-full animate-spin"></div>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-6 h-6 bg-blue-500 rounded-full animate-ping"></div>
+            </div>
+          </div>
           <p className="mt-4 text-gray-700 text-lg font-medium">
-            No more words. Proceed to the next page.
+            Loading sentences...
           </p>
         </div>
       )}
 
-      {/* ✅ Next button always at the bottom */}
       <button
         onClick={goToNextPage}
-        className="bg-purple-700 hover:bg-purple-500 text-white p-3 mt-8 w-full text-lg rounded-lg shadow-lg font-bold border-2 border-white"
+        className="bg-purple-700 hover:bg-purple-500 text-white p-3 mt-10 w-full text-lg rounded shadow-lg font-bold border-2 border-white"
       >
         Next
       </button>
@@ -195,10 +171,10 @@ const LesTrainPage = () => {
   );
 };
 
-export default function LesTrain() {
+export default function SentenceTrainPage() {
   return (
     <Suspense>
-      <LesTrainPage />
+      <SentenceTrain />
     </Suspense>
   );
 }
