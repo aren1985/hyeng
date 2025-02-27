@@ -31,10 +31,21 @@ const Wordstrain = () => {
   }, [title]);
 
   const speakWord = (word) => {
-    window.speechSynthesis.cancel();
+    window.speechSynthesis.cancel(); // Stop any ongoing speech
     const utterance = new SpeechSynthesisUtterance(word);
     utterance.lang = "en-US";
     utterance.rate = 0.8;
+
+    // Get available voices and select a specific one
+    const voices = window.speechSynthesis.getVoices();
+    const preferredVoice = voices.find((voice) =>
+      voice.name.includes("Samantha")
+    ); // Example: iOS English voice
+
+    if (preferredVoice) {
+      utterance.voice = preferredVoice;
+    }
+
     window.speechSynthesis.speak(utterance);
   };
 
@@ -102,9 +113,9 @@ const Wordstrain = () => {
                 Check Answer
               </button>
               <button
-                onClick={() => speakWord(words[currentIndex]?.armenian)}
+                onClick={() => speakWord(words[currentIndex]?.english)}
                 className="text-white bg-purple-700 hover:bg-purple-500 rounded p-2 flex gap-1 font-medium"
-                aria-label={`Listen to ${words[currentIndex]?.armenian}`}
+                aria-label={`Listen to ${words[currentIndex]?.english}`}
               >
                 <p>Listen English</p>
                 <FaVolumeUp className="text-2xl shadow-md" />

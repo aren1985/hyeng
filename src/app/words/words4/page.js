@@ -60,12 +60,26 @@ const Words4Page = () => {
     }
   }, [title]);
 
-  const speakWord = () => {
-    const currentWord = words[currentWordIndex];
-    const speech = new SpeechSynthesisUtterance(currentWord?.english);
-    speech.lang = "en-US";
-    speech.rate = 0.8;
-    window.speechSynthesis.speak(speech);
+  const speakWord = (word) => {
+    if (!word) return;
+
+    window.speechSynthesis.cancel(); // Stop any ongoing speech
+
+    const utterance = new SpeechSynthesisUtterance(word);
+    utterance.lang = "en-US";
+    utterance.rate = 0.8;
+
+    // Get available voices and select a preferred one (e.g., "Samantha" for iOS)
+    const voices = window.speechSynthesis.getVoices();
+    const preferredVoice = voices.find((voice) =>
+      voice.name.includes("Samantha")
+    );
+
+    if (preferredVoice) {
+      utterance.voice = preferredVoice;
+    }
+
+    window.speechSynthesis.speak(utterance);
   };
 
   const checkAnswer = () => {
@@ -103,11 +117,11 @@ const Words4Page = () => {
       </h1>
 
       <button
-        onClick={speakWord}
+        onClick={() => speakWord(currentWord?.english)}
         className="bg-orange-500 text-white py-2 px-6 rounded mb-6 text-lg font-semibold flex items-center justify-center"
       >
         <FaVolumeUp className="mr-2" />
-        Listening...
+        Listen
       </button>
 
       <div className="mb-6">
@@ -115,7 +129,7 @@ const Words4Page = () => {
           type="text"
           value={userAnswer}
           onChange={(e) => setUserAnswer(e.target.value)}
-          className="py-2 px-6 rounded-lg text-lg border-2"
+          className="py-2 px-6 rounded-lg text-lg border-2 border-gray-800"
           placeholder="Type the English word"
         />
       </div>

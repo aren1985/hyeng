@@ -1,73 +1,47 @@
 "use client";
 
-import React, { useEffect, useState, useRef, Suspense } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { FaMicrophone, FaVolumeUp } from "react-icons/fa";
-import Image from "next/image";
+import React, { useState, useEffect, Suspense } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import axios from "axios";
-
-// Feedback Images
+import { FaVolumeUp, FaMicrophone } from "react-icons/fa"; // Add both icons
 import correctImage from "../../images/newlike.webp";
 import incorrectImage from "../../images/dislike.webp";
-let SpeechRecognition;
-if (typeof window !== "undefined") {
-  // Initialize SpeechRecognition only in the browser
-  SpeechRecognition =
-    window.SpeechRecognition || window.webkitSpeechRecognition;
-}
+import Image from "next/image";
 
-const SpeechToTextPage = () => {
-  const searchParams = useSearchParams();
-  const selectedCategory = searchParams.get("category");
-  const [images, setImages] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [spokenWord, setSpokenWord] = useState(""); // Store the spoken word
+const Words5Page = () => {
+  const [words, setWords] = useState([]);
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [spokenWord, setSpokenWord] = useState(""); // Stores the spoken word
   const [isCorrect, setIsCorrect] = useState(null);
+  const [error, setError] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalImage, setModalImage] = useState(null);
+  const searchParams = useSearchParams();
+  const title = searchParams.get("title");
   const router = useRouter();
-  const recognition = useRef(null); // Speech recognition instance
-  const [recognitionActive, setRecognitionActive] = useState(false); // Track recognition state
 
   useEffect(() => {
-    if (selectedCategory) {
+    if (title) {
       axios
-        .get(
-          `${process.env.NEXT_PUBLIC_API_URL}/images/allik/${selectedCategory}`
-        )
+        .get(`${process.env.NEXT_PUBLIC_API_URL}/words/wordik/${title}`)
         .then((response) => {
-          setImages(response.data);
+          setWords(response.data.words || []);
         })
-        .catch((error) => {
-          console.error("Error fetching images:", error);
+        .catch((err) => {
+          setError("Failed to load words. Please try again.");
         });
-
-      if (SpeechRecognition) {
-        // Initialize Speech Recognition in the browser
-        recognition.current = new SpeechRecognition();
-        recognition.current.lang = "en-US";
-        recognition.current.interimResults = false;
-        recognition.current.maxAlternatives = 1;
-      }
     }
-  }, [selectedCategory]);
+  }, [title]);
 
-  const startSpeechRecognition = () => {
-    if (!recognitionActive && recognition.current) {
-      recognition.current.start();
-      setRecognitionActive(true); // Set recognition state to active
-    }
-  };
-
-  const handleSpeechResult = (event) => {
-    const spokenWord = event.results[0][0].transcript.toLowerCase();
-    setSpokenWord(spokenWord); // Update the spoken word
+  const speakWord = () => {
+    const currentWord = words[currentWordIndex]?.english;
+    const speech = new SpeechSynthesisUtterance(currentWord);
+    window.speechSynthesis.speak(speech);
   };
 
   const checkAnswer = () => {
-    const correctName = images[currentIndex]?.name.toLowerCase();
-
-    if (spokenWord === correctName) {
+    const correctAnswer = words[currentWordIndex]?.english.toLowerCase();
+    if (spokenWord.trim().toLowerCase() === correctAnswer) {
       setIsCorrect(true);
       setModalImage(correctImage);
     } else {
@@ -77,85 +51,72 @@ const SpeechToTextPage = () => {
     setModalVisible(true);
   };
 
-  const nextImage = () => {
-    if (currentIndex < images.length - 1) {
-      setCurrentIndex(currentIndex + 1);
+  const nextWord = () => {
+    if (currentWordIndex < words.length - 1) {
+      setCurrentWordIndex(currentWordIndex + 1);
+      setSpokenWord(""); // Reset spoken word for next round
       setIsCorrect(null);
-      setModalVisible(false);
-      setSpokenWord(""); // Reset spoken word for next image
     } else {
-      router.push("/basic/allparts");
+      router.push("/words/allwords");
     }
+
+    setModalVisible(false);
   };
 
-  useEffect(() => {
-    if (recognition.current) {
-      recognition.current.addEventListener("result", handleSpeechResult);
-      recognition.current.addEventListener("end", () =>
-        setRecognitionActive(false)
-      ); // Reset active state when recognition ends
+  const handleSpeech = (event) => {
+    const spoken = event.results[0][0].transcript;
+    setSpokenWord(spoken);
+  };
+
+  const startListening = () => {
+    const recognition =
+      window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    if (!recognition) {
+      alert("Speech recognition is not supported by your browser.");
+      return;
     }
 
-    return () => {
-      if (recognition.current) {
-        recognition.current.removeEventListener("result", handleSpeechResult);
-      }
-    };
-  }, [currentIndex]);
+    const recognitionInstance = new recognition();
+    recognitionInstance.lang = "en-US";
+    recognitionInstance.start();
+    recognitionInstance.onresult = handleSpeech;
+  };
 
-  if (images.length === 0)
-    return (
-      <div className="flex flex-col items-center justify-center h-[50vh]">
-        <div className="relative">
-          <div className="w-16 h-16 border-4 border-blue-500 border-solid border-t-transparent rounded-full animate-spin"></div>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-6 h-6 bg-blue-500 rounded-full animate-ping"></div>
-          </div>
-        </div>
-        <p className="mt-4 text-gray-700 text-lg font-medium">Loading ...</p>
-      </div>
-    );
+  if (error) return <p className="text-red-600">{error}</p>;
 
-  const currentImage = images[currentIndex];
+  const currentWord = words[currentWordIndex];
 
   return (
     <div className="flex flex-col items-center p-6">
-      <h1 className="text-xl md:text-2xl font-bold mb-6 text-purple-800">
-        Listen and speak
+      <h1 className="text-xl md:text-3xl font-bold mb-6 text-purple-800">
+        Listen and Speak
       </h1>
 
-      <div className="mb-4">
-        <img
-          src={`data:image/jpeg;base64,${currentImage?.image}`}
-          alt="Current displayed image"
-          className="rounded shadow-md w-64 h-36 md:h-44"
-        />
+      <div className="mb-6 text-center">
+        <button
+          onClick={speakWord}
+          className="text-white bg-orange-500 mt-2 shadow-md py-2 px-6 flex items-center text-lg space-x-2 font-semibold rounded"
+          aria-label={`Listen to the word "${currentWord?.english}"`}
+        >
+          <FaVolumeUp className="text-2xl " />
+          <span>listen</span>
+        </button>
+      </div>
+
+      <div className="mb-6">
+        <p className="text-lg font-medium bg-gray-200 p-2">
+          You said- {spokenWord}
+        </p>
       </div>
 
       <button
-        onClick={() => {
-          const utterance = new SpeechSynthesisUtterance(currentImage.name);
-          utterance.lang = "en-US"; // Set language to English (US) to fix accent
-          utterance.rate = 0.8; // Adjust speech rate to make it slower
-          speechSynthesis.speak(utterance);
-        }}
-        className="bg-yellow-500 text-white py-2 px-6 rounded hover:bg-yellow-600 transition duration-200 flex items-center mb-6"
+        onClick={startListening}
+        className="bg-green-500 text-white py-2 px-6 rounded mt-6 text-lg font-semibold flex items-center space-x-2"
       >
-        <FaVolumeUp className="mr-2" />
-        start listening
+        <FaMicrophone className="text-2xl " />
+        <span>Start Speaking</span>
       </button>
-
-      <button
-        onClick={startSpeechRecognition}
-        className="bg-green-500 text-white py-2 px-6 rounded hover:bg-green-600 transition duration-200 flex items-center mb-6"
-      >
-        <FaMicrophone className="mr-2" />
-        Start Speaking
-      </button>
-
-      <div className="mb-4">
-        <p className="text-xl font-semibold">You said- {spokenWord}</p>
-      </div>
 
       <button
         onClick={checkAnswer}
@@ -164,44 +125,35 @@ const SpeechToTextPage = () => {
         Check Answer
       </button>
 
-      <Modal
-        visible={modalVisible}
-        imageSrc={modalImage}
-        onNext={nextImage}
-        isCorrect={isCorrect}
-      />
-    </div>
-  );
-};
-
-const Modal = ({ visible, imageSrc, onNext, isCorrect }) => {
-  if (!visible) return null;
-
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div
-        className={`p-6 rounded-lg flex flex-col items-center ${
-          isCorrect ? "bg-green-600" : "bg-red-600"
-        }`}
-      >
-        <Image src={imageSrc} alt="Feedback" width={200} height={200} />
-        <button
-          onClick={onNext}
-          className={`${
-            isCorrect ? "bg-green-600" : "bg-red-600"
-          } text-white py-2 px-6 border-2 w-full border-white rounded mt-4`}
+      {modalVisible && (
+        <div
+          className={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50`}
         >
-          Next Image
-        </button>
-      </div>
+          <div
+            className={`p-6 rounded-lg flex flex-col items-center ${
+              isCorrect ? "bg-green-600" : "bg-red-600"
+            }`}
+          >
+            <Image src={modalImage} alt="Feedback" width={200} height={200} />
+            <button
+              onClick={nextWord}
+              className={`${
+                isCorrect ? "bg-green-600" : "bg-red-600"
+              } text-white  py-2 rounded mt-4 text-lg w-full border-2 border-white`}
+            >
+              Next Word
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
-export default function Spch() {
+export default function W5Pg() {
   return (
     <Suspense>
-      <SpeechToTextPage />
+      <Words5Page />
     </Suspense>
   );
 }
