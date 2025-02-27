@@ -101,8 +101,19 @@ const Theme5Page = () => {
     if (!sentence) return;
 
     const utterance = new SpeechSynthesisUtterance(sentence);
-    utterance.lang = "en-US";
-    utterance.rate = 0.8;
+    utterance.lang = "en-GB"; // Set language to British English (or change to "en-US" for American)
+    utterance.rate = 0.8; // Adjust speed for clarity
+
+    // Get available voices and select a specific one if needed
+    const voices = window.speechSynthesis.getVoices();
+    const preferredVoice = voices.find(
+      (voice) => voice.name.includes("Samantha") // Replace with your preferred voice
+    );
+
+    if (preferredVoice) {
+      utterance.voice = preferredVoice;
+    }
+
     speechSynthesis.speak(utterance);
   };
 

@@ -77,16 +77,27 @@ const Theme8Page = () => {
     if (!sentence) return;
 
     const utterance = new SpeechSynthesisUtterance(sentence);
-    utterance.lang = "en-US";
-    utterance.rate = 0.9;
-    speechSynthesis.speak(utterance);
+    utterance.lang = "en-GB"; // Set language to British English (or use "en-US" for American English)
+    utterance.rate = 0.9; // Adjust speech rate for clarity
+
+    // Get available voices and select a specific one if desired
+    const voices = window.speechSynthesis.getVoices();
+    const preferredVoice = voices.find(
+      (voice) => voice.name.includes("Samantha") // Example: Specific voice selection
+    );
+
+    if (preferredVoice) {
+      utterance.voice = preferredVoice;
+    }
+
+    window.speechSynthesis.speak(utterance);
   };
 
   const startVoiceRecognition = () => {
     const recognition = new (window.SpeechRecognition ||
       window.webkitSpeechRecognition)();
 
-    recognition.lang = "en-US";
+    recognition.lang = "en-GB";
     recognition.interimResults = false;
     recognition.maxAlternatives = 1;
 

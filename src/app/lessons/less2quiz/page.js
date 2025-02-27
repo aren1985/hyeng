@@ -159,7 +159,7 @@ const QuizPage2 = () => {
           value={userInput}
           onChange={(e) => setUserInput(e.target.value)}
           placeholder="Enter the English translation"
-          className="py-2 px-4 rounded-lg text-lg border border-gray-300"
+          className="py-2 px-4 rounded-lg text-lg border-2 border-gray-800"
         />
       </div>
 

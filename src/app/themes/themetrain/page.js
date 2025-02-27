@@ -31,10 +31,22 @@ const SentenceTrain = () => {
   }, [title]);
 
   const speakSentence = (sentence) => {
-    window.speechSynthesis.cancel();
+    window.speechSynthesis.cancel(); // Stop any ongoing speech
+
     const utterance = new SpeechSynthesisUtterance(sentence);
-    utterance.lang = "en-US";
-    utterance.rate = 0.8;
+    utterance.lang = "en-GB"; // Set language to British English
+    utterance.rate = 0.7; // Adjust speed for clarity
+
+    // Get available voices and select a specific one if needed
+    const voices = window.speechSynthesis.getVoices();
+    const preferredVoice = voices.find(
+      (voice) => voice.name.includes("Samantha") // Change this to your preferred voice
+    );
+
+    if (preferredVoice) {
+      utterance.voice = preferredVoice;
+    }
+
     window.speechSynthesis.speak(utterance);
   };
 

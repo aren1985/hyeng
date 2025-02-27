@@ -76,8 +76,19 @@ const Less8QuizPage = () => {
       const currentSentence = lesson.themes[0].sentences[currentSentenceIndex];
 
       const speech = new SpeechSynthesisUtterance(currentSentence.english);
-      speech.lang = "en-US";
-      speech.rate = 0.7; // Adjust speed for clarity
+      speech.lang = "en-GB"; // Adjust language to British English
+      speech.rate = 0.8; // Adjust speed for clarity
+
+      // Get available voices and select a specific one if needed
+      const voices = window.speechSynthesis.getVoices();
+      const preferredVoice = voices.find(
+        (voice) => voice.name.includes("Samantha") // Change this to your preferred voice
+      );
+
+      if (preferredVoice) {
+        speech.voice = preferredVoice;
+      }
+
       window.speechSynthesis.speak(speech);
 
       setIsListening(true);
@@ -95,8 +106,8 @@ const Less8QuizPage = () => {
     }
 
     const recognition = new SpeechRecognition();
-    recognition.lang = "en-US"; // Set language for speech recognition
-    recognition.interimResults = true; // Option to get results as user speaks
+    recognition.lang = "en-GB"; // Set language to British English for recognition
+    recognition.interimResults = true; // Get results as user speaks
 
     recognition.start();
 

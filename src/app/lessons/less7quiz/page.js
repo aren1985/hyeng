@@ -172,8 +172,19 @@ const Less7QuizPage = () => {
       const currentSentence = sentences[currentSentenceIndex];
 
       const speech = new SpeechSynthesisUtterance(currentSentence.english);
-      speech.lang = "en-US";
-      speech.rate = 0.7; // Adjust speed for clarity
+      speech.lang = "en-GB"; // You can change this to "en-US" or any language/voice you prefer
+      speech.rate = 0.9; // Adjust speed for clarity
+
+      // Get available voices and select a specific one if you want
+      const voices = window.speechSynthesis.getVoices();
+      const preferredVoice = voices.find(
+        (voice) => voice.name.includes("Samantha") // Change this to your preferred voice
+      );
+
+      if (preferredVoice) {
+        speech.voice = preferredVoice;
+      }
+
       window.speechSynthesis.speak(speech);
 
       setIsListening(true);
