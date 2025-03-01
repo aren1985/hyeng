@@ -11,9 +11,10 @@ const Header = () => {
         <Image
           src={logo}
           alt="logo"
-          width={70} // Set a fixed width for the logo
-          height={70} // Set a fixed height for the logo
-          style={{ objectFit: "contain" }} // Ensures the logo maintains its aspect ratio without cropping
+          width="auto" // Set a fixed width for the logo
+          height="auto" // Set a fixed height for the logo
+          style={{ objectFit: "contain", width: "120px", height: "50px" }} // Ensures the logo maintains its aspect ratio without cropping
+          priority
         />
       </div>
     </header>

@@ -61,7 +61,7 @@ const VidPage = () => {
             Watch the Video
           </h1>
           <iframe
-            src={`https://www.youtube.com/embed/${videoUrl}?rel=0&modestbranding=1&showinfo=0`}
+            src={`https://www.youtube-nocookie.com/embed/${videoUrl}?rel=0&modestbranding=1&showinfo=0`}
             width={500}
             height={300}
             frameBorder="0"

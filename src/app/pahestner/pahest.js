@@ -1,45 +1,28 @@
 "use client";
 
 import React from "react";
-import { useRouter } from "next/navigation";
 
-const categories = [
-  "animals",
-  "drinks",
-  "transports",
-  "home features",
-  "professions",
-  "nature",
-  "nature1",
-  "buildings",
-];
-
-const CategorySelection = () => {
-  const router = useRouter();
-
-  const handleCategorySelect = (category) => {
-    router.push(`/basic/learning?category=${encodeURIComponent(category)}`);
-  };
-
+const Homepage = () => {
   return (
-    <div className="flex flex-col items-center p-6  min-h-screen">
-      <h1 className="text-2xl md:text-3xl text-purple-800 font-bold mb-8 mt-6 shadow-lg p-3 rounded-lg bg-white">
-        Select a Category
+    <div className="flex flex-col items-center p-4">
+      <h1 className="md:text-4xl text-3xl text-center font-bold text-purple-600 mb-4 p-6 rounded-lg text-shadow-lg">
+        Welcome to Our School
       </h1>
-      <ul className="space-y-4 w-full max-w-md">
-        {categories.map((category) => (
-          <li key={category} className="w-full">
-            <button
-              onClick={() => handleCategorySelect(category)}
-              className="w-full bg-purple-800 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-blue-600 transition-all text-center capitalize"
-            >
-              {category}
-            </button>
-          </li>
-        ))}
-      </ul>
+      <p className="text-white mb-4">Տեսածանոթություն...</p>
+      <div className="flex justify-center w-full max-w-4xl">
+        <iframe
+          width={500}
+          height={300}
+          src="https://www.youtube.com/embed/2j9dRDkrzNA?si=ya7azFUsYJ6udCv5" // Correct YouTube embed URL
+          title="YouTube video"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          className="md:w-[500px] w-full md:h-[300px] h-[200px]"
+        ></iframe>
+      </div>
     </div>
   );
 };
 
-export default CategorySelection;
+export default Homepage;

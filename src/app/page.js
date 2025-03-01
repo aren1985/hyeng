@@ -11,14 +11,14 @@ const Homepage = () => {
       <p className="text-white mb-4">Տեսածանոթություն...</p>
       <div className="flex justify-center w-full max-w-4xl">
         <iframe
-          width={500}
-          height={300}
-          src="https://www.youtube.com/embed/2j9dRDkrzNA?si=ya7azFUsYJ6udCv5" // Correct YouTube embed URL
+          width="560"
+          height="315"
+          src="https://www.youtube-nocookie.com/embed/2j9dRDkrzNA?si=ya7azFUsYJ6udCv5"
           title="YouTube video"
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
-          className="md:w-[500px] w-full md:h-[300px] h-[200px]"
+          className="w-full md:w-[560px] h-[200px] md:h-[315px]"
         ></iframe>
       </div>
     </div>
