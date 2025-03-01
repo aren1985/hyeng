@@ -62,14 +62,14 @@ const Vid2Page = () => {
           </h1>
           <iframe
             src={`https://www.youtube-nocookie.com/embed/${videoUrl}?rel=0&modestbranding=1&showinfo=0`}
-            width={500}
-            height={300}
+            width="560"
+            height="315"
             frameBorder="0"
             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             loading="lazy"
             title="YouTube Video"
-            className="md:w-[500px] w-screen md:h-[300px] h-[200px]"
+            className="w-full md:w-[560px] h-[200px] md:h-[315px]"
           ></iframe>
         </div>
       ) : (

@@ -88,9 +88,22 @@ const Theme7Page = () => {
 
   const playSentence = () => {
     const sentence = sentences[currentSentenceIndex]?.englishsentence || "";
+    if (!sentence) return;
+
     const utterance = new SpeechSynthesisUtterance(sentence);
-    utterance.lang = "en-US";
-    utterance.rate = 0.8;
+    utterance.lang = "en-GB"; // Set language to British English (or change to "en-US" for American)
+    utterance.rate = 0.8; // Adjust speed for clarity
+
+    // Get available voices and select a specific one if needed
+    const voices = window.speechSynthesis.getVoices();
+    const preferredVoice = voices.find(
+      (voice) => voice.name.includes("Samantha") // Replace with your preferred voice
+    );
+
+    if (preferredVoice) {
+      utterance.voice = preferredVoice;
+    }
+
     speechSynthesis.speak(utterance);
   };
 
@@ -131,17 +144,7 @@ const Theme7Page = () => {
   };
 
   if (!sentences.length) {
-    return (
-      <div className="flex flex-col items-center justify-center h-[50vh]">
-        <div className="relative">
-          <div className="w-16 h-16 border-4 border-blue-500 border-solid border-t-transparent rounded-full animate-spin"></div>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-6 h-6 bg-blue-500 rounded-full animate-ping"></div>
-          </div>
-        </div>
-        <p className="mt-4 text-gray-700 text-lg font-medium">Loading ...</p>
-      </div>
-    );
+    return <p>Loading sentences...</p>;
   }
 
   return (

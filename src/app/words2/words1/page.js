@@ -47,7 +47,7 @@ const W1Page = () => {
   };
 
   const goToNextPage = () => {
-    router.push(`/words2/words2?title=${encodeURIComponent(title)}`);
+    router.push(`/words2/wordstrain2?title=${encodeURIComponent(title)}`);
   };
 
   if (error) return <p className="text-red-600">{error}</p>;

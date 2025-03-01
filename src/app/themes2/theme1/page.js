@@ -32,14 +32,26 @@ const ThemePage = () => {
 
   const speakSentence = (sentence) => {
     window.speechSynthesis.cancel(); // Stop any ongoing speech
+
     const utterance = new SpeechSynthesisUtterance(sentence);
-    utterance.lang = "en-US";
-    utterance.rate = 0.7;
+    utterance.lang = "en-GB"; // Set language to British English
+    utterance.rate = 0.7; // Adjust speed for clarity
+
+    // Get available voices and select a specific one if needed
+    const voices = window.speechSynthesis.getVoices();
+    const preferredVoice = voices.find(
+      (voice) => voice.name.includes("Samantha") // Change this to your preferred voice
+    );
+
+    if (preferredVoice) {
+      utterance.voice = preferredVoice;
+    }
+
     window.speechSynthesis.speak(utterance);
   };
 
   const goToNextPage = () => {
-    router.push(`/themes2/theme2?title=${encodeURIComponent(title)}`);
+    router.push(`/themes2/themetrain2?title=${encodeURIComponent(title)}`);
   };
 
   if (error) return <p className="text-red-600">{error}</p>;
@@ -53,7 +65,9 @@ const ThemePage = () => {
             <div className="w-6 h-6 bg-blue-500 rounded-full animate-ping"></div>
           </div>
         </div>
-        <p className="mt-4 text-gray-700 text-lg font-medium">Loading ...</p>
+        <p className="mt-4 text-gray-700 text-lg font-medium">
+          Loading theme...
+        </p>
       </div>
     );
   }

@@ -7,7 +7,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
 import { FaVolumeUp } from "react-icons/fa";
 
-const LessonPage2 = () => {
+const LessonPage = () => {
   const [lesson, setLesson] = useState(null);
   const [currentThemeIndex, setCurrentThemeIndex] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -53,8 +53,22 @@ const LessonPage2 = () => {
   const speakWord = (word) => {
     window.speechSynthesis.cancel(); // Stop any ongoing speech
     const utterance = new SpeechSynthesisUtterance(word);
-    utterance.lang = "en-US";
-    utterance.rate = 0.7;
+    utterance.lang = "en-GB"; // Set language (British English)
+
+    // Adjust the rate (speed) of speech
+    utterance.rate = 0.8;
+
+    // Get available voices and select a specific one
+    const voices = window.speechSynthesis.getVoices();
+    const preferredVoice = voices.find(
+      (voice) => voice.name.includes("Samantha") // Example: iOS English voice
+    );
+
+    if (preferredVoice) {
+      utterance.voice = preferredVoice; // Set preferred voice
+    }
+
+    // Speak the word
     window.speechSynthesis.speak(utterance);
   };
 
@@ -63,7 +77,7 @@ const LessonPage2 = () => {
       setCurrentThemeIndex(currentThemeIndex + 1);
     } else {
       // Redirect to the next quiz page when finished
-      router.push(`/lessons2/less1quiz?title=${title}`);
+      router.push(`/lessons2/lestrain2?title=${title}`);
     }
   };
 
@@ -130,7 +144,7 @@ const LessonPage2 = () => {
 export default function LsPg() {
   return (
     <Suspense>
-      <LessonPage2 />
+      <LessonPage />
     </Suspense>
   );
 }

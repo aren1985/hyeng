@@ -66,6 +66,7 @@ const Theme8Page = () => {
           setLoading(false);
         })
         .catch((err) => {
+          console.error("Error fetching sentences:", err);
           setLoading(false);
         });
     }
@@ -76,16 +77,27 @@ const Theme8Page = () => {
     if (!sentence) return;
 
     const utterance = new SpeechSynthesisUtterance(sentence);
-    utterance.lang = "en-US";
-    utterance.rate = 0.9;
-    speechSynthesis.speak(utterance);
+    utterance.lang = "en-GB"; // Set language to British English (or use "en-US" for American English)
+    utterance.rate = 0.9; // Adjust speech rate for clarity
+
+    // Get available voices and select a specific one if desired
+    const voices = window.speechSynthesis.getVoices();
+    const preferredVoice = voices.find(
+      (voice) => voice.name.includes("Samantha") // Example: Specific voice selection
+    );
+
+    if (preferredVoice) {
+      utterance.voice = preferredVoice;
+    }
+
+    window.speechSynthesis.speak(utterance);
   };
 
   const startVoiceRecognition = () => {
     const recognition = new (window.SpeechRecognition ||
       window.webkitSpeechRecognition)();
 
-    recognition.lang = "en-US";
+    recognition.lang = "en-GB";
     recognition.interimResults = false;
     recognition.maxAlternatives = 1;
 
@@ -128,18 +140,7 @@ const Theme8Page = () => {
     }
   };
 
-  if (loading)
-    return (
-      <div className="flex flex-col items-center justify-center h-[50vh]">
-        <div className="relative">
-          <div className="w-16 h-16 border-4 border-blue-500 border-solid border-t-transparent rounded-full animate-spin"></div>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-6 h-6 bg-blue-500 rounded-full animate-ping"></div>
-          </div>
-        </div>
-        <p className="mt-4 text-gray-700 text-lg font-medium">Loading ...</p>
-      </div>
-    );
+  if (loading) return <p>Loading sentences...</p>;
   if (!sentences || sentences.length === 0)
     return <p>No sentences available.</p>;
 
