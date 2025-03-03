@@ -122,7 +122,7 @@ const Words5Page = () => {
       </div>
 
       <div className="mb-6">
-        <p className="text-lg font-medium bg-gray-200 p-2">
+        <p className="text-lg font-medium bg-gray-200 p-2 rounded">
           You said- {spokenWord}
         </p>
       </div>

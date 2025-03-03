@@ -27,14 +27,14 @@ const LessonSelection = () => {
         className="text-xl md:text-4xl font-bold text-purple-800 mb-8 text-center 
         transform-gpu shadow-2xl"
       >
-        Select a Lesson
+        Select a Day
       </h1>
       <div className="flex flex-col gap-4 w-full max-w-md">
         {lessons.map((lesson) => (
           <button
             key={lesson._id}
             onClick={() => handleLessonSelect(lesson._id, lesson.title)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-5 rounded-lg shadow-md transition duration-200 ease-in-out"
+            className="bg-blue-500 border-2 border-purple-800 hover:bg-blue-600 text-white font-semibold py-3 px-5 rounded-lg shadow-md transition duration-200 ease-in-out"
           >
             {lesson.title}
           </button>

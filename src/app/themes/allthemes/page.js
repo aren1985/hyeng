@@ -34,7 +34,7 @@ const ThemeSelection = () => {
           <button
             key={theme._id}
             onClick={() => handleThemeSelect(theme._id, theme.title)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-5 rounded-lg shadow-md transition duration-200 ease-in-out"
+            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-5 rounded-lg shadow-md transition duration-200 ease-in-out border-2 border-purple-800"
           >
             {theme.title}
           </button>

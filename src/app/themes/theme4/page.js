@@ -163,7 +163,7 @@ const Theme5Page = () => {
       <h1 className="text-xl md:text-2xl font-bold text-purple-800 mb-6">
         Rearrange the Sentence
       </h1>
-      <p className="text-md md:text-xl mb-4 shadow-md font-semibold text-white">
+      <p className="text-md md:text-lg rounded mb-4 py-2 px-3 bg-gray-800 shadow-md font-semibold text-white">
         {currentSentence.armeniansentence}
       </p>
 

@@ -61,20 +61,22 @@ const W1Page = () => {
           {words.map((word, index) => (
             <div
               key={index}
-              className="flex items-center justify-between p-4 border border-gray-200 shadow-lg rounded-lg bg-white"
+              className="flex items-center justify-between p-4 border-4 border-purple-900 shadow-lg rounded-lg bg-white"
             >
               <div>
                 <p className="text-lg font-medium text-gray-900">
                   {word.english}
                 </p>
-                <p className="text-md text-gray-500">{word.armenian}</p>
+                <p className="text-md text-blue-900 font-bold">
+                  {word.armenian}
+                </p>
               </div>
               <button
                 onClick={() => speakWord(word.english)}
-                className="text-blue-500 ml-4 p-2"
+                className="text-purple-800 ml-4 p-2"
                 aria-label={`Listen to ${word.english}`}
               >
-                <FaVolumeUp className="text-xl shadow-md " />
+                <FaVolumeUp className="text-2xl shadow-md " />
               </button>
             </div>
           ))}

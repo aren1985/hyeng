@@ -101,7 +101,7 @@ const Theme4Page = () => {
       </h1>
 
       <div className="mb-6 text-center">
-        <p className="text-md shadow-md p-2 md:text-xl text-green-800 font-semibold">
+        <p className="text-md shadow-md py-2 px-3 rounded md:text-lg text-white bg-gray-800 font-semibold">
           {currentSentence?.armeniansentence}
         </p>
       </div>

@@ -151,7 +151,7 @@ const Wordstrain = () => {
               onClick={handleRetry}
               className="bg-yellow-600 hover:bg-yellow-400 text-white p-3 w-1/2 text-lg rounded shadow-lg font-bold border-2 border-white"
             >
-              Try Again
+              try again
             </button>
           </div>
         </div>

@@ -153,7 +153,7 @@ const Theme3Page = () => {
       </h1>
 
       <div className="mb-6 text-center">
-        <p className="text-md md:text-xl shadow-md p-2 font-semibold text-green-800">
+        <p className="text-md md:text-lg shadow-md py-2 px-3 font-semibold rounded bg-gray-800 text-white">
           {currentSentence?.armeniansentence}
         </p>
       </div>
@@ -164,7 +164,7 @@ const Theme3Page = () => {
             key={index}
             onClick={() => handleOptionSelect(option)}
             disabled={isChecked} // Disable after check
-            className={`py-2 px-4 rounded-lg border-2 text-md font-semibold ${
+            className={`py-2 px-4 rounded-lg border-2 text-lg font-semibold ${
               selectedOption === option
                 ? "bg-blue-400 text-white border-blue-600"
                 : "bg-gray-200 text-black border-gray-400"

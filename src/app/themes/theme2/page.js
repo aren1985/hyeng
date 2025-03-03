@@ -156,12 +156,12 @@ const Theme2Page = () => {
       </h1>
 
       <div className="mb-6 text-center">
-        <p className="text-md md:text-lg p-2 font-semibold text-green-800 shadow-md">
+        <p className="text-md md:text-lg py-2 px-3 font-semibold text-white bg-gray-800 rounded shadow-md">
           {currentSentence?.englishsentence}
         </p>
         <button
           onClick={() => speakSentence(currentSentence?.englishsentence)}
-          className="text-blue-500 mt-2 shadow-md p-2"
+          className="text-purple-800 mt-2 shadow-md p-2"
           aria-label={`Listen to ${currentSentence?.englishsentence}`}
         >
           <FaVolumeUp className="text-2xl" />
