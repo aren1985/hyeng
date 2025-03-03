@@ -5,6 +5,7 @@ import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FaVolumeUp, FaMicrophoneAlt } from "react-icons/fa"; // React listen icon and mic icon
 import Image from "next/image"; // For modal images
+import teachik from "../../images/Teachik.png";
 
 // Import images for modal feedback
 import correctImage from "../../images/newlike.webp";
@@ -194,6 +195,15 @@ const Less8QuizPage = () => {
         <FaVolumeUp className="mr-2" />
         {isListening ? "Listening..." : "Listen to the Sentence"}
       </button>
+      <div className="flex mb-4 w-3/4">
+        <div>
+          <Image src={teachik} alt="tete" width={100} height={100} />
+        </div>
+        <p className="text-lg text-white mt-6 mr-2">You said</p>
+        <div className="mb-4  p-2 border-2 border-gray-500 w-3/4">
+          <p className="text-lg p-2">{userSpokenText}</p>
+        </div>
+      </div>
 
       <button
         onClick={startListening}
@@ -203,21 +213,6 @@ const Less8QuizPage = () => {
         <FaMicrophoneAlt className="mr-2" />
         {isListening ? "Listening..." : "Speak the Sentence"}
       </button>
-
-      {userSpokenText && (
-        <div className="mb-4 bg-white p-2">
-          <p className="text-xl">You said-</p>
-          <p className="text-lg">{userSpokenText}</p>
-        </div>
-      )}
-
-      {isCorrect !== null && (
-        <div className="mb-4">
-          {isCorrect ? (
-            <p className="text-green-500">Correct! Well done!</p>
-          ) : null}{" "}
-        </div>
-      )}
 
       <button
         onClick={checkAnswer}

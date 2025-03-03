@@ -73,7 +73,7 @@ const W1Page = () => {
               </div>
               <button
                 onClick={() => speakWord(word.english)}
-                className="text-purple-800 ml-4 p-2"
+                className="text-purple-900 ml-4 p-2"
                 aria-label={`Listen to ${word.english}`}
               >
                 <FaVolumeUp className="text-2xl shadow-md " />

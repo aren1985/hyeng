@@ -187,7 +187,7 @@ const SentenceQuizPage4 = () => {
         </p>
       </div>
 
-      <div className="flex flex-col gap-4 items-center">
+      <div className="flex flex-col gap-4 items-center md:w-2/3 w-3/4">
         {currentOptions.length > 0 ? (
           currentOptions.map((option, index) => (
             <button

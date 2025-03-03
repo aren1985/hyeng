@@ -38,28 +38,33 @@ const Sidebar = () => {
 
           <nav className="text-center">
             <ul className="grid grid-cols-2 gap-4 font-bold">
-              <li className="border-b border-gray-700 pb-2">
+              <li className="border-b border-gray-700 pb-2 hover:text-purple-500">
                 <Link href="/" onClick={() => setIsOpen(false)}>
                   Home
                 </Link>
               </li>
 
-              <li className="border-b border-gray-700 pb-2">
+              <li className="border-b border-gray-700 pb-2 hover:text-purple-500">
                 <Link href="/about" onClick={() => setIsOpen(false)}>
                   About Us
                 </Link>
               </li>
-              <li className="border-b border-gray-700 pb-2">
+              <li className="border-b border-gray-700 pb-2 hover:text-purple-500">
+                <Link href="/free" onClick={() => setIsOpen(false)}>
+                  free
+                </Link>
+              </li>
+              <li className="border-b border-gray-700 pb-2 hover:text-purple-500">
                 <Link href="/levels/aonelevel" onClick={() => setIsOpen(false)}>
                   A1 Level
                 </Link>
               </li>
-              <li className="border-b border-gray-700 pb-2">
+              <li className="border-b border-gray-700 pb-2 hover:text-purple-500">
                 <Link href="/contacts" onClick={() => setIsOpen(false)}>
                   Contact
                 </Link>
               </li>
-              <li className="border-b border-gray-700 pb-2">
+              <li className="border-b border-gray-700 pb-2 hover:text-purple-500">
                 <Link href="/levels/atwolevel" onClick={() => setIsOpen(false)}>
                   A2 Level
                 </Link>
@@ -67,23 +72,23 @@ const Sidebar = () => {
               {/* Conditional Rendering for Login/Signup or Logout */}
               {isLoggedIn ? (
                 <>
-                  <li className="border-b border-gray-700 pb-2">
+                  <li className="border-b border-gray-700 pb-2 hover:text-purple-500">
                     <Link href="/profile" onClick={() => setIsOpen(false)}>
                       Profile
                     </Link>
                   </li>
-                  <li className="border-b border-gray-700 pb-2">
+                  <li className="border-b border-gray-700 pb-2 hover:text-purple-500">
                     <button onClick={logout}>Logout</button>
                   </li>
                 </>
               ) : (
                 <>
-                  <li className="border-b border-gray-700 pb-2">
+                  <li className="border-b border-gray-700 pb-2 hover:text-purple-500">
                     <Link href="/auth/signup" onClick={() => setIsOpen(false)}>
                       Signup
                     </Link>
                   </li>
-                  <li className="border-b border-gray-700 pb-2">
+                  <li className="border-b border-gray-700 pb-2 hover:text-purple-500">
                     <Link href="/auth/login" onClick={() => setIsOpen(false)}>
                       Login
                     </Link>

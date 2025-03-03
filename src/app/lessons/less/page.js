@@ -24,7 +24,7 @@ const LessonSelection = () => {
   return (
     <div className="min-h-screen flex flex-col items-center  p-6">
       <h1
-        className="text-xl md:text-2xl font-bold text-purple-800 mb-8 text-center 
+        className="text-xl md:text-2xl font-bold bg-white py-1 px-6 rounded-lg text-purple-800 mb-8 text-center 
         transform-gpu shadow-2xl"
       >
         Select a Lesson
@@ -34,7 +34,7 @@ const LessonSelection = () => {
           <button
             key={lesson._id}
             onClick={() => handleLessonSelect(lesson._id, lesson.title)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-5 rounded-lg shadow-md transition duration-200 ease-in-out"
+            className="bg-purple-800 hover:bg-blue-600 text-white font-semibold py-3 px-5 rounded-lg shadow-md transition duration-200 ease-in-out"
           >
             {lesson.title}
           </button>

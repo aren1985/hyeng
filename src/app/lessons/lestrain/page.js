@@ -137,8 +137,9 @@ const LesTrainPage = () => {
               value={userTranslation}
               onChange={(e) => setUserTranslation(e.target.value)}
               placeholder="Enter English translation"
-              className="mt-2 p-2 border border-gray-900 rounded w-full"
+              className="mt-2 p-2 border border-gray-800 rounded w-full"
             />
+
             <div className="flex items-center justify-between mt-4">
               <button
                 onClick={checkAnswer}
