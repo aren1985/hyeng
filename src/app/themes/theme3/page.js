@@ -43,6 +43,7 @@ const Theme3Page = () => {
   const [feedback, setFeedback] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalImage, setModalImage] = useState(null);
+
   const [isCorrect, setIsCorrect] = useState(false);
   const [isChecked, setIsChecked] = useState(false); // Track if answer is checked
   const searchParams = useSearchParams();
@@ -141,7 +142,19 @@ const Theme3Page = () => {
   };
 
   if (sentences.length === 0) {
-    return <p>Loading sentences...</p>;
+    return (
+      <div className="flex flex-col items-center justify-center h-[50vh]">
+        <div className="relative">
+          <div className="w-16 h-16 border-4 border-blue-500 border-solid border-t-transparent rounded-full animate-spin"></div>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-6 h-6 bg-blue-500 rounded-full animate-ping"></div>
+          </div>
+        </div>
+        <p className="mt-4 text-gray-700 text-lg font-medium">
+          Loading theme...
+        </p>
+      </div>
+    );
   }
 
   const currentSentence = sentences[currentSentenceIndex];
@@ -183,16 +196,6 @@ const Theme3Page = () => {
       >
         Check Answer
       </button>
-
-      {feedback && (
-        <p
-          className={`mt-4 text-lg font-semibold ${
-            feedback === "Correct!" ? "text-green-600" : "text-red-600"
-          }`}
-        >
-          {feedback}
-        </p>
-      )}
 
       <Modal
         visible={modalVisible}

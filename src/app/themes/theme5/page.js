@@ -89,7 +89,19 @@ const Theme4Page = () => {
   };
 
   if (sentences.length === 0) {
-    return <p>Loading sentences...</p>;
+    return (
+      <div className="flex flex-col items-center justify-center h-[50vh]">
+        <div className="relative">
+          <div className="w-16 h-16 border-4 border-blue-500 border-solid border-t-transparent rounded-full animate-spin"></div>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-6 h-6 bg-blue-500 rounded-full animate-ping"></div>
+          </div>
+        </div>
+        <p className="mt-4 text-gray-700 text-lg font-medium">
+          Loading theme...
+        </p>
+      </div>
+    );
   }
 
   const currentSentence = sentences[currentSentenceIndex];
@@ -109,9 +121,9 @@ const Theme4Page = () => {
       <textarea
         value={userInput}
         onChange={handleInputChange}
-        className="w-full max-w-3xl p-4 text-lg border-2 rounded-lg mb-4 h-16"
+        className="w-full max-w-3xl p-3 text-lg border-2 rounded-lg mb-4 "
         placeholder="Type your answer here..."
-        rows="4"
+        rows="2"
       ></textarea>
 
       <div className="flex space-x-4 w-full mt-4">

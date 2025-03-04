@@ -199,10 +199,10 @@ const Less8QuizPage = () => {
         <div>
           <Image src={teachik} alt="tete" width={100} height={100} />
         </div>
-        <p className="text-lg text-white mt-2 mr-2"> ~~You said~~</p>
+        <p className="text-lg text-white mt-2"> ~~You said~~</p>
         <div className="mb-4 p-2 border-2 w-48">
           <p className="text-lg p-2 text-green-500 font-semibold">
-            {userSpokenText}
+            <em> {userSpokenText}</em>
           </p>
         </div>
       </div>

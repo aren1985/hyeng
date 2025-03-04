@@ -152,7 +152,19 @@ const Theme5Page = () => {
   };
 
   if (loading)
-    return <p className="text-center text-lg">Loading sentences...</p>;
+    return (
+      <div className="flex flex-col items-center justify-center h-[50vh]">
+        <div className="relative">
+          <div className="w-16 h-16 border-4 border-blue-500 border-solid border-t-transparent rounded-full animate-spin"></div>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-6 h-6 bg-blue-500 rounded-full animate-ping"></div>
+          </div>
+        </div>
+        <p className="mt-4 text-gray-700 text-lg font-medium">
+          Loading theme...
+        </p>
+      </div>
+    );
   if (!sentences || sentences.length === 0)
     return <p className="text-center text-lg">No sentences available.</p>;
 
@@ -172,12 +184,12 @@ const Theme5Page = () => {
           Select the correct English words
         </p>
 
-        <div className="flex flex-wrap gap-3 mb-6 ">
+        <div className="flex flex-wrap gap-3 mb-6 border-b-2 pb-3">
           {wordPool.map((word, index) => (
             <button
               key={index}
               onClick={() => handleWordClick(word)}
-              className="px-3 py-2 text-[15px] bg-blue-700 text-white rounded hover:bg-blue-500 transition"
+              className="px-3 py-2 text-md font-semibold bg-blue-700 text-white rounded hover:bg-blue-500 transition"
             >
               {word}
             </button>
@@ -189,7 +201,7 @@ const Theme5Page = () => {
             <button
               key={index}
               onClick={() => handleWordRemove(word)}
-              className="px-3 py-2 text-[15px]  bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition"
+              className="px-3 py-2 text-md font-semibold  bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition"
             >
               {word}
             </button>
