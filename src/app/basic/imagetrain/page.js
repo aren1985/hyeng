@@ -99,7 +99,7 @@ const ImageTrainPage = () => {
         <div className="flex flex-col items-center w-full max-w-xl">
           <div className="mb-6 p-4 border border-gray-200 shadow-lg rounded-lg bg-white w-full">
             {/* Display Armenian name */}
-            <p className="text-lg p-2 font-medium text-white bg-gray-900 text-center">
+            <p className="text-lg p-3 font-medium text-white bg-gray-900 text-center">
               {images[currentIndex]?.armenianName}
             </p>
 
@@ -108,7 +108,7 @@ const ImageTrainPage = () => {
               value={userInput}
               onChange={(e) => setUserInput(e.target.value)}
               placeholder="Enter the English name"
-              className="mt-2 p-2 border border-gray-800 rounded w-full"
+              className="mt-2 p-3 border border-gray-800 rounded w-full"
             />
             <div className="flex items-center justify-between mt-4">
               <button

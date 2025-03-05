@@ -148,7 +148,7 @@ const QuizPage2 = () => {
       </h2>
 
       <div className="mb-6">
-        <p className="text-xl  text-green-800 shadow-md p-1 font-semibold">
+        <p className="text-lg bg-gray-800  text-white shadow-md py-1 rounded px-3 font-semibold">
           {currentWord.armenian}
         </p>
       </div>

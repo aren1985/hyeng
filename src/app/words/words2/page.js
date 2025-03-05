@@ -147,7 +147,7 @@ const Words2Page = () => {
       </h1>
 
       <div className="mb-6 text-center">
-        <p className="text-md md:text-lg py-2 px-3 font-semibold text-white bg-gray-800 rounded shadow-md">
+        <p className="text-lg py-2 px-3 font-semibold text-white bg-gray-800 rounded shadow-md">
           {currentWord?.english}
         </p>
       </div>

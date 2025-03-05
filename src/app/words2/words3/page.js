@@ -139,12 +139,12 @@ const Words3Page = () => {
       </h1>
 
       <div className="mb-6 text-center">
-        <p className="text-lg md:text-xl p-1 font-semibold text-green-800 shadow-md">
+        <p className="text-lg  py-2 px-3 rounded font-semibold text-white bg-gray-800 shadow-md">
           {currentWord?.armenian}
         </p>
       </div>
 
-      <div className="flex flex-col gap-4 items-center">
+      <div className="flex flex-col gap-4 items-center text-lg">
         {options.map((option, index) => {
           // Use gray background when not selected and blue when selected
           const backgroundColor =

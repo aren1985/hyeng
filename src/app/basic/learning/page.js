@@ -94,19 +94,22 @@ const ImagesPage = () => {
 
   return (
     <div className="flex flex-col items-center p-3">
-      <h1 className="text-xl md:text-2xl shadow-md px-2 font-semibold text-green-800 mb-4">
+      <h1 className="mt-6 mb-6 text-2xl font-bold text-purple-800">
+        Listen and remember
+      </h1>
+      <h1 className="text-xl text-center w-64 shadow-md px-2 font-semibold text-green-800 mb-4">
         {currentImage.name}
       </h1>
       <img
         src={`data:image/jpeg;base64,${currentImage.image}`}
         alt={`Image of ${currentImage.name}`}
-        className="w-64 h-36 md:h-44"
+        className="w-64 h-36 md:h-44 rounded"
       />
       <button
         onClick={() => speakName(currentImage.name)}
-        className="bg-blue-500 text-white py-2 px-4 rounded mb-4 mt-4 flex items-center" // Centering the icon
+        className="bg-blue-600 text-white font-semibold justify-center w-64 py-2 px-4 rounded mb-4 mt-4 flex items-center" // Centering the icon
       >
-        <FaVolumeUp className="mr-2" />
+        <FaVolumeUp className="mr-2 text-xl" />
         Listen Name
       </button>
       <button

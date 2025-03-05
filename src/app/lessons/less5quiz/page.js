@@ -178,11 +178,11 @@ const SentenceQuizPage6 = () => {
   return (
     <div className="container mx-auto p-4 flex flex-col items-center">
       <div className="mb-6 text-center">
-        <p className="text-purple-800 text-xl md:text-2xl mb-2 font-semibold">
+        <p className="text-purple-800 text-xl md:text-2xl mb-6 font-semibold">
           choose a correct
         </p>
 
-        <p className="text-xl text-green-800 font-semibold shadow-md p-1">
+        <p className="text-lg text-white bg-gray-800 font-semibold shadow-md py-2 px-3 rounded">
           {currentSentence.armenian}
         </p>
       </div>

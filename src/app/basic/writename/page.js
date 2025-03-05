@@ -145,9 +145,9 @@ const WriteName = () => {
 
       <button
         onClick={() => speakImageName(images[currentIndex]?.name)}
-        className="bg-yellow-500 text-white py-2 px-6 rounded hover:bg-yellow-600 transition duration-200 flex items-center mb-6"
+        className="bg-orange-600 text-white font-semibold py-2 px-6 rounded hover:bg-yellow-600 transition duration-200 flex items-center mb-6"
       >
-        <FaVolumeUp className="mr-2" />
+        <FaVolumeUp className="mr-2 2xl" />
         Hear Name Again
       </button>
 
@@ -155,7 +155,7 @@ const WriteName = () => {
         type="text"
         value={userInput}
         onChange={(e) => setUserInput(e.target.value)}
-        className="border p-2 rounded w-full max-w-xs mb-4"
+        className="p-2 rounded w-full max-w-xs mb-4 border"
         placeholder="Type the name here"
       />
 

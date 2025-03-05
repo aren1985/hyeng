@@ -182,7 +182,7 @@ const QuizPage3 = () => {
 
       <button
         onClick={speakWord}
-        className="bg-orange-500 text-white py-2 px-6 rounded mt-2 mb-4 text-md font-semibold flex items-center gap-2"
+        className="bg-orange-600 text-white py-2 px-6 rounded mt-2 mb-4 text-md font-semibold flex items-center gap-2"
       >
         <FaVolumeUp className="text-2xl" />
         Listen
@@ -194,7 +194,7 @@ const QuizPage3 = () => {
             key={index}
             onClick={() => setSelectedAnswer(option)}
             className={`${
-              selectedAnswer === option ? "bg-blue-700" : "bg-blue-500"
+              selectedAnswer === option ? "bg-blue-500" : "bg-blue-800"
             } text-white py-2 px-6 rounded m-2  text-lg w-full font-semibold`}
           >
             {option}

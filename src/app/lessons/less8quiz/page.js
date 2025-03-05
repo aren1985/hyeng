@@ -189,18 +189,18 @@ const Less8QuizPage = () => {
 
       <button
         onClick={handleAudioPlay}
-        className="px-4 py-2 bg-orange-500 text-white rounded mb-4 flex items-center"
+        className="px-4 py-2 bg-orange-500 text-white text-lg rounded mb-4 flex items-center font-semibold"
         disabled={isListening}
       >
-        <FaVolumeUp className="mr-2" />
-        {isListening ? "Listening..." : "Listen to the Sentence"}
+        <FaVolumeUp className="mr-2 text-2xl" />
+        {isListening ? "Listening..." : "Listen the Sentence"}
       </button>
       <div className="mb-2 flex flex-col items-center">
         <div>
           <Image src={teachik} alt="tete" width={100} height={100} />
         </div>
         <p className="text-lg text-white mt-2"> ~~You said~~</p>
-        <div className="mb-4 p-2 border-2 w-48">
+        <div className="mb-4 p-2 bg-gray-400 w-48">
           <p className="text-lg p-2 text-green-500 font-semibold">
             <em> {userSpokenText}</em>
           </p>
@@ -209,10 +209,10 @@ const Less8QuizPage = () => {
 
       <button
         onClick={startListening}
-        className="px-4 py-2 bg-blue-500 text-white rounded mb-4 flex items-center"
+        className="px-4 py-2 bg-blue-600 text-white text-lg rounded mb-4 flex items-center font-semibold"
         disabled={isListening}
       >
-        <FaMicrophoneAlt className="mr-2" />
+        <FaMicrophoneAlt className="mr-2 text-2xl" />
         {isListening ? "Listening..." : "Speak the Sentence"}
       </button>
 

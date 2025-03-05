@@ -116,7 +116,7 @@ const NextQuiz = () => {
         <img
           src={`data:image/jpeg;base64,${currentImage.image}`}
           alt="Current"
-          className="w-64 h-36 md:h-44 object-cover mb-4"
+          className="w-64 h-36 md:h-44 object-cover mb-4 rounded"
         />
       </div>
 
@@ -128,8 +128,8 @@ const NextQuiz = () => {
               setUserChoice(img.name);
               setSelectedOptionIndex(index);
             }}
-            className={`bg-blue-500 text-white  py-2 w-64 font-semibold px-6 rounded hover:bg-blue-600 transition duration-200 ${
-              selectedOptionIndex === index ? "bg-blue-700" : ""
+            className={`text-white text-lg  py-2 w-64 font-semibold px-6 rounded hover:bg-blue-500 transition duration-200 ${
+              selectedOptionIndex === index ? "bg-blue-500" : "bg-blue-900"
             }`}
           >
             {img.name}

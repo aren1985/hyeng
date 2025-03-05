@@ -4,8 +4,10 @@ import React, { useEffect, useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import axios from "axios";
 import Image from "next/image";
+
 import correctImage from "../../images/newlike.webp";
 import incorrectImage from "../../images/dislike.webp";
+
 const Modal = ({ visible, imageSrc, onNext, isCorrect }) => {
   if (!visible) return null;
 
@@ -145,7 +147,7 @@ const Words2Page = () => {
       </h1>
 
       <div className="mb-6 text-center">
-        <p className="text-lg md:text-xl p-1 font-semibold text-green-800 shadow-md">
+        <p className="text-lg py-2 px-3 font-semibold text-white bg-gray-800 rounded shadow-md">
           {currentWord?.english}
         </p>
       </div>

@@ -55,6 +55,11 @@ const Sidebar = () => {
                 </Link>
               </li>
               <li className="border-b border-gray-700 pb-2 hover:text-purple-500">
+                <Link href="/basic/allparts" onClick={() => setIsOpen(false)}>
+                  Images
+                </Link>
+              </li>
+              <li className="border-b border-gray-700 pb-2 hover:text-purple-500">
                 <Link href="/levels/aonelevel" onClick={() => setIsOpen(false)}>
                   A1 Level
                 </Link>

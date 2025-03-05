@@ -118,7 +118,7 @@ const Words4Page = () => {
 
       <button
         onClick={() => speakWord(currentWord?.english)}
-        className="bg-orange-500 text-white py-2 px-6 rounded mb-6 text-lg font-semibold flex items-center justify-center"
+        className="bg-orange-600 text-white py-2 px-6 rounded mb-6 text-lg font-semibold flex items-center justify-center"
       >
         <FaVolumeUp className="mr-2" />
         Listen

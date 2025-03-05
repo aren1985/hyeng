@@ -204,15 +204,15 @@ const QuizPage = () => {
           finde a correct
         </p>
 
-        <p className="text-xl md:text-2xl text-green-800 shadow-md p-1 font-semibold">
+        <p className="text-md md:text-lg text-white bg-gray-800 shadow-md px-3 py-2 font-semibold rounded">
           {currentWord.english}
         </p>
         <button
           onClick={() => speakWord(currentWord.english)}
-          className="text-blue-500 mt-2 p-2 shadow-md"
+          className="text-purple-800 mt-2 p-2 shadow-md"
           aria-label={`Listen to the word "${currentWord.english}"`}
         >
-          <FaVolumeUp className="text-xl" />
+          <FaVolumeUp className="text-2xl shadow-md" />
         </button>
       </div>
 

@@ -6,6 +6,8 @@ import { FaMicrophone, FaVolumeUp } from "react-icons/fa";
 import Image from "next/image";
 import axios from "axios";
 
+import teachik from "../../images/Teachik.png";
+
 // Feedback Images
 import correctImage from "../../images/newlike.webp";
 import incorrectImage from "../../images/dislike.webp";
@@ -157,23 +159,31 @@ const SpeechToTextPage = () => {
 
           speechSynthesis.speak(utterance);
         }}
-        className="bg-yellow-500 text-white py-2 px-6 rounded hover:bg-yellow-600 transition duration-200 flex items-center mb-6"
+        className="bg-orange-600 text-white font-semibold py-2 px-6 rounded hover:bg-yellow-600 transition duration-200 flex items-center mb-6"
       >
-        <FaVolumeUp className="mr-2" />
+        <FaVolumeUp className="mr-2 text-2xl" />
         start listening
       </button>
 
+      <div className="mb-2 flex flex-col items-center">
+        <div>
+          <Image src={teachik} alt="tete" width={100} height={100} />
+        </div>
+        <p className="text-lg text-white mt-2"> ~~You said~~</p>
+        <div className="mb-4 p-2 bg-gray-500 w-48">
+          <p className="text-lg p-2 text-green-500 font-semibold">
+            <em> {spokenWord}</em>
+          </p>
+        </div>
+      </div>
+
       <button
         onClick={startSpeechRecognition}
-        className="bg-green-500 text-white py-2 px-6 rounded hover:bg-green-600 transition duration-200 flex items-center mb-6"
+        className="bg-blue-700 text-white font-semibold py-2 px-6 rounded hover:bg-green-600 transition duration-200 flex items-center mb-6"
       >
-        <FaMicrophone className="mr-2" />
+        <FaMicrophone className="mr-2 text-2xl" />
         Start Speaking
       </button>
-
-      <div className="mb-4">
-        <p className="text-xl font-semibold">You said- {spokenWord}</p>
-      </div>
 
       <button
         onClick={checkAnswer}

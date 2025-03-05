@@ -213,7 +213,7 @@ const Less7QuizPage = () => {
       </h1>
       <button
         onClick={handleAudioPlay}
-        className="px-4 py-2 bg-orange-500 text-white rounded mb-4 flex items-center"
+        className="px-4 py-2 bg-orange-600 text-white rounded mb-4 flex items-center font-semibold"
         disabled={isListening}
       >
         <FaVolumeUp className="mr-2" />
@@ -222,12 +222,12 @@ const Less7QuizPage = () => {
 
       <div className="flex flex-col items-center w-full">
         <p className="text-xl mb-4">Select the correct English words</p>
-        <div className="flex flex-wrap gap-2 mb-4">
+        <div className="flex flex-wrap gap-2 mb-4 border-b-2 pb-3">
           {wordPool.map((word, index) => (
             <button
               key={index}
               onClick={() => handleWordClick(word)}
-              className="px-4 py-2 bg-blue-500 text-white rounded font-semibold"
+              className="px-4 py-2 bg-blue-800 text-white rounded font-semibold"
             >
               {word}
             </button>

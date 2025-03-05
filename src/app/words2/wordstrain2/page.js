@@ -95,7 +95,7 @@ const Wordstrain = () => {
         <div className="flex flex-col items-center w-full max-w-xl">
           <div className="mb-6 p-4 border border-gray-200 shadow-lg rounded-lg bg-white w-full">
             {/* Display Armenian word */}
-            <p className="text-lg p-2 font-medium text-white bg-gray-900 text-center">
+            <p className="text-lg p-3 font-medium text-white bg-gray-900 text-center">
               {words[currentIndex]?.armenian}
             </p>
             <input
@@ -103,7 +103,7 @@ const Wordstrain = () => {
               value={userTranslation}
               onChange={(e) => setUserTranslation(e.target.value)}
               placeholder="Enter English translation"
-              className="mt-2 p-2 border border-gray-800 rounded w-full"
+              className="mt-2 p-3 border border-gray-800 rounded w-full"
             />
             <div className="flex items-center justify-between mt-4">
               <button

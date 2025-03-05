@@ -7,6 +7,7 @@ import { FaVolumeUp, FaMicrophone } from "react-icons/fa"; // Add both icons
 import correctImage from "../../images/newlike.webp";
 import incorrectImage from "../../images/dislike.webp";
 import Image from "next/image";
+import teachik from "../../images/Teachik.png";
 
 const Words5Page = () => {
   const [words, setWords] = useState([]);
@@ -121,15 +122,21 @@ const Words5Page = () => {
         </button>
       </div>
 
-      <div className="mb-6">
-        <p className="text-lg font-medium bg-gray-200 p-2">
-          You said- {spokenWord}
-        </p>
+      <div className="mb-2 flex flex-col items-center">
+        <div>
+          <Image src={teachik} alt="tete" width={100} height={100} />
+        </div>
+        <p className="text-lg text-white mt-2"> ~~You said~~</p>
+        <div className="mb-4 p-2 bg-gray-500 w-48">
+          <p className="text-lg p-2 text-green-500 font-semibold">
+            <em> {spokenWord}</em>
+          </p>
+        </div>
       </div>
 
       <button
         onClick={startListening}
-        className="bg-green-500 text-white py-2 px-6 rounded mt-6 text-lg font-semibold flex items-center space-x-2"
+        className="bg-blue-700 text-white py-2 px-6 rounded mt-6 text-lg font-semibold flex items-center space-x-2"
       >
         <FaMicrophone className="text-2xl " />
         <span>Start Speaking</span>

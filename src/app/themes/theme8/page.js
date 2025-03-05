@@ -168,9 +168,9 @@ const Theme8Page = () => {
       <div className="text-center mb-3">
         <button
           onClick={playSentence}
-          className="bg-orange-600 text-white py-2 px-4 gap-2 rounded shadow-lg mb-4 flex justify-center items-center"
+          className="bg-orange-600 text-white py-2 px-4 text-lg gap-2 rounded shadow-lg mb-4 flex justify-center items-center"
         >
-          <FaVolumeUp className="text-xl" />
+          <FaVolumeUp className="text-2xl" />
           <p>listen</p>
         </button>
       </div>
@@ -180,7 +180,7 @@ const Theme8Page = () => {
           <Image src={teachik} alt="tete" width={100} height={100} />
         </div>
         <p className="text-lg text-white mt-2"> ~~You said~~</p>
-        <div className="mb-4 p-2 border-2 w-48">
+        <div className="mb-4 p-2 bg-gray-500 w-48">
           <p className="text-lg p-2 text-green-500 font-semibold">
             <em> {spokenText}</em>
           </p>
@@ -190,9 +190,9 @@ const Theme8Page = () => {
       <div className="text-center mb-6">
         <button
           onClick={startVoiceRecognition}
-          className="bg-blue-500 text-white py-2 px-4 gap-2 rounded shadow-lg flex justify-center items-center"
+          className="bg-blue-600 text-white py-2 px-4 text-lg gap-2 rounded shadow-lg flex justify-center items-center"
         >
-          <FaMicrophone className="text-xl" />
+          <FaMicrophone className="text-2xl" />
           <p>speak</p>
         </button>
       </div>

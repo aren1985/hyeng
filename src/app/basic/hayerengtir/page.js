@@ -132,7 +132,7 @@ const ArmenianQuiz = () => {
       <h1 className="text-xl md:text-2xl text-purple-800 font-bold mb-6">
         Select the correct English name
       </h1>
-      <p className="text-xl text-green-800 shadow-md mb-6 p-2 font-semibold">
+      <p className="text-lg text-green-800 bg-white rounded shadow-md mb-6 py-2 px-3 font-semibold">
         {currentArmenianName || "Armenian name not available"}
       </p>
 
@@ -141,8 +141,8 @@ const ArmenianQuiz = () => {
           <button
             key={index}
             onClick={() => setSelectedOptionIndex(index)}
-            className={`bg-blue-500 text-white py-2 w-64 font-bold px-6 rounded hover:bg-blue-600 transition duration-200 ${
-              selectedOptionIndex === index ? "bg-blue-700" : ""
+            className={` text-white py-2 w-64 font-bold px-6 text-lg rounded hover:bg-blue-500 transition duration-200 ${
+              selectedOptionIndex === index ? "bg-blue-600" : "bg-blue-900"
             }`}
             disabled={isAnswered} // Disable options after answer is checked
           >
@@ -152,14 +152,13 @@ const ArmenianQuiz = () => {
       </div>
 
       {/* Check Answer Button */}
-      {!isAnswered && (
-        <button
-          onClick={checkAnswer}
-          className="bg-purple-700 hover:bg-purple-500 text-white p-3 mt-10 w-full text-lg  rounded shadow-lg font-bold border-2 border-white"
-        >
-          Check Answer
-        </button>
-      )}
+
+      <button
+        onClick={checkAnswer}
+        className="bg-purple-700 hover:bg-purple-500 text-white p-3 mt-10 w-full text-lg  rounded shadow-lg font-bold border-2 border-white"
+      >
+        Check Answer
+      </button>
 
       <Modal
         visible={modalVisible}
