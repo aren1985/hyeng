@@ -52,8 +52,8 @@ const SignInPage = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-800">
-      <div className="bg-gray-500 p-8 rounded-lg shadow-lg w-full sm:w-96">
+    <div className="flex justify-center items-center min-h-screen">
+      <div className="bg-gray-700 p-8 rounded-lg shadow-lg w-full sm:w-96">
         <h2 className="text-3xl font-semibold text-center text-white mb-6">
           Sign In
         </h2>
@@ -68,7 +68,7 @@ const SignInPage = () => {
             </label>
             <input
               type="text"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+              className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
               value={nickname}
               onChange={(e) => setNickname(e.target.value)}
               required
@@ -81,7 +81,7 @@ const SignInPage = () => {
             </label>
             <input
               type="email"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+              className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -90,7 +90,7 @@ const SignInPage = () => {
 
           <button
             type="submit"
-            className="w-full p-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:ring-2 focus:ring-purple-500"
+            className="w-full p-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:ring-2 focus:ring-purple-500"
           >
             Sign In
           </button>
