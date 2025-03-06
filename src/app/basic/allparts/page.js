@@ -7,7 +7,7 @@ const categories = [
   "animals",
   "drinks",
   "transports",
-  "home features",
+  "home",
   "professions",
   "nature",
   "nature1",
