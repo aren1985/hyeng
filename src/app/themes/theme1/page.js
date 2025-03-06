@@ -83,14 +83,14 @@ const ThemePage = () => {
           {sentences.map((sentence, index) => (
             <div
               key={index}
-              className="flex items-center justify-between p-4 border-4 border-purple-900 shadow-lg rounded-lg bg-white"
+              className="flex items-center justify-between p-4 border-4 border-purple-900 shadow-lg rounded-lg bg-gray-200"
             >
               <div>
-                <p className="text-lg font-medium text-gray-900">
-                  {sentence.englishsentence}
-                </p>
-                <p className="text-md text-blue-900 font-bold">
+                <p className="text-md font-semibold text-gray-900">
                   {sentence.armeniansentence}
+                </p>
+                <p className="text-lg text-blue-900 font-semibold">
+                  {sentence.englishsentence}
                 </p>
               </div>
               <button

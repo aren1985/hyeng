@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const LevPage = () => {
   return (
-    <div className="flex flex-col items-center  min-h-screen ">
+    <div className="flex flex-col items-center">
       <h1 className="text-xl md:text-2xl mt-7 py-1 px-6 rounded-lg bg-white font-bold text-purple-800 mb-6 shadow-md">
         Select a Category
       </h1>

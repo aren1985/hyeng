@@ -97,7 +97,9 @@ const Theme4Page = () => {
             <div className="w-6 h-6 bg-blue-500 rounded-full animate-ping"></div>
           </div>
         </div>
-        <p className="mt-4 text-gray-700 text-lg font-medium">Loading ...</p>
+        <p className="mt-4 text-gray-700 text-lg font-medium">
+          Loading theme...
+        </p>
       </div>
     );
   }
@@ -111,7 +113,7 @@ const Theme4Page = () => {
       </h1>
 
       <div className="mb-6 text-center">
-        <p className="text-md shadow-md p-2 md:text-xl text-green-800 font-semibold">
+        <p className="text-md shadow-md py-2 px-3 rounded md:text-lg text-white bg-gray-800 font-semibold">
           {currentSentence?.armeniansentence}
         </p>
       </div>
@@ -119,9 +121,9 @@ const Theme4Page = () => {
       <textarea
         value={userInput}
         onChange={handleInputChange}
-        className="w-full max-w-3xl p-4 text-lg border-2 rounded-lg mb-4 h-16"
+        className="w-full max-w-3xl p-3 text-lg border-2 rounded-lg mb-4 "
         placeholder="Type your answer here..."
-        rows="4"
+        rows="2"
       ></textarea>
 
       <div className="flex space-x-4 w-full mt-4">

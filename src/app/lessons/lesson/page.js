@@ -112,13 +112,15 @@ const LessonPage = () => {
         {currentTheme.words.map((word) => (
           <div
             key={word._id}
-            className="flex items-center justify-between p-4 border-4 border-purple-900 shadow rounded-lg bg-white"
+            className="flex items-center justify-between p-4 border-4 border-purple-900 shadow rounded-lg bg-gray-200"
           >
             <div>
-              <p className="text-lg font-medium text-gray-900">
+              <p className="text-md font-semibold text-gray-900">
+                {word.armenian}
+              </p>
+              <p className="text-lg text-blue-900 font-semibold">
                 {word.english}
               </p>
-              <p className="text-md text-blue-900 font-bold">{word.armenian}</p>
             </div>
             <button
               onClick={() => speakWord(word.english)}

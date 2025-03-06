@@ -160,7 +160,9 @@ const Theme5Page = () => {
             <div className="w-6 h-6 bg-blue-500 rounded-full animate-ping"></div>
           </div>
         </div>
-        <p className="mt-4 text-gray-700 text-lg font-medium">Loading ...</p>
+        <p className="mt-4 text-gray-700 text-lg font-medium">
+          Loading theme...
+        </p>
       </div>
     );
   if (!sentences || sentences.length === 0)
@@ -169,11 +171,11 @@ const Theme5Page = () => {
   const currentSentence = sentences[currentSentenceIndex];
 
   return (
-    <div className="flex flex-col items-center p-6 min-h-screen">
+    <div className="flex flex-col items-center p-6">
       <h1 className="text-xl md:text-2xl font-bold text-purple-800 mb-6">
         Rearrange the Sentence
       </h1>
-      <p className="text-md md:text-xl mb-4 shadow-md font-semibold text-white">
+      <p className="text-md md:text-lg rounded mb-4 py-2 px-3 bg-gray-800 shadow-md font-semibold text-white">
         {currentSentence.armeniansentence}
       </p>
 
@@ -182,12 +184,12 @@ const Theme5Page = () => {
           Select the correct English words
         </p>
 
-        <div className="flex flex-wrap gap-3 mb-6 ">
+        <div className="flex flex-wrap gap-3 mb-6 border-b-2 pb-3">
           {wordPool.map((word, index) => (
             <button
               key={index}
               onClick={() => handleWordClick(word)}
-              className="px-3 py-2 text-[15px] bg-blue-700 text-white rounded hover:bg-blue-500 transition"
+              className="px-3 py-2 text-md font-semibold bg-blue-700 text-white rounded hover:bg-blue-500 transition"
             >
               {word}
             </button>
@@ -199,7 +201,7 @@ const Theme5Page = () => {
             <button
               key={index}
               onClick={() => handleWordRemove(word)}
-              className="px-3 py-2 text-[15px]  bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition"
+              className="px-3 py-2 text-md font-semibold  bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition"
             >
               {word}
             </button>

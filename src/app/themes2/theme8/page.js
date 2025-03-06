@@ -6,6 +6,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { FaVolumeUp, FaMicrophone } from "react-icons/fa"; // Added microphone icon
 import Image from "next/image";
 
+import teachik from "../../images/Teachik.png";
+
 import correctImage from "../../images/newlike.webp";
 import incorrectImage from "../../images/dislike.webp";
 const normalizeText = (text) => {
@@ -140,7 +142,20 @@ const Theme8Page = () => {
     }
   };
 
-  if (loading) return <p>Loading sentences...</p>;
+  if (loading)
+    return (
+      <div className="flex flex-col items-center justify-center h-[50vh]">
+        <div className="relative">
+          <div className="w-16 h-16 border-4 border-blue-500 border-solid border-t-transparent rounded-full animate-spin"></div>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-6 h-6 bg-blue-500 rounded-full animate-ping"></div>
+          </div>
+        </div>
+        <p className="mt-4 text-gray-700 text-lg font-medium">
+          Loading theme...
+        </p>
+      </div>
+    );
   if (!sentences || sentences.length === 0)
     return <p>No sentences available.</p>;
 
@@ -150,32 +165,36 @@ const Theme8Page = () => {
         Listen and Speak
       </h1>
 
-      <div className="text-center mb-6">
+      <div className="text-center mb-3">
         <button
           onClick={playSentence}
-          className="bg-orange-600 text-white p-3 rounded-full shadow-lg mb-4"
+          className="bg-orange-600 text-white py-2 px-4 text-lg gap-2 rounded shadow-lg mb-4 flex justify-center items-center"
         >
-          <FaVolumeUp className="text-3xl" />
+          <FaVolumeUp className="text-2xl" />
+          <p>listen</p>
         </button>
-        <p className="text-lg text-gray-600">
-          Listen to the sentence and repeat it aloud.
-        </p>
+      </div>
+
+      <div className="mb-2 flex flex-col items-center">
+        <div>
+          <Image src={teachik} alt="tete" width={100} height={100} />
+        </div>
+        <p className="text-lg text-white mt-2"> ~~You said~~</p>
+        <div className="mb-4 p-2 bg-gray-500 w-48">
+          <p className="text-lg p-2 text-green-500 font-semibold">
+            <em> {spokenText}</em>
+          </p>
+        </div>
       </div>
 
       <div className="text-center mb-6">
         <button
           onClick={startVoiceRecognition}
-          className="bg-green-500 text-white p-3 rounded-full shadow-lg"
+          className="bg-blue-600 text-white py-2 px-4 text-lg gap-2 rounded shadow-lg flex justify-center items-center"
         >
-          <FaMicrophone className="text-3xl" />
+          <FaMicrophone className="text-2xl" />
+          <p>speak</p>
         </button>
-        <p className="text-lg text-gray-600 mt-2">Click to start speaking</p>
-      </div>
-
-      <div className="text-center mb-6 bg-white p-2">
-        <p className="text-lg text-gray-800">
-          You said- <em>{spokenText}</em>
-        </p>
       </div>
 
       <div className="text-center mb-6 w-full">

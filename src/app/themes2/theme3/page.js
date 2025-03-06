@@ -43,6 +43,7 @@ const Theme3Page = () => {
   const [feedback, setFeedback] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalImage, setModalImage] = useState(null);
+
   const [isCorrect, setIsCorrect] = useState(false);
   const [isChecked, setIsChecked] = useState(false); // Track if answer is checked
   const searchParams = useSearchParams();
@@ -149,7 +150,9 @@ const Theme3Page = () => {
             <div className="w-6 h-6 bg-blue-500 rounded-full animate-ping"></div>
           </div>
         </div>
-        <p className="mt-4 text-gray-700 text-lg font-medium">Loading ...</p>
+        <p className="mt-4 text-gray-700 text-lg font-medium">
+          Loading theme...
+        </p>
       </div>
     );
   }
@@ -163,7 +166,7 @@ const Theme3Page = () => {
       </h1>
 
       <div className="mb-6 text-center">
-        <p className="text-md md:text-lg shadow-md p-2 font-semibold text-green-800">
+        <p className="text-md md:text-lg shadow-md py-2 px-3 font-semibold rounded bg-gray-800 text-white">
           {currentSentence?.armeniansentence}
         </p>
       </div>
@@ -174,7 +177,7 @@ const Theme3Page = () => {
             key={index}
             onClick={() => handleOptionSelect(option)}
             disabled={isChecked} // Disable after check
-            className={`py-2 px-4 rounded-lg border-2 text-md font-semibold ${
+            className={`py-2 px-4 rounded-lg border-2 text-lg font-semibold ${
               selectedOption === option
                 ? "bg-blue-400 text-white border-blue-600"
                 : "bg-gray-200 text-black border-gray-400"
@@ -193,16 +196,6 @@ const Theme3Page = () => {
       >
         Check Answer
       </button>
-
-      {feedback && (
-        <p
-          className={`mt-4 text-lg font-semibold ${
-            feedback === "Correct!" ? "text-green-600" : "text-red-600"
-          }`}
-        >
-          {feedback}
-        </p>
-      )}
 
       <Modal
         visible={modalVisible}

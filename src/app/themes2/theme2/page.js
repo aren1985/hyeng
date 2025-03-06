@@ -144,7 +144,19 @@ const Theme2Page = () => {
   };
 
   if (sentences.length === 0) {
-    return <p>Loading sentences...</p>;
+    return (
+      <div className="flex flex-col items-center justify-center h-[50vh]">
+        <div className="relative">
+          <div className="w-16 h-16 border-4 border-blue-500 border-solid border-t-transparent rounded-full animate-spin"></div>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-6 h-6 bg-blue-500 rounded-full animate-ping"></div>
+          </div>
+        </div>
+        <p className="mt-4 text-gray-700 text-lg font-medium">
+          Loading theme...
+        </p>
+      </div>
+    );
   }
 
   const currentSentence = sentences[currentSentenceIndex];
@@ -156,12 +168,12 @@ const Theme2Page = () => {
       </h1>
 
       <div className="mb-6 text-center">
-        <p className="text-md md:text-lg p-2 font-semibold text-green-800 shadow-md">
+        <p className="text-md md:text-lg py-2 px-3 font-semibold text-white bg-gray-800 rounded shadow-md">
           {currentSentence?.englishsentence}
         </p>
         <button
           onClick={() => speakSentence(currentSentence?.englishsentence)}
-          className="text-blue-500 mt-2 shadow-md p-2"
+          className="text-purple-800 mt-2 shadow-md p-2"
           aria-label={`Listen to ${currentSentence?.englishsentence}`}
         >
           <FaVolumeUp className="text-2xl" />

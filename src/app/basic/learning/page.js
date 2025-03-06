@@ -97,7 +97,7 @@ const ImagesPage = () => {
       <h1 className="mt-6 mb-6 text-2xl font-bold text-purple-800">
         Listen and remember
       </h1>
-      <h1 className="text-xl text-center w-64 shadow-md px-2 font-semibold text-green-800 mb-4">
+      <h1 className="text-xl text-center w-64 shadow-md px-2 py-1 font-semibold rounded bg-gray-400 text-green-700 mb-4">
         {currentImage.name}
       </h1>
       <img

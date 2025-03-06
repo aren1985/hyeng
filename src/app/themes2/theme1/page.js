@@ -83,22 +83,22 @@ const ThemePage = () => {
           {sentences.map((sentence, index) => (
             <div
               key={index}
-              className="flex items-center justify-between p-4 border border-gray-200 shadow-lg rounded-lg bg-white"
+              className="flex items-center justify-between p-4 border-4 border-purple-900 shadow-lg rounded-lg bg-gray-200"
             >
               <div>
-                <p className="text-lg font-medium text-gray-900">
-                  {sentence.englishsentence}
-                </p>
-                <p className="text-md text-gray-500">
+                <p className="text-md font-semibold text-gray-900">
                   {sentence.armeniansentence}
+                </p>
+                <p className="text-lg text-blue-900 font-semibold">
+                  {sentence.englishsentence}
                 </p>
               </div>
               <button
                 onClick={() => speakSentence(sentence.englishsentence)}
-                className="text-blue-500 ml-4 shadow-md p-2"
+                className="text-purple-800 ml-4 shadow-md p-2"
                 aria-label={`Listen to ${sentence.englishsentence}`}
               >
-                <FaVolumeUp className="text-xl" />
+                <FaVolumeUp className="text-2xl" />
               </button>
             </div>
           ))}

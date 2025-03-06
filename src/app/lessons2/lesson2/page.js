@@ -101,10 +101,10 @@ const LessonPage = () => {
 
   return (
     <div className="flex flex-col items-center p-6">
-      <h1 className="text-xl md:text-2xl text-purple-800 font-bold mb-6">
+      <h1 className="text-xl md:text-2xl text-purple-800  font-bold mb-6">
         {lesson.title}
       </h1>
-      <h2 className="text-md md:text-xl text-green-800 shadow-md p-2 font-semibold mb-4">
+      <h2 className="text-md md:text-xl text-white shadow-md py-2 px-6 rounded-lg bg-purple-800  font-semibold mb-4">
         {currentTheme.themeTitle}
       </h2>
 
@@ -112,20 +112,22 @@ const LessonPage = () => {
         {currentTheme.words.map((word) => (
           <div
             key={word._id}
-            className="flex items-center justify-between p-4 border border-gray-200 shadow rounded-lg bg-white"
+            className="flex items-center justify-between p-4 border-4 border-purple-900 shadow rounded-lg bg-gray-200"
           >
             <div>
-              <p className="text-lg font-medium text-gray-900">
+              <p className="text-md font-semibold text-gray-900">
+                {word.armenian}
+              </p>
+              <p className="text-lg text-blue-900 font-semibold">
                 {word.english}
               </p>
-              <p className="text-md text-gray-500">{word.armenian}</p>
             </div>
             <button
               onClick={() => speakWord(word.english)}
-              className="text-blue-500 ml-4 shadow-md p-2"
+              className="text-purple-900 ml-4  p-2"
               aria-label={`Listen to ${word.english}`}
             >
-              <FaVolumeUp className="text-xl" />
+              <FaVolumeUp className="text-2xl shadow-md" />
             </button>
           </div>
         ))}
