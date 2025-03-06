@@ -4,7 +4,7 @@ import logo from "./images/logo.png";
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-cyan-300 font-semibold py-6 w-full">
+    <footer className="bg-gray-900 text-cyan-300 py-6 w-full">
       <div className="container mx-auto flex items-center justify-center">
         {/* Logo section with two lines */}
         <div className="flex flex-col items-center mr-4">

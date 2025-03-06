@@ -24,7 +24,7 @@ const ThemeSelection = () => {
   return (
     <div className="min-h-screen flex flex-col items-center  p-6">
       <h1
-        className="text-xl md:text-2xl font-bold text-purple-800 mb-8 text-center 
+        className="text-xl md:text-2xl font-bold px-3 py-2 rounded bg-white text-purple-800 mb-8 text-center 
         transform-gpu shadow-2xl"
       >
         Select a Theme
@@ -34,7 +34,7 @@ const ThemeSelection = () => {
           <button
             key={theme._id}
             onClick={() => handleThemeSelect(theme._id, theme.title)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-5 rounded-lg shadow-md transition duration-200 ease-in-out border-2 border-purple-800"
+            className="hover:bg-blue-600 text-white font-semibold py-3 px-5 rounded-lg shadow-md transition duration-200 ease-in-out bg-purple-800"
           >
             {theme.title}
           </button>
