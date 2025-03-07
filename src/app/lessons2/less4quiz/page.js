@@ -178,16 +178,16 @@ const SentenceQuizPage4 = () => {
   return (
     <div className="container mx-auto p-4 flex flex-col items-center">
       <div className="mb-6 text-center">
-        <p className="text-purple-800 text-xl md:text-2xl mb-2 font-semibold">
+        <p className="text-purple-800 text-xl md:text-2xl mb-8 font-semibold">
           find a correct
         </p>
 
-        <p className="text-xl text-green-800 shadow-md p-1 font-semibold">
+        <p className="text-lg text-white bg-gray-800 rounded shadow-md px-3 py-2 font-semibold">
           {currentSentence.english}
         </p>
       </div>
 
-      <div className="flex flex-col gap-4 items-center">
+      <div className="flex flex-col gap-4 items-center md:w-2/3 w-3/4">
         {currentOptions.length > 0 ? (
           currentOptions.map((option, index) => (
             <button
@@ -195,7 +195,7 @@ const SentenceQuizPage4 = () => {
               className={`py-2 px-6 rounded-lg text-md w-full font-semibold ${
                 selectedAnswer === option
                   ? "bg-gray-700 text-white"
-                  : "bg-gray-200"
+                  : "bg-gray-200 hover:bg-gray-400"
               }`}
               onClick={() => setSelectedAnswer(option)}
               disabled={isChecked} // Disable buttons after answer is checked

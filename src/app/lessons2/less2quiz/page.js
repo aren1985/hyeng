@@ -148,7 +148,7 @@ const QuizPage2 = () => {
       </h2>
 
       <div className="mb-6">
-        <p className="text-xl  text-green-800 shadow-md p-1 font-semibold">
+        <p className="text-lg bg-gray-800  text-white shadow-md py-1 rounded px-6 font-semibold">
           {currentWord.armenian}
         </p>
       </div>
@@ -159,7 +159,7 @@ const QuizPage2 = () => {
           value={userInput}
           onChange={(e) => setUserInput(e.target.value)}
           placeholder="Enter the English translation"
-          className="py-2 px-4 rounded-lg text-lg border border-gray-300"
+          className="py-2 px-4 rounded-lg text-lg border-2 border-gray-800"
         />
       </div>
 

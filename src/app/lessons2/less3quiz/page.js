@@ -128,10 +128,26 @@ const QuizPage3 = () => {
   };
 
   const speakWord = () => {
+    // Get the current word from the lesson
     const currentWord = lesson.themes[0].words[currentWordIndex].english;
+
+    // Create the SpeechSynthesisUtterance for the word
     const speech = new SpeechSynthesisUtterance(currentWord);
-    speech.lang = "en-US";
-    speech.rate = 0.7;
+    speech.lang = "en-GB"; // Set language to British English (you can change it to "en-US" or any other)
+    speech.rate = 0.8; // Adjust the speed of speech
+
+    // Get available voices and select a specific one
+    const voices = window.speechSynthesis.getVoices();
+    const preferredVoice = voices.find(
+      (voice) => voice.name.includes("Samantha") // Example: iOS English voice, you can modify this to your desired voice
+    );
+
+    // Assign the preferred voice if found
+    if (preferredVoice) {
+      speech.voice = preferredVoice;
+    }
+
+    // Speak the word
     window.speechSynthesis.speak(speech);
 
     // Ensure options are generated after the word is spoken
@@ -166,7 +182,7 @@ const QuizPage3 = () => {
 
       <button
         onClick={speakWord}
-        className="bg-orange-500 text-white py-2 px-6 rounded mt-2 mb-4 text-md font-semibold flex items-center gap-2"
+        className="bg-orange-600 text-white py-2 px-6 rounded mt-2 mb-4 text-md font-semibold flex items-center gap-2"
       >
         <FaVolumeUp className="text-2xl" />
         Listen
@@ -178,7 +194,9 @@ const QuizPage3 = () => {
             key={index}
             onClick={() => setSelectedAnswer(option)}
             className={`${
-              selectedAnswer === option ? "bg-blue-700" : "bg-blue-500"
+              selectedAnswer === option
+                ? "bg-blue-500"
+                : "bg-blue-800 hover:bg-blue-500"
             } text-white py-2 px-6 rounded m-2  text-lg w-full font-semibold`}
           >
             {option}
