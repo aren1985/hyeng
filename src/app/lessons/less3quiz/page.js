@@ -194,7 +194,9 @@ const QuizPage3 = () => {
             key={index}
             onClick={() => setSelectedAnswer(option)}
             className={`${
-              selectedAnswer === option ? "bg-blue-500" : "bg-blue-800"
+              selectedAnswer === option
+                ? "bg-blue-500"
+                : "bg-blue-800 hover:bg-blue-500"
             } text-white py-2 px-6 rounded m-2  text-lg w-full font-semibold`}
           >
             {option}

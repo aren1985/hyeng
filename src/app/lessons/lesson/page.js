@@ -108,7 +108,7 @@ const LessonPage = () => {
         {currentTheme.themeTitle}
       </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-3xl">
         {currentTheme.words.map((word) => (
           <div
             key={word._id}

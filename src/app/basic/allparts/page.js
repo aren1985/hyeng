@@ -22,7 +22,7 @@ const CategorySelection = () => {
   };
 
   return (
-    <div className="flex flex-col items-center p-6  min-h-screen">
+    <div className="flex flex-col items-center p-6 min-h-screen">
       <h1 className="text-2xl md:text-3xl text-purple-800 font-bold mb-8 mt-6 shadow-lg p-3 rounded-lg bg-white">
         Select a Category
       </h1>

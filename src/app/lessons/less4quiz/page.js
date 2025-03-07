@@ -182,7 +182,7 @@ const SentenceQuizPage4 = () => {
           find a correct
         </p>
 
-        <p className="text-lg text-white bg-gray-800 rounded shadow-md py-2 px-3 font-semibold">
+        <p className="text-lg text-white bg-gray-800 rounded shadow-md px-3 py-2 font-semibold">
           {currentSentence.english}
         </p>
       </div>
@@ -195,7 +195,7 @@ const SentenceQuizPage4 = () => {
               className={`py-2 px-6 rounded-lg text-md w-full font-semibold ${
                 selectedAnswer === option
                   ? "bg-gray-700 text-white"
-                  : "bg-gray-200"
+                  : "bg-gray-200 hover:bg-gray-400"
               }`}
               onClick={() => setSelectedAnswer(option)}
               disabled={isChecked} // Disable buttons after answer is checked

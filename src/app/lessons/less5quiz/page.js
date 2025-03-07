@@ -195,7 +195,7 @@ const SentenceQuizPage6 = () => {
               className={`py-2 px-6 rounded-lg text-lg w-full  font-semibold ${
                 selectedAnswer === option
                   ? "bg-gray-700 text-white"
-                  : "bg-gray-200"
+                  : "bg-gray-200 hover:bg-gray-400"
               }`}
               onClick={() => setSelectedAnswer(option)}
               disabled={isChecked} // Disable buttons after answer is checked

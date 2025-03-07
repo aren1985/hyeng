@@ -224,7 +224,7 @@ const QuizPage = () => {
               className={`py-2 px-6 rounded-lg text-lg font-semibold w-64  ${
                 selectedAnswer === option
                   ? "bg-gray-700 text-white"
-                  : "bg-gray-200"
+                  : "bg-gray-200 hover:bg-gray-400"
               }`}
               onClick={() => setSelectedAnswer(option)}
               disabled={isChecked} // Disable buttons after answer is checked
