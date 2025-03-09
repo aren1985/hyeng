@@ -166,7 +166,7 @@ const Theme7Page = () => {
       </h1>
       <button
         onClick={playSentence}
-        className="flex items-center gap-2 bg-orange-600 text-white p-3 rounded-full shadow mb-4 hover:bg-blue-600 transition"
+        className="flex items-center gap-2 bg-orange-600 text-white p-3 rounded-full font-semibold shadow mb-4 hover:bg-blue-600 transition"
       >
         <FaVolumeUp className="text-xl" />
         Listen to the Sentence
