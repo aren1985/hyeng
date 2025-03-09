@@ -204,7 +204,7 @@ const QuizPage = () => {
           finde a correct
         </p>
 
-        <p className="text-md md:text-lg text-white bg-gray-800 shadow-md px-3 py-2 font-semibold rounded">
+        <p className="text-lg text-white bg-gray-800 shadow-md px-3 py-2 font-semibold rounded">
           {currentWord.english}
         </p>
         <button

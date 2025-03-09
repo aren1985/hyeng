@@ -121,7 +121,7 @@ const LesTrainPage = () => {
   if (error) return <p className="text-red-600">{error}</p>;
 
   return (
-    <div className="flex flex-col items-center p-6 min-h-screen">
+    <div className="flex flex-col items-center p-6">
       <h1 className="bg-purple-800 text-gray-200 text-xl md:text-2xl py-2 px-6 font-bold mt-5 mb-5 rounded">
         training
       </h1>

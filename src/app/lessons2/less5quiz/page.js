@@ -182,7 +182,7 @@ const SentenceQuizPage6 = () => {
           choose a correct
         </p>
 
-        <p className="text-lg text-white bg-gray-800 font-semibold shadow-md py-2 px-3 rounded">
+        <p className="text-md text-white bg-gray-800 font-semibold shadow-md py-2 px-3 rounded">
           {currentSentence.armenian}
         </p>
       </div>

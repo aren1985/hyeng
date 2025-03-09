@@ -187,7 +187,7 @@ const Less6QuizPage = () => {
       <h1 className="text-xl md:text-2xl text-purple-800 font-bold mb-4">
         Rearrange the Sentence
       </h1>
-      <p className="text-lg text-white bg-gray-800 font-semibold py-2 px-3 rounded shadow-md  mb-4">
+      <p className="text-md text-white bg-gray-800 font-semibold py-2 px-3 rounded shadow-md  mb-4">
         {currentSentence.armenian}
       </p>
 
