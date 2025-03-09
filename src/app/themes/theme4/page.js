@@ -171,7 +171,7 @@ const Theme5Page = () => {
   const currentSentence = sentences[currentSentenceIndex];
 
   return (
-    <div className="flex flex-col items-center p-6 min-h-screen">
+    <div className="flex flex-col items-center p-6">
       <h1 className="text-xl md:text-2xl font-bold text-purple-800 mb-6">
         Rearrange the Sentence
       </h1>

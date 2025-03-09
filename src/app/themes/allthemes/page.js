@@ -22,7 +22,7 @@ const ThemeSelection = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center  p-6">
+    <div className="flex flex-col items-center  p-6">
       <h1
         className="text-xl md:text-2xl font-bold px-3 py-2 rounded bg-white text-purple-800 mb-8 text-center 
         transform-gpu shadow-2xl"

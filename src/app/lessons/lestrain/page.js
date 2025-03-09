@@ -132,7 +132,7 @@ const LesTrainPage = () => {
       {words.length > 0 && currentIndex < words.length ? (
         <div className="flex flex-col items-center w-full max-w-xl">
           <div className="mb-6 p-4 border border-gray-200 shadow-lg rounded-lg bg-white w-full">
-            <p className="text-lg p-3 font-medium text-white bg-gray-800 text-center">
+            <p className="text-lg p-3 font-medium text-white bg-gray-800 text-center rounded">
               {words[currentIndex]?.armenian}
             </p>
             <input
