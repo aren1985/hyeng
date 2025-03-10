@@ -4,8 +4,8 @@ import { useRouter } from "next/navigation";
 
 // Example of lessons with MongoDB _id and title
 const lessons = [
-  { _id: "675ac909a92a5d3508981de3", title: "words for 41 day" },
-  { _id: "675acb3ea92a5d3508981deb", title: "words for 81 day" },
+  { _id: "67a5dbc2a290a9e9fc399658", title: "words for 81 day" },
+
   // Add more lessons as needed with _id
 ];
 
@@ -15,14 +15,14 @@ const LessonSelection = () => {
   const handleLessonSelect = (lessonId, lessonTitle) => {
     // Navigate to the Word Selection page with the title as a query param
     router.push(
-      `/words2/words1?title=${encodeURIComponent(
+      `/words3/words1?title=${encodeURIComponent(
         lessonTitle
       )}&_id=${encodeURIComponent(lessonId)}`
     );
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center  p-6">
+    <div className="flex flex-col items-center  p-6">
       <h1
         className="text-xl md:text-2xl py-1 px-6 rounded-lg font-bold bg-white text-purple-800 mb-8 text-center 
         transform-gpu shadow-2xl"

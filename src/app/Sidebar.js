@@ -74,6 +74,11 @@ const Sidebar = () => {
                   A2 Level
                 </Link>
               </li>
+              <li className="border-b border-gray-700 pb-2 hover:text-purple-500">
+                <Link href="/levels/bonelevel" onClick={() => setIsOpen(false)}>
+                  B1 Level
+                </Link>
+              </li>
               {/* Conditional Rendering for Login/Signup or Logout */}
               {isLoggedIn ? (
                 <>

@@ -24,7 +24,7 @@ const Words5Page = () => {
   useEffect(() => {
     if (title) {
       axios
-        .get(`${process.env.NEXT_PUBLIC_API_URL}/words2/wordik2/${title}`)
+        .get(`${process.env.NEXT_PUBLIC_API_URL}/words3/wordik3/${title}`)
         .then((response) => {
           setWords(response.data.words || []);
         })
@@ -75,7 +75,7 @@ const Words5Page = () => {
       setSpokenWord(""); // Reset spoken word for next round
       setIsCorrect(null);
     } else {
-      router.push("/words2/allwords2");
+      router.push("/words3/allwords3");
     }
 
     setModalVisible(false);
