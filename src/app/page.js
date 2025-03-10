@@ -8,7 +8,9 @@ const Homepage = () => {
       <h1 className="md:text-4xl text-3xl text-center font-bold text-purple-600 mb-4 p-6 rounded-lg text-shadow-lg">
         Welcome to Our School
       </h1>
-      <p className="text-white mb-4 text-lg font-semibold">Տեսածանոթություն</p>
+      <p className="text-white mb-4 text-lg font-semibold">
+        Տեսածանոթություն d
+      </p>
       <div className="flex justify-center w-full max-w-4xl">
         <iframe
           width="560"
