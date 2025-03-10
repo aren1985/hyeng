@@ -88,7 +88,7 @@ const LesTrainPage = () => {
       setAttempted(false);
     } else {
       // Navigate to next page when all words are finished
-      router.push(`/lessons/less1quiz?title=${encodeURIComponent(title)}`);
+      router.push(`/lessons2/less1quiz?title=${encodeURIComponent(title)}`);
     }
   };
 

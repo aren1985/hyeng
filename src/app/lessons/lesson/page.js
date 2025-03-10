@@ -32,7 +32,6 @@ const LessonPage = () => {
             }/documents/lessdocuments/${encodeURIComponent(title)}`
           )
           .then((response) => {
-            console.log(response); // Check the data returned
             if (response.data && response.data.length > 0) {
               setLesson(response.data[0]); // Assuming the response data is an array, use the first item
               cache.current[title] = response.data[0]; // Cache the response

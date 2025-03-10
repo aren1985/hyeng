@@ -201,7 +201,7 @@ const Less8QuizPage = () => {
         </div>
         <p className="text-lg text-white mt-2"> ~~You said~~</p>
         <div className="mb-4 p-2 bg-gray-400 w-48">
-          <p className="text-lg p-2 text-green-500 font-semibold">
+          <p className="text-lg p-2 text-green-700 font-semibold">
             <em> {userSpokenText}</em>
           </p>
         </div>
