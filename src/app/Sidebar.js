@@ -50,7 +50,7 @@ const Sidebar = () => {
                 </Link>
               </li>
               <li className="border-b border-gray-700 pb-2 hover:text-purple-500">
-                <Link href="/free" onClick={() => setIsOpen(false)}>
+                <Link href="/freeless/free" onClick={() => setIsOpen(false)}>
                   free
                 </Link>
               </li>
