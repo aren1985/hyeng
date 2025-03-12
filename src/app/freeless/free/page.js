@@ -5,6 +5,10 @@ import Link from "next/link";
 
 const levels = [
   {
+    title: "Images",
+    links: [{ href: "/freeless/imagefree", text: "Learn by Images" }],
+  },
+  {
     title: "A1 Level",
     links: [
       { href: "/freeless/free1/freewords", text: "A1 Words" },
@@ -15,30 +19,26 @@ const levels = [
   {
     title: "A2 Level",
     links: [
-      { href: "/freeless/a2free", text: "A2 Lesson" },
-      { href: "/freeless/a2theme", text: "A2 Theme" },
-      { href: "/freeless/a2words", text: "A2 Words" }, // Added A2 Words for consistency
+      { href: "/freeless/free2/freewords", text: "A2 Words" },
+      { href: "/freeless/free2/freelessik", text: "A2 Lesson" },
+      { href: "/freeless/free2/freetheme", text: "A2 Theme" }, // Added A2 Words for consistency
     ],
   },
   {
     title: "B1 Level",
     links: [
-      { href: "/freeless/b1free", text: "B1 Lesson" },
-      { href: "/freeless/b1theme", text: "B1 Theme" }, // Added B1 Theme for consistency
-      { href: "/freeless/b1words", text: "B1 Words" }, // Added B1 Words for consistency
+      { href: "/freeless/free3/freewords", text: "B1 Words" },
+      { href: "/freeless/free3/freelessik", text: "B1 Lesson" }, // Added B1 Theme for consistency
+      { href: "/freeless/free3/freetheme", text: "B1 Theme" }, // Added B1 Words for consistency
     ],
   },
   {
     title: "B2 Level",
     links: [
-      { href: "/freeless/b2free", text: "B2 Lesson" },
-      { href: "/freeless/b2theme", text: "B2 Theme" }, // Added B2 Theme for consistency
-      { href: "/freeless/b2words", text: "B2 Words" }, // Added B2 Words for consistency
+      { href: "/freeless/free4/freewords", text: "B2 Words" },
+      { href: "/freeless/free4/freelessik", text: "B2 Lesson" }, // Added B2 Theme for consistency
+      { href: "/freeless/free4/freetheme", text: "B2 Theme" }, // Added B2 Words for consistency
     ],
-  },
-  {
-    title: "Images",
-    links: [{ href: "/freeless/imagefree", text: "Learn by Images" }],
   },
 ];
 
@@ -70,7 +70,7 @@ const FreeLessons = () => {
                   <li key={i}>
                     <Link
                       href={link.href}
-                      className="block px-4 py-2 text-white bg-purple-700 rounded-lg hover:bg-blue-800 shadow-md"
+                      className="block font-semibold px-4 py-2 text-white bg-purple-700 rounded-lg hover:bg-blue-800 shadow-md"
                     >
                       {link.text}
                     </Link>

@@ -15,7 +15,7 @@ const ThemeSelection = () => {
   const handleThemeSelect = (themeId, themeTitle) => {
     // Navigate to the Theme page with the title as a query param
     router.push(
-      `/themes/theme1?title=${encodeURIComponent(
+      `/freeless/free1/freetheme1/theme1?title=${encodeURIComponent(
         themeTitle
       )}&_id=${encodeURIComponent(themeId)}`
     );
