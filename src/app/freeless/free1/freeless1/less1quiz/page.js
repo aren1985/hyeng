@@ -7,8 +7,8 @@ import { FaVolumeUp } from "react-icons/fa";
 import Image from "next/image";
 
 // Import images directly from the Images folder
-import correctImage from "../../images/newlike.webp";
-import incorrectImage from "../../images/dislike.webp";
+import correctImage from "../../../../images/newlike.webp";
+import incorrectImage from "../../../../images/dislike.webp";
 const Modal = ({ visible, imageSrc, onNext, isCorrect }) => {
   if (!visible) return null;
 
@@ -167,7 +167,7 @@ const QuizPage = () => {
       setSelectedAnswer(null);
       setIsChecked(false);
     } else {
-      router.push(`/lessons/less2quiz?title=${title}`);
+      router.push(`/freeless/free1/freeless1/less2quiz?title=${title}`);
     }
     setModalVisible(false);
   };
