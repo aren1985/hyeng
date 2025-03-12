@@ -9,7 +9,7 @@ const Homepage = () => {
         <em>Welcome to Our School</em>
       </h1>
       <p className="text-white mb-4 text-lg font-semibold">
-        <em>Տեսածանոթություն</em>
+        <em>Տեսածանոթություն d</em>
       </p>
       <div className="flex justify-center w-full max-w-4xl">
         <iframe
