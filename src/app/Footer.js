@@ -8,7 +8,14 @@ export default function Footer() {
       <div className="container mx-auto flex items-center justify-center">
         {/* Logo section with two lines */}
         <div className="flex flex-col items-center mr-4">
-          <Image src={logo} alt="Logo" width={100} height={50} />
+          <Image
+            src={logo}
+            alt="Logo"
+            width="auto"
+            height="auto"
+            style={{ objectFit: "contain", width: "100px", height: "40px" }}
+            priority
+          />
         </div>
 
         {/* Text section next to the logo */}

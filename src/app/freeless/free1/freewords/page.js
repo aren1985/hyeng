@@ -15,7 +15,7 @@ const LessonSelection = () => {
   const handleLessonSelect = (lessonId, lessonTitle) => {
     // Navigate to the Word Selection page with the title as a query param
     router.push(
-      `/words/words1?title=${encodeURIComponent(
+      `/freeless/free1/freeword1/words1?title=${encodeURIComponent(
         lessonTitle
       )}&_id=${encodeURIComponent(lessonId)}`
     );
