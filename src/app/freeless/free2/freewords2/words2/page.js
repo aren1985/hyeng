@@ -4,8 +4,10 @@ import React, { useEffect, useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import axios from "axios";
 import Image from "next/image";
-import correctImage from "../../images/newlike.webp";
-import incorrectImage from "../../images/dislike.webp";
+
+import correctImage from "../../../../images/newlike.webp";
+import incorrectImage from "../../../../images/dislike.webp";
+
 const Modal = ({ visible, imageSrc, onNext, isCorrect }) => {
   if (!visible) return null;
 
@@ -31,7 +33,7 @@ const Modal = ({ visible, imageSrc, onNext, isCorrect }) => {
   );
 };
 
-const Words3Page = () => {
+const Words2Page = () => {
   const [words, setWords] = useState([]);
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
@@ -46,11 +48,11 @@ const Words3Page = () => {
   useEffect(() => {
     if (title) {
       axios
-        .get(`${process.env.NEXT_PUBLIC_API_URL}/words3/wordik3/${title}`)
+        .get(`${process.env.NEXT_PUBLIC_API_URL}/words2/wordik2/${title}`)
         .then((response) => {
           const fetchedWords = response.data.words || [];
           setWords(fetchedWords);
-          shuffleWords(fetchedWords); // Shuffle words after fetching them
+          shuffleWords(fetchedWords);
         })
         .catch(() => console.error("Failed to load words."));
     }
@@ -69,17 +71,17 @@ const Words3Page = () => {
     if (!words || words.length === 0) return;
 
     const currentWord = words[currentWordIndex];
-    const correctOption = currentWord?.english; // Correct option should be the English translation
+    const correctOption = currentWord?.armenian;
 
     let options = [correctOption];
     while (options.length < 4) {
       const randomWord =
-        words[Math.floor(Math.random() * words.length)]?.english; // Random English translations
+        words[Math.floor(Math.random() * words.length)]?.armenian;
       if (randomWord && !options.includes(randomWord)) {
         options.push(randomWord);
       }
     }
-    setOptions(shuffleArray(options)); // Shuffle options to randomize the order
+    setOptions(shuffleArray(options));
   };
 
   const shuffleArray = (array) => {
@@ -91,8 +93,14 @@ const Words3Page = () => {
     return shuffled;
   };
 
-  const handleAnswer = () => {
-    const correctAnswer = words[currentWordIndex]?.english; // Correct answer is the English translation
+  const selectAnswer = (answer) => {
+    setSelectedAnswer(answer);
+  };
+
+  const checkAnswer = () => {
+    if (!selectedAnswer) return;
+
+    const correctAnswer = words[currentWordIndex]?.armenian;
     const correct = selectedAnswer === correctAnswer;
 
     setIsCorrect(correct);
@@ -107,13 +115,15 @@ const Words3Page = () => {
       setSelectedAnswer(null);
       setIsCorrect(null);
     } else {
-      router.push(`/words3/words4?title=${encodeURIComponent(title)}`);
+      router.push(
+        `/freeless/free2/freewords2/words3?title=${encodeURIComponent(title)}`
+      );
     }
   };
 
   useEffect(() => {
     if (words.length > 0) {
-      generateOptions(); // Generate options when words are fetched and shuffled
+      generateOptions();
     }
   }, [words, currentWordIndex]);
 
@@ -139,40 +149,32 @@ const Words3Page = () => {
       </h1>
 
       <div className="mb-6 text-center">
-        <p className="text-lg  py-2 px-3 rounded font-semibold text-white bg-gray-800 shadow-md">
-          {currentWord?.armenian}
+        <p className="text-lg py-2 px-3 font-semibold text-white bg-gray-800 rounded shadow-md">
+          {currentWord?.english}
         </p>
       </div>
 
-      <div className="flex flex-col gap-4 items-center text-lg">
-        {options.map((option, index) => {
-          // Use gray background when not selected and blue when selected
-          const backgroundColor =
-            selectedAnswer === option ? "bg-blue-400" : "bg-gray-200";
-
-          return (
-            <button
-              key={index}
-              className={`py-2 px-6 rounded-lg text-xl font-semibold w-64 ${backgroundColor}`}
-              onClick={() => setSelectedAnswer(option)}
-              disabled={modalVisible} // Disable only if the modal is visible
-            >
-              {option}
-            </button>
-          );
-        })}
+      <div className="flex flex-col gap-4 items-center">
+        {options.map((option, index) => (
+          <button
+            key={index}
+            className={`py-2 px-6 rounded-lg text-lg font-semibold w-64 ${
+              selectedAnswer === option ? "bg-blue-400" : "bg-gray-200"
+            }`}
+            onClick={() => selectAnswer(option)}
+          >
+            {option}
+          </button>
+        ))}
       </div>
 
-      {/* Check Answer Button */}
       <button
-        onClick={handleAnswer}
+        onClick={checkAnswer}
         className="bg-purple-700 hover:bg-purple-500 text-white p-3 mt-10 w-full text-lg  rounded shadow-lg font-bold border-2 border-white"
-        disabled={selectedAnswer === null}
       >
         Check Answer
       </button>
 
-      {/* Modal for correct/incorrect feedback */}
       <Modal
         visible={modalVisible}
         imageSrc={modalImage}
@@ -183,10 +185,10 @@ const Words3Page = () => {
   );
 };
 
-export default function W3Pg() {
+export default function W2Pg() {
   return (
     <Suspense>
-      <Words3Page />
+      <Words2Page />
     </Suspense>
   );
 }

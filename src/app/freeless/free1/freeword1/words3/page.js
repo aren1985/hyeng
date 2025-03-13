@@ -155,7 +155,7 @@ const Words3Page = () => {
           return (
             <button
               key={index}
-              className={`py-2 px-6 rounded-lg text-lg font-semibold w-64 ${backgroundColor}`}
+              className={`py-2 px-6 rounded-lg text-xl font-semibold w-64 ${backgroundColor}`}
               onClick={() => setSelectedAnswer(option)}
               disabled={modalVisible} // Disable only if the modal is visible
             >

@@ -4,8 +4,8 @@ import React, { useEffect, useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import axios from "axios";
 import Image from "next/image";
-import correctImage from "../../images/newlike.webp";
-import incorrectImage from "../../images/dislike.webp";
+import correctImage from "../../../../images/newlike.webp";
+import incorrectImage from "../../../../images/dislike.webp";
 const Modal = ({ visible, imageSrc, onNext, isCorrect }) => {
   if (!visible) return null;
 
@@ -46,7 +46,7 @@ const Words3Page = () => {
   useEffect(() => {
     if (title) {
       axios
-        .get(`${process.env.NEXT_PUBLIC_API_URL}/words3/wordik3/${title}`)
+        .get(`${process.env.NEXT_PUBLIC_API_URL}/words2/wordik2/${title}`)
         .then((response) => {
           const fetchedWords = response.data.words || [];
           setWords(fetchedWords);
@@ -107,7 +107,9 @@ const Words3Page = () => {
       setSelectedAnswer(null);
       setIsCorrect(null);
     } else {
-      router.push(`/words3/words4?title=${encodeURIComponent(title)}`);
+      router.push(
+        `/freeless/free2/freewords2/words4?title=${encodeURIComponent(title)}`
+      );
     }
   };
 
