@@ -84,6 +84,7 @@ const Sidebar = () => {
                   B2 Level
                 </Link>
               </li>
+
               {/* Conditional Rendering for Login/Signup or Logout */}
               {isLoggedIn ? (
                 <>

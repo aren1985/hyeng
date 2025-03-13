@@ -17,7 +17,7 @@ const ThemePage = () => {
     if (title) {
       // Fetch sentences based on the title from query params
       axios
-        .get(`${process.env.NEXT_PUBLIC_API_URL}/themes/themik/${title}`)
+        .get(`${process.env.NEXT_PUBLIC_API_URL}/themes3/themik3/${title}`)
         .then((response) => {
           setSentences(response.data.sentences || []);
           setLoading(false);
@@ -52,7 +52,9 @@ const ThemePage = () => {
 
   const goToNextPage = () => {
     router.push(
-      `/freeless/free1/freetheme1/themetrain?title=${encodeURIComponent(title)}`
+      `/freeless/free3/freetheme3/themetrain3?title=${encodeURIComponent(
+        title
+      )}`
     );
   };
 
