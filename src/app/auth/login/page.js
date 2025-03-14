@@ -63,7 +63,7 @@ const SignInPage = () => {
   };
 
   return (
-    <div className="flex justify-center items-center mt-10">
+    <div className="flex justify-center items-center mt-15">
       <div className="bg-gray-700 p-8 rounded-lg shadow-lg w-full sm:w-96">
         <h2 className="text-3xl font-semibold text-center text-white mb-6">
           Sign In
@@ -113,7 +113,7 @@ const SignInPage = () => {
 
           <button
             type="submit"
-            className="w-full p-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:ring-2 focus:ring-purple-500"
+            className="w-full p-2 font-semibold bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:ring-2 focus:ring-purple-500"
           >
             Sign In
           </button>

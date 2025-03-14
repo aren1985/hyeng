@@ -120,7 +120,7 @@ const SignUpPage = () => {
 
           <button
             type="submit"
-            className="w-full p-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:ring-2 focus:ring-purple-500"
+            className="w-full p-3 font-semibold bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:ring-2 focus:ring-purple-500"
           >
             Sign Up
           </button>
