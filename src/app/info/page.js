@@ -3,7 +3,7 @@
 import React from "react";
 
 const page = () => {
-  return <div>page image free</div>;
+  return <div>info page</div>;
 };
 
 export default page;

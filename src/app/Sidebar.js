@@ -64,11 +64,17 @@ const Sidebar = () => {
                   A1 Level
                 </Link>
               </li>
-              <li className="border-b border-gray-700 pb-2 hover:text-purple-500">
+              <li cassName="border-b border-gray-700 pb-2 hover:text-purple-500">
                 <Link href="/contacts" onClick={() => setIsOpen(false)}>
                   Contact
                 </Link>
               </li>
+              <li cassName="border-b border-gray-700 pb-2 hover:text-purple-500">
+                <Link href="/info" onClick={() => setIsOpen(false)}>
+                  info
+                </Link>
+              </li>
+
               <li className="border-b border-gray-700 pb-2 hover:text-purple-500">
                 <Link href="/levels/atwolevel" onClick={() => setIsOpen(false)}>
                   A2 Level
@@ -93,6 +99,7 @@ const Sidebar = () => {
                       Profile
                     </Link>
                   </li>
+
                   <li className="border-b border-gray-700 pb-2 hover:text-purple-500">
                     <button onClick={logout}>Logout</button>
                   </li>

@@ -6,7 +6,7 @@ import Link from "next/link";
 const levels = [
   {
     title: "Images",
-    links: [{ href: "/freeless/imagefree", text: "Learn by Images" }],
+    links: [{ href: "/freeless/freeimage/freeim", text: "Learn by Images" }],
   },
   {
     title: "A1 Level",
@@ -46,12 +46,11 @@ const FreeLessons = () => {
   return (
     <div className="flex flex-col items-center gap-10 w-full mt-10">
       <div className="text-lg font-semibold text-purple-800 bg-white text-center p-4 rounded-lg shadow-md">
-        <p>
-          Free page for getting acquainted and getting an idea of the class
-          procedure
+        <p className="text-xl border-2 border-green-500 bg-gray-800 p-3 rounded">
+          Free section to get acquainted with the class procedure
         </p>
-        <p>
-          Անվճար էջ ծանոթանալու և պատկերացում կազմելու դասերի ընթացակարգի համար
+        <p className="bg-gray-800 text-gray-300 p-3 rounded border-2 border-green-500">
+          <em>Անվճար բաժին դասերի ընթացակարգին ծանոթանալու համար</em>
         </p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
