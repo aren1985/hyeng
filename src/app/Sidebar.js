@@ -39,39 +39,24 @@ const Sidebar = () => {
           <nav className="text-center">
             <ul className="grid grid-cols-2 gap-4 font-bold">
               <li className="border-b border-gray-700 pb-2 hover:text-purple-500">
+                <Link href="/basic/allparts" onClick={() => setIsOpen(false)}>
+                  Images
+                </Link>
+              </li>
+              <li className="border-b border-gray-700 pb-2 hover:text-purple-500">
                 <Link href="/" onClick={() => setIsOpen(false)}>
                   Home
                 </Link>
               </li>
 
               <li className="border-b border-gray-700 pb-2 hover:text-purple-500">
-                <Link href="/about" onClick={() => setIsOpen(false)}>
-                  About Us
-                </Link>
-              </li>
-              <li className="border-b border-gray-700 pb-2 hover:text-purple-500">
-                <Link href="/freeless/free" onClick={() => setIsOpen(false)}>
-                  free
-                </Link>
-              </li>
-              <li className="border-b border-gray-700 pb-2 hover:text-purple-500">
-                <Link href="/basic/allparts" onClick={() => setIsOpen(false)}>
-                  Images
-                </Link>
-              </li>
-              <li className="border-b border-gray-700 pb-2 hover:text-purple-500">
                 <Link href="/levels/aonelevel" onClick={() => setIsOpen(false)}>
                   A1 Level
                 </Link>
               </li>
-              <li cassName="border-b border-gray-700 pb-2 hover:text-purple-500">
-                <Link href="/contacts" onClick={() => setIsOpen(false)}>
-                  Contact
-                </Link>
-              </li>
-              <li cassName="border-b border-gray-700 pb-2 hover:text-purple-500">
-                <Link href="/info" onClick={() => setIsOpen(false)}>
-                  info
+              <li className="border-b border-gray-700 pb-2 hover:text-purple-500">
+                <Link href="/about" onClick={() => setIsOpen(false)}>
+                  About Us
                 </Link>
               </li>
 
@@ -80,14 +65,33 @@ const Sidebar = () => {
                   A2 Level
                 </Link>
               </li>
+
+              <li className="border-b border-gray-700 pb-2 hover:text-purple-500">
+                <Link href="/contacts" onClick={() => setIsOpen(false)}>
+                  contact
+                </Link>
+              </li>
+
               <li className="border-b border-gray-700 pb-2 hover:text-purple-500">
                 <Link href="/levels/bonelevel" onClick={() => setIsOpen(false)}>
                   B1 Level
                 </Link>
               </li>
+
+              <li className="border-b border-gray-700 pb-2 hover:text-purple-500">
+                <Link href="/info" onClick={() => setIsOpen(false)}>
+                  Info
+                </Link>
+              </li>
               <li className="border-b border-gray-700 pb-2 hover:text-purple-500">
                 <Link href="/levels/btwolevel" onClick={() => setIsOpen(false)}>
                   B2 Level
+                </Link>
+              </li>
+
+              <li className="border-b border-gray-700 pb-2 hover:text-purple-500">
+                <Link href="/freeless/free" onClick={() => setIsOpen(false)}>
+                  free
                 </Link>
               </li>
 

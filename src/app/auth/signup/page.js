@@ -47,11 +47,16 @@ const SignUpPage = () => {
         )}
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="block text-sm font-semibold text-gray-300 mb-2">
+            <label
+              htmlFor="first-name"
+              className="block text-sm font-semibold text-gray-300 mb-2"
+            >
               First Name
             </label>
             <input
               type="text"
+              id="first-name"
+              name="first-name"
               className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -60,11 +65,16 @@ const SignUpPage = () => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-semibold text-gray-300 mb-2">
+            <label
+              htmlFor="last-name"
+              className="block text-sm font-semibold text-gray-300 mb-2"
+            >
               Last Name
             </label>
             <input
               type="text"
+              id="last-name"
+              name="last-name"
               className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
               value={lastname}
               onChange={(e) => setLastname(e.target.value)}
@@ -73,11 +83,16 @@ const SignUpPage = () => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-semibold text-gray-300 mb-2">
+            <label
+              htmlFor="nickname"
+              className="block text-sm font-semibold text-gray-300 mb-2"
+            >
               Nickname
             </label>
             <input
               type="text"
+              id="nickname"
+              name="nickname"
               className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
               value={nickname}
               onChange={(e) => setNickname(e.target.value)}
@@ -86,11 +101,16 @@ const SignUpPage = () => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-semibold text-gray-300 mb-2">
+            <label
+              htmlFor="email"
+              className="block text-sm font-semibold text-gray-300 mb-2"
+            >
               Email
             </label>
             <input
               type="email"
+              id="email"
+              name="email"
               className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
               value={email}
               onChange={(e) => setEmail(e.target.value)}

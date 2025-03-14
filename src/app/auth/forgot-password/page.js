@@ -44,10 +44,15 @@ const ForgotNicknamePage = () => {
         )}
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="block text-sm font-semibold text-gray-300 mb-2">
+            <label
+              htmlFor="email"
+              className="block text-sm font-semibold text-gray-300 mb-2"
+            >
               Email
             </label>
             <input
+              id="email"
+              name="email"
               type="email"
               className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
               value={email}

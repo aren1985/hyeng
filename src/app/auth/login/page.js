@@ -28,6 +28,12 @@ const SignInPage = () => {
     setError(""); // Clear previous errors
     setSuccess(""); // Clear previous success message
 
+    // Validate input
+    if (!nickname || !email) {
+      setError("Nickname and Email are required.");
+      return;
+    }
+
     // Send POST request to the backend for sign-in
     axios
       .post(`${process.env.NEXT_PUBLIC_API_URL}/auth/signin`, {
@@ -43,11 +49,16 @@ const SignInPage = () => {
         localStorage.setItem("token", token);
         localStorage.setItem("user", JSON.stringify(user));
 
+        // Set success message
+        setSuccess("Successfully logged in!");
+
         // Redirect to home page after successful login
         router.push("/");
       })
       .catch((err) => {
-        setError(err.response?.data?.message || "An error occurred");
+        setError(
+          err.response?.data?.message || "An error occurred during login."
+        );
       });
   };
 
@@ -61,30 +72,42 @@ const SignInPage = () => {
         {success && (
           <p className="text-green-500 mb-4 text-center">{success}</p>
         )}
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} autoComplete="off">
           <div className="mb-4">
-            <label className="block text-sm font-semibold text-gray-300 mb-2">
+            <label
+              htmlFor="nickname"
+              className="block text-sm font-semibold text-gray-300 mb-2"
+            >
               Nickname
             </label>
             <input
               type="text"
+              id="nickname"
+              name="nickname"
               className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
               value={nickname}
               onChange={(e) => setNickname(e.target.value)}
               required
+              autoComplete="username" // Added autocomplete for nickname
             />
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-semibold text-gray-300 mb-2">
+            <label
+              htmlFor="email"
+              className="block text-sm font-semibold text-gray-300 mb-2"
+            >
               Email
             </label>
             <input
               type="email"
+              id="email"
+              name="email"
               className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              autoComplete="email" // Added autocomplete for email
             />
           </div>
 
