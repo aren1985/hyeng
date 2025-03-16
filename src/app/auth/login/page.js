@@ -15,13 +15,22 @@ const SignInPage = () => {
   // Use AuthContext to access login function and auth state
   const { isLoggedIn, login } = useContext(AuthContext);
 
-  // Redirect if already logged in
-  useEffect(() => {
-    if (isLoggedIn) {
-      router.push("/");
-    }
-  }, [isLoggedIn, router]);
+  /* useEffect(() => {
+    const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("user"));
 
+    console.log("Retrieved token:", token);
+    console.log("Retrieved user:", user);
+
+    // Redirect if the user is already logged in and is an admin
+    if (user && user.role === "admin") {
+      router.push("/dashboard");
+    } else if (user) {
+      router.push("/"); // Regular user
+    }
+  }, []); */ // Empty dependency array so it runs only once on component mount
+
+  // Handle form submission
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -41,7 +50,7 @@ const SignInPage = () => {
         email,
       })
       .then((response) => {
-        const { token, user } = response.data; // user should now be included in the response
+        const { token, user } = response.data;
 
         login(user); // Pass user data to AuthContext
 
@@ -49,11 +58,16 @@ const SignInPage = () => {
         localStorage.setItem("token", token);
         localStorage.setItem("user", JSON.stringify(user));
 
-        // Set success message
-        setSuccess("Successfully logged in!");
+        // Log the stored values for debugging
+        console.log("Stored token:", localStorage.getItem("token"));
+        console.log("Stored user:", JSON.parse(localStorage.getItem("user")));
 
-        // Redirect to home page after successful login
-        router.push("/");
+        // Redirect based on role
+        if (user.role === "admin") {
+          router.push("/dashboard"); // Admin dashboard
+        } else {
+          router.push("/"); // Regular user dashboard
+        }
       })
       .catch((err) => {
         setError(
@@ -63,7 +77,7 @@ const SignInPage = () => {
   };
 
   return (
-    <div className="flex justify-center items-center mt-15">
+    <div className="flex justify-center items-center">
       <div className="bg-gray-700 p-8 rounded-lg shadow-lg w-full sm:w-96">
         <h2 className="text-3xl font-semibold text-center text-white mb-6">
           Sign In

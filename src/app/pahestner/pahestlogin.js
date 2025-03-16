@@ -1,175 +1,151 @@
 "use client";
 
-import React, { useState, useEffect, Suspense } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useState, useContext, useEffect } from "react";
 import axios from "axios";
-import { FaVolumeUp } from "react-icons/fa";
+import { useRouter } from "next/navigation";
+import { AuthContext } from "../../AuthContext"; // Import AuthContext
 
-const Wordstrain = () => {
-  const [words, setWords] = useState([]);
-  const [userTranslation, setUserTranslation] = useState("");
-  const [error, setError] = useState(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isCorrect, setIsCorrect] = useState(null);
-  const [attempted, setAttempted] = useState(false);
-  const searchParams = useSearchParams();
-  const title = searchParams.get("title");
+const SignInPage = () => {
+  const [nickname, setNickname] = useState("");
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const router = useRouter();
 
+  // Use AuthContext to access login function and auth state
+  const { isLoggedIn, login } = useContext(AuthContext);
+
   useEffect(() => {
-    if (title) {
-      axios
-        .get(`${process.env.NEXT_PUBLIC_API_URL}/words/wordik/${title}`)
-        .then((response) => {
-          setWords(response.data.words || []);
-        })
-        .catch((err) => {
-          console.error("Error fetching words:", err);
-          setError("Failed to load words. Please try again.");
-        });
+    const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    console.log("Retrieved token:", token);
+    console.log("Retrieved user:", user);
+
+    // Redirect if the user is already logged in and is an admin
+    if (user && user.role === "admin") {
+      router.push("/dashboard");
+    } else if (user) {
+      router.push("/"); // Regular user
     }
-  }, [title]);
+  }, []); // Empty dependency array so it runs only once on component mount
 
-  const speakWord = (word) => {
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(word);
-    utterance.lang = "en-US";
-    utterance.rate = 0.8;
-    window.speechSynthesis.speak(utterance);
-  };
+  // Handle form submission
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setError(""); // Clear previous errors
+    setSuccess(""); // Clear previous success message
 
-  const checkAnswer = () => {
-    if (
-      words[currentIndex]?.english.toLowerCase() ===
-      userTranslation.trim().toLowerCase()
-    ) {
-      setIsCorrect(true);
-    } else {
-      setIsCorrect(false);
+    // Validate input
+    if (!nickname || !email) {
+      setError("Nickname and Email are required.");
+      return;
     }
-    setAttempted(true);
-  };
 
-  const handleNext = () => {
-    if (currentIndex < words.length - 1) {
-      setCurrentIndex(currentIndex + 1);
-      setUserTranslation("");
-      setIsCorrect(null);
-      setAttempted(false);
-    }
-  };
+    // Send POST request to the backend for sign-in
+    // After login is successful, check if the user is an admin
+    axios
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/auth/signin`, {
+        nickname,
+        email,
+      })
+      .then((response) => {
+        const { token, user } = response.data;
 
-  const handleRetry = () => {
-    setIsCorrect(null);
-    setAttempted(false);
-    setUserTranslation("");
-  };
+        login(user); // Pass user data to AuthContext
 
-  const goToNextPage = () => {
-    router.push(`/words/words2?title=${encodeURIComponent(title)}`);
-  };
+        // Store the token and user data in localStorage
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(user));
 
-  if (error) return <p className="text-red-600">{error}</p>;
+        // Redirect based on role
+        if (user.role === "admin") {
+          router.push("/dashboard"); // Admin dashboard
+        } else {
+          router.push("/"); // Regular user dashboard
+        }
+      })
+      .catch((err) => {
+        setError(
+          err.response?.data?.message || "An error occurred during login."
+        );
+      });
+  };
 
   return (
-    <div className="flex flex-col items-center p-6">
-      <h1 className="text-xl md:text-2xl font-bold mb-6 text-purple-800">
-        translate english
-      </h1>
-
-      {words.length > 0 && currentIndex < words.length ? (
-        <div className="flex flex-col items-center w-full max-w-xl">
-          <div className="mb-6 p-4 border border-gray-200 shadow-lg rounded-lg bg-white w-full">
-            <p className="text-lg p-2 font-medium text-white bg-gray-900 text-center">
-              {words[currentIndex]?.armenian}
-            </p>
+    <div className="flex justify-center items-center">
+      <div className="bg-gray-700 p-8 rounded-lg shadow-lg w-full sm:w-96">
+        <h2 className="text-3xl font-semibold text-center text-white mb-6">
+          Sign In
+        </h2>
+        {error && <p className="text-red-500 mb-4 text-center">{error}</p>}
+        {success && (
+          <p className="text-green-500 mb-4 text-center">{success}</p>
+        )}
+        <form onSubmit={handleSubmit} autoComplete="off">
+          <div className="mb-4">
+            <label
+              htmlFor="nickname"
+              className="block text-sm font-semibold text-gray-300 mb-2"
+            >
+              Nickname
+            </label>
             <input
               type="text"
-              value={userTranslation}
-              onChange={(e) => setUserTranslation(e.target.value)}
-              placeholder="Enter English translation"
-              className="mt-2 p-2 border border-gray-900 rounded w-full"
+              id="nickname"
+              name="nickname"
+              className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
+              required
+              autoComplete="username" // Added autocomplete for nickname
             />
-            <div className="flex items-center justify-between mt-4">
-              <button
-                onClick={checkAnswer}
-                className="bg-purple-700 hover:bg-purple-500 text-white p-2 rounded shadow-lg"
-              >
-                Check Answer
-              </button>
-              <button
-                onClick={() => speakWord(words[currentIndex]?.english)}
-                className="text-purple-700 p-2"
-                aria-label={`Listen to ${words[currentIndex]?.english}`}
-              >
-                <FaVolumeUp className="text-xl shadow-md" />
-              </button>
-            </div>
-
-            {attempted && (
-              <div
-                className={`mt-4 p-3 rounded-lg font-bold text-white ${
-                  isCorrect ? "bg-green-500" : "bg-red-500"
-                }`}
-              >
-                {isCorrect ? "Correct!" : "Incorrect!"}
-              </div>
-            )}
           </div>
 
-          {attempted && !isCorrect && (
-            <div className="mt-6 p-4 border border-green-500 rounded-lg bg-red-100 w-full">
-              <h3 className="font-bold text-green-600">Correct Answer</h3>
-              <p>{words[currentIndex]?.english}</p>
-            </div>
-          )}
-
-          <div className="mt-4">
-            {isCorrect ? (
-              <button
-                onClick={handleNext}
-                className="bg-purple-700 hover:bg-purple-500 text-white p-3 w-full text-lg rounded shadow-lg font-bold border-2 border-white"
-              >
-                Next Word
-              </button>
-            ) : (
-              <button
-                onClick={handleRetry}
-                className="bg-yellow-600 hover:bg-yellow-400 text-white px-3 w-full text-lg rounded shadow-lg font-bold border-2 border-white"
-              >
-                try again
-              </button>
-            )}
+          <div className="mb-4">
+            <label
+              htmlFor="email"
+              className="block text-sm font-semibold text-gray-300 mb-2"
+            >
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              autoComplete="email" // Added autocomplete for email
+            />
           </div>
-        </div>
-      ) : (
-        <div className="flex flex-col items-center justify-center h-[50vh]">
-          <div className="relative">
-            <div className="w-16 h-16 border-4 border-blue-500 border-solid border-t-transparent rounded-full animate-spin"></div>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-6 h-6 bg-blue-500 rounded-full animate-ping"></div>
-            </div>
-          </div>
-          <p className="mt-4 text-gray-700 text-lg font-medium">
-            Loading words...
-          </p>
-        </div>
-      )}
 
-      <button
-        onClick={goToNextPage}
-        className="bg-purple-700 hover:bg-purple-500 text-white p-3 mt-10 w-full text-lg rounded shadow-lg font-bold border-2 border-white"
-      >
-        Next
-      </button>
+          <button
+            type="submit"
+            className="w-full p-2 font-semibold bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:ring-2 focus:ring-purple-500"
+          >
+            Sign In
+          </button>
+        </form>
+        <p className="text-center mt-4 text-sm text-white">
+          Don&apos;t have an account?{" "}
+          <a href="/auth/signup" className="text-purple-600 hover:underline">
+            Sign up
+          </a>
+        </p>
+        <p className="text-center mt-2 text-sm text-white">
+          Forgot your nickname?{" "}
+          <a
+            href="/auth/forgot-password"
+            className="text-purple-600 hover:underline"
+          >
+            Click here
+          </a>
+        </p>
+      </div>
     </div>
   );
 };
 
-export default function WordstrainPage() {
-  return (
-    <Suspense>
-      <Wordstrain />
-    </Suspense>
-  );
-}
+export default SignInPage;
