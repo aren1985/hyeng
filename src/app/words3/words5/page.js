@@ -127,8 +127,8 @@ const Words5Page = () => {
           <Image src={teachik} alt="tete" width={100} height={100} />
         </div>
         <p className="text-lg text-white mt-2"> ~~You said~~</p>
-        <div className="mb-4 p-2 bg-gray-500 w-48">
-          <p className="text-lg p-2 text-green-700 font-semibold text-center">
+        <div className="mb-4 p-2 bg-gray-300 w-48">
+          <p className="text-lg p-2 text-green-900 font-semibold text-center">
             <em> {spokenWord}</em>
           </p>
         </div>
