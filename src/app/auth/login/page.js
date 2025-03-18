@@ -77,7 +77,7 @@ const SignInPage = () => {
   };
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center mt-7">
       <div className="bg-gray-700 p-8 rounded-lg shadow-lg w-full sm:w-96">
         <h2 className="text-3xl font-semibold text-center text-white mb-6">
           Sign In

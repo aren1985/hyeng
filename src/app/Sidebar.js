@@ -68,7 +68,7 @@ const Sidebar = () => {
 
               <li className="border-b border-gray-700 pb-2 hover:text-purple-500">
                 <Link href="/contacts" onClick={() => setIsOpen(false)}>
-                  contact
+                  Contact
                 </Link>
               </li>
 
@@ -80,7 +80,7 @@ const Sidebar = () => {
 
               <li className="border-b border-gray-700 pb-2 hover:text-purple-500">
                 <Link href="/info" onClick={() => setIsOpen(false)}>
-                  Info
+                  Help
                 </Link>
               </li>
               <li className="border-b border-gray-700 pb-2 hover:text-purple-500">
@@ -91,7 +91,7 @@ const Sidebar = () => {
 
               <li className="border-b border-gray-700 pb-2 hover:text-purple-500">
                 <Link href="/freeless/free" onClick={() => setIsOpen(false)}>
-                  free
+                  Free
                 </Link>
               </li>
 

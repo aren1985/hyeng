@@ -38,9 +38,7 @@ export default function RootLayout({ children }) {
               <Header />
 
               {/* Main Content */}
-              <main className="flex-grow pt-16 pb-10 pl-0 md:pl-64">
-                {children}
-              </main>
+              <main className="flex-grow pt-16  pl-0 md:pl-64">{children}</main>
 
               {/* Footer */}
               <Footer />

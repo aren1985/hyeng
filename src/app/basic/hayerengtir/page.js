@@ -132,7 +132,7 @@ const ArmenianQuiz = () => {
       <h1 className="text-xl md:text-2xl text-purple-800 font-bold mb-6">
         Select the correct English name
       </h1>
-      <p className="text-lg text-green-800 bg-white rounded shadow-md mb-6 py-2 px-3 font-semibold">
+      <p className="text-lg text-green-800 bg-gray-200 rounded w-64 text-center shadow-md mb-6 py-2 px-3 font-bold">
         {currentArmenianName || "Armenian name not available"}
       </p>
 

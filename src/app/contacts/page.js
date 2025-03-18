@@ -5,7 +5,7 @@ import { FaFacebook, FaInstagram, FaEnvelope } from "react-icons/fa";
 
 const ContactsPage = () => {
   return (
-    <div className="flex flex-col items-center justify-center mt-8  p-6">
+    <div className="flex flex-col items-center justify-center  p-6">
       <p className="text-purple-800 text-lg font-semibold mb-8 bg-gray-200 p-3 rounded">
         <em>Հարցերի դեպքում գրել մեզ </em>
       </p>
@@ -25,13 +25,13 @@ const ContactsPage = () => {
             <span>Facebook</span>
           </a>
 
-          {/* Email Link */}
+          {/* Gmail Link */}
           <a
-            href="mailto:your@email.com"
+            href="mailto:your@gmail.com"
             className="flex items-center justify-center space-x-2 text-white bg-green-600 px-4 py-2 rounded-lg shadow-md hover:bg-green-700 transition"
           >
             <FaEnvelope size={20} />
-            <span>Email</span>
+            <span>Gmail</span>
           </a>
 
           {/* Instagram Link */}
