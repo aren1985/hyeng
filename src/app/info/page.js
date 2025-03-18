@@ -39,7 +39,7 @@ const Helppage = () => {
       <div className="flex flex-col justify-center items-center gap-5">
         <h1 className="text-xl text-purple-800 font-bold">Խորհուրդ է տրվում</h1>
         <em className="text-gray-100 font-semibold">
-          1 Սովորել ամեն բաժնից հերթականությամբ օրինակ' Images բաժնից մեկ
+          1 Սովորել ամեն բաժնից հերթականությամբ օրինակ Images բաժնից մեկ
           կատեգորիա այնուհետև Words բաժնից հետո այդ նույն օրվա Lesson բաժնից և
           Theme բաժնի նույն օրվանը
         </em>
