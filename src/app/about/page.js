@@ -6,9 +6,8 @@ import teachik from "./../images/Teachik.png";
 
 const aboutpage = () => {
   return (
-    <div>
+    <div className="flex flex-col items-center p-4">
       <Image src={teachik} alt="teacher" width={100} height={100} />
-
       <p className="text-white">we are legal education company</p>
     </div>
   );

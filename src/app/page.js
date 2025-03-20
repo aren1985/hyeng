@@ -4,7 +4,7 @@ import React from "react";
 
 const Homepage = () => {
   return (
-    <div className="relative h-screen w-full overflow-hidden flex flex-col items-center p-4">
+    <div className="relative w-full overflow-hidden flex flex-col items-center p-4">
       {Array.from({ length: 20 }).map((_, index) => (
         <span
           key={index}
@@ -33,13 +33,13 @@ const Homepage = () => {
           }
         </span>
       ))}
-      <h1 className="md:text-4xl text-3xl text-center font-bold text-purple-600 mb-4 p-6 rounded-lg text-shadow-lg relative z-10">
+      <h1 className="md:text-4xl text-3xl bg-gray-700 text-center font-bold text-purple-600 mb-4 p-6 rounded-lg text-shadow-lg relative z-5">
         <em>Welcome to Our School</em>
       </h1>
-      <p className="text-white mb-4 text-lg font-semibold relative z-10">
+      <p className="text-white mb-4 text-lg font-semibold relative z-5">
         <em>Տեսածանոթություն</em>
       </p>
-      <div className="flex justify-center w-full max-w-4xl relative z-10">
+      <div className="flex justify-center w-full max-w-4xl relative z-5">
         <iframe
           width="560"
           height="315"
@@ -48,8 +48,11 @@ const Homepage = () => {
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
-          className="w-full md:w-[560px] h-[200px] md:h-[315px]"
+          className="w-full md:w-[560px] h-[200px] md:h-[315px] border-4 border-cyan-500"
         ></iframe>
+      </div>
+      <div className="p-4 text-cyan-400 bg-gray-600 relative text-center z-5 mt-10 mb-10 text-xl rounded font-bold w-3/4">
+        <em>Ամսեկան 2500 դրամ</em>
       </div>
     </div>
   );
