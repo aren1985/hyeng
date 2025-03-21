@@ -1,28 +1,19 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
-import teachik from "./../images/Teachik.png"; // Make sure this path is correct
 
-const SimpleYouTubePlayer = () => {
+const page = () => {
   return (
-    <div className="flex flex-col items-center p-4">
-      {/* Teachik Image */}
-      <Image src={teachik} alt="Teachik Logo" width={100} height={100} />
-
-      {/* Video Embed */}
-      <div
-        className="relative w-full max-w-xl mt-4 overflow-hidden border-8 border-cyan-500"
-        style={{ height: "315px" }}
-      >
-        {/* Wrapper div for cropping the top and bottom */}
+    <div className="flex flex-col justify-center items-center">
+      <h1>about us page</h1>
+      <div className="relative w-full h-[315px] max-w-xl mt-4 z-5 overflow-hidden border-8 border-purple-800">
         <iframe
           width="100%"
-          height="490" // Iframe height adjusted to 500px to hide top and bottom 100px
-          src="https://www.youtube-nocookie.com/embed/0sef9GYoLtw?controls=0&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3"
-          title="YouTube video player"
+          height="490"
+          src="https://www.youtube-nocookie.com/embed/0sef9GYoLtw?controls=0&rel=0&modestbranding=1"
+          title="YouTube video"
           frameBorder="0"
-          allow="autoplay; encrypted-media"
+          allow="autoplay;  encrypted-media"
           allowFullScreen
           className="absolute top-[-100px] left-0"
         ></iframe>
@@ -31,4 +22,4 @@ const SimpleYouTubePlayer = () => {
   );
 };
 
-export default SimpleYouTubePlayer;
+export default page;

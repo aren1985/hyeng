@@ -21,18 +21,18 @@ const Lev2Page = () => {
           </li>
           <li className="w-full">
             <Link
-              href="/themes2/allthemes2"
-              className="block px-4 py-2 text-lg text-white hover:text-blue-800 bg-purple-800 rounded-lg text-center"
-            >
-              A2 Themes
-            </Link>
-          </li>
-          <li className="w-full">
-            <Link
               href="/lessons2/less2"
               className="block px-4 py-2 text-lg text-white hover:text-blue-800 bg-purple-800 rounded-lg text-center"
             >
               Lessons for A2 Level
+            </Link>
+          </li>
+          <li className="w-full">
+            <Link
+              href="/themes2/allthemes2"
+              className="block px-4 py-2 text-lg text-white hover:text-blue-800 bg-purple-800 rounded-lg text-center"
+            >
+              A2 Themes
             </Link>
           </li>
         </ul>

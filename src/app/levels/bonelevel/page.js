@@ -21,18 +21,18 @@ const LevPage = () => {
           </li>
           <li className="w-full">
             <Link
-              href="/themes3/allthemes3"
-              className="block px-4 py-2 text-lg text-white hover:bg-blue-800 bg-purple-800 rounded-lg text-center"
-            >
-              B1 Themes
-            </Link>
-          </li>
-          <li className="w-full">
-            <Link
               href="/lessons3/less3"
               className="block px-4 py-2 text-lg text-white hover:bg-blue-800 bg-purple-800 rounded-lg text-center"
             >
               Lessons for B1 Level
+            </Link>
+          </li>
+          <li className="w-full">
+            <Link
+              href="/themes3/allthemes3"
+              className="block px-4 py-2 text-lg text-white hover:bg-blue-800 bg-purple-800 rounded-lg text-center"
+            >
+              B1 Themes
             </Link>
           </li>
         </ul>
