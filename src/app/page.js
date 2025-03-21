@@ -39,16 +39,20 @@ const Homepage = () => {
       <p className="text-white mb-4 text-lg font-semibold relative z-5">
         <em>Տեսածանոթություն</em>
       </p>
-      <div className="flex justify-center w-full max-w-4xl relative z-5">
+      <div
+        className="relative w-full max-w-xl mt-4 z-5 overflow-hidden border-8 border-cyan-500"
+        style={{ height: "315px" }}
+      >
         <iframe
-          width="560"
-          height="315"
-          src="https://www.youtube-nocookie.com/embed/2j9dRDkrzNA?si=ya7azFUsYJ6udCv5"
+          width="100%"
+          height="490"
+          src="https://www.youtube-nocookie.com/embed/2j9dRDkrzNA?si=ya7azFUsYJ6udCv5&controls=0
+          "
           title="YouTube video"
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
-          className="w-full md:w-[560px] h-[200px] md:h-[315px] border-4 border-cyan-500"
+          className="absolute top-[-100px] left-0"
         ></iframe>
       </div>
       <div className="p-4 text-cyan-400 bg-gray-600 relative text-center z-5 mt-10 mb-10 text-xl rounded font-bold w-3/4">
