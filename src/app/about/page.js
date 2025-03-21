@@ -24,7 +24,7 @@ const SimpleYouTubePlayer = () => {
           frameBorder="0"
           allow="autoplay; encrypted-media"
           allowFullScreen
-          className="absolute top-[-100px] left-0"
+          className="absolute top-[-70px] left-0"
         ></iframe>
       </div>
     </div>
