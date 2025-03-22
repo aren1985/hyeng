@@ -11,7 +11,14 @@ const categories = [
   "professions",
   "nature",
   "nature1",
+  "nature2",
+  "nature3",
+  "nature4",
+  "nature5",
   "buildings",
+  "buildings2",
+  "buildings3",
+  "buildings4",
 ];
 
 const CategorySelection = () => {

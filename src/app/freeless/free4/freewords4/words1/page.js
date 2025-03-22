@@ -68,7 +68,7 @@ const W1Page = () => {
               className="flex items-center justify-between p-4 border-4 border-purple-900 shadow-lg rounded-lg bg-gray-200"
             >
               <div>
-                <p className="text-md font-semibold text-gray-900">
+                <p className="text-md font-semibold text-gray-900 border-b-2 border-green-700">
                   {word.armenian}
                 </p>
                 <p className="text-lg text-blue-900 font-semibold">
