@@ -40,7 +40,7 @@ const Homepage = () => {
           src="https://www.youtube-nocookie.com/embed/2j9dRDkrzNA?si=ya7azFUsYJ6udCv5&controls=0&rel=0"
           title="YouTube video"
           frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allow="autoplay; encrypted-media"
           allowFullScreen
           className="absolute top-[-100px] left-0"
         ></iframe>
