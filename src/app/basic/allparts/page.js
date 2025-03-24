@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
 const categories = [
@@ -21,12 +21,21 @@ const categories = [
   "buildings4",
 ];
 
+const ITEMS_PER_PAGE = 10;
+
 const CategorySelection = () => {
   const router = useRouter();
+  const [page, setPage] = useState(0);
 
   const handleCategorySelect = (category) => {
     router.push(`/basic/learning?category=${encodeURIComponent(category)}`);
   };
+
+  const startIndex = page * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const paginatedCategories = categories.slice(startIndex, endIndex);
+
+  const totalPages = Math.ceil(categories.length / ITEMS_PER_PAGE);
 
   return (
     <div className="flex flex-col items-center p-6">
@@ -34,7 +43,7 @@ const CategorySelection = () => {
         Select a Category
       </h1>
       <ul className="space-y-4 w-full max-w-md">
-        {categories.map((category) => (
+        {paginatedCategories.map((category) => (
           <li key={category} className="w-full">
             <button
               onClick={() => handleCategorySelect(category)}
@@ -45,6 +54,57 @@ const CategorySelection = () => {
           </li>
         ))}
       </ul>
+
+      {/* Pagination Buttons */}
+      <div className="flex justify-between mt-6 w-full max-w-md">
+        <button
+          onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
+          disabled={page === 0}
+          className={`px-4 py-2 rounded-lg font-semibold text-white transition-all ${
+            page === 0
+              ? "bg-yellow-700 cursor-not-allowed"
+              : "bg-green-800 text-white hover:bg-blue-600"
+          }`}
+        >
+          Previous
+        </button>
+
+        {/* Page Numbers */}
+        <div className="flex items-center space-x-2">
+          {[...Array(totalPages)].map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setPage(index)}
+              className={`px-3 py-1 rounded-lg font-semibold transition-all ${
+                index === page
+                  ? "bg-purple-800 text-white"
+                  : "bg-gray-300 hover:bg-purple-500"
+              }`}
+            >
+              {index + 1}
+            </button>
+          ))}
+        </div>
+
+        <button
+          onClick={() =>
+            setPage((prev) =>
+              Math.min(
+                prev + 1,
+                Math.ceil(categories.length / ITEMS_PER_PAGE) - 1
+              )
+            )
+          }
+          disabled={endIndex >= categories.length}
+          className={`px-4 py-2 rounded-lg font-semibold text-white transition-all ${
+            endIndex >= categories.length
+              ? "bg-yellow-700 cursor-not-allowed"
+              : "bg-green-800 text-white hover:bg-blue-600"
+          }`}
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 };
