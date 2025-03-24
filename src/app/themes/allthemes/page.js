@@ -70,8 +70,8 @@ const ThemeSelection = () => {
               onClick={() => setPage(index)}
               className={`px-4 py-2 rounded-lg font-semibold transition-all ${
                 page === index
-                  ? "bg-yellow-700 text-white"
-                  : "bg-purple-800 text-white hover:bg-blue-600"
+                  ? "bg-purple-800 text-white"
+                  : "bg-gray-300 hover:bg-purple-500"
               }`}
             >
               {index + 1}

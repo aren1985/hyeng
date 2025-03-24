@@ -50,7 +50,7 @@ const LessonSelection2 = () => {
           disabled={page === 0}
           className={`px-4 py-2 rounded-lg font-semibold text-white transition-all ${
             page === 0
-              ? "bg-gray-500 cursor-not-allowed"
+              ? "bg-yellow-700 cursor-not-allowed"
               : "bg-green-800 hover:bg-blue-600"
           }`}
         >
@@ -65,8 +65,8 @@ const LessonSelection2 = () => {
               onClick={() => setPage(index)}
               className={`px-4 py-2 rounded-lg font-semibold transition-all ${
                 page === index
-                  ? "bg-yellow-700 text-white"
-                  : "bg-purple-800 text-white hover:bg-blue-600"
+                  ? "bg-purple-800 text-white"
+                  : "bg-gray-300 hover:bg-purple-500"
               }`}
             >
               {index + 1}
@@ -79,7 +79,7 @@ const LessonSelection2 = () => {
           disabled={page === totalPages - 1}
           className={`px-4 py-2 rounded-lg font-semibold text-white transition-all ${
             page === totalPages - 1
-              ? "bg-gray-500 cursor-not-allowed"
+              ? "bg-yellow-700 cursor-not-allowed"
               : "bg-green-800 hover:bg-blue-600"
           }`}
         >

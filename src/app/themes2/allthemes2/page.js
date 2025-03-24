@@ -83,8 +83,8 @@ const ThemeSelection = () => {
           disabled={page === totalPages - 1}
           className={`px-4 py-2 rounded-lg font-semibold text-white transition-all ${
             page === totalPages - 1
-              ? "bg-yellow-700 cursor-not-allowed"
-              : "bg-green-800 text-white hover:bg-blue-600"
+              ? "bg-purple-800 text-white"
+              : "bg-gray-300 hover:bg-purple-500"
           }`}
         >
           Next
