@@ -71,7 +71,7 @@ const LessonSelection = () => {
               : "bg-green-800 text-white hover:bg-blue-600"
           }`}
         >
-          Previous
+          Prev
         </button>
 
         {/* Page Numbers */}
@@ -80,7 +80,7 @@ const LessonSelection = () => {
             <button
               key={index}
               onClick={() => setPage(index)}
-              className={`px-2 py-2 rounded-lg font-semibold transition-all ${
+              className={`px-4 py-2 rounded-lg font-semibold transition-all ${
                 page === index
                   ? "bg-purple-800 text-white"
                   : "bg-gray-300 hover:bg-purple-500"
