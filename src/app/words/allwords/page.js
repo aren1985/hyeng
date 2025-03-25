@@ -7,11 +7,23 @@ import { useRouter } from "next/navigation";
 const lessons = [
   { _id: "60d9f7f2e4b0b4d85b97eaf8", title: "words for 1 day" },
   { _id: "60d9f7f2e4b0b4d85b97eaf9", title: "words for 2 day" },
+  { _id: "60d9f7f2e4b0b4d85b97eaf8", title: "words for 1 day" },
+  { _id: "60d9f7f2e4b0b4d85b97eaf9", title: "words for 2 day" },
+  { _id: "60d9f7f2e4b0b4d85b97eaf8", title: "words for 1 day" },
+  { _id: "60d9f7f2e4b0b4d85b97eaf9", title: "words for 2 day" },
+  { _id: "60d9f7f2e4b0b4d85b97eaf8", title: "words for 1 day" },
+  { _id: "60d9f7f2e4b0b4d85b97eaf9", title: "words for 2 day" },
+  { _id: "60d9f7f2e4b0b4d85b97eaf8", title: "words for 1 day" },
+  { _id: "60d9f7f2e4b0b4d85b97eaf9", title: "words for 2 day" },
+  { _id: "60d9f7f2e4b0b4d85b97eaf8", title: "words for 1 day" },
+  { _id: "60d9f7f2e4b0b4d85b97eaf9", title: "words for 2 day" },
+  { _id: "60d9f7f2e4b0b4d85b97eaf8", title: "words for 1 day" },
+  { _id: "60d9f7f2e4b0b4d85b97eaf9", title: "words for 2 day" },
 
   // Add more lessons as needed with _id
 ];
 
-const ITEMS_PER_PAGE = 10; // You can change this to adjust the number of lessons per page
+const ITEMS_PER_PAGE = 4; // You can change this to adjust the number of lessons per page
 
 const LessonSelection = () => {
   const router = useRouter();
