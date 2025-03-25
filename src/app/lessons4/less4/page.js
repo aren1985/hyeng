@@ -50,22 +50,22 @@ const LessonSelection2 = () => {
         <button
           onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
           disabled={page === 0}
-          className={`px-4 py-2 rounded-lg font-semibold text-white transition-all ${
+          className={`px-2 py-2 rounded-lg font-semibold text-white transition-all ${
             page === 0
               ? "bg-gray-500 cursor-not-allowed"
               : "bg-green-800 hover:bg-blue-600"
           }`}
         >
-          Previous
+          Prev
         </button>
 
         {/* Page Numbers */}
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-1 items-center">
           {Array.from({ length: totalPages }, (_, index) => (
             <button
               key={index}
               onClick={() => setPage(index)}
-              className={`px-4 py-2 rounded-lg font-semibold transition-all ${
+              className={`px-3 py-2 rounded-lg font-semibold transition-all ${
                 page === index
                   ? "bg-purple-800 text-white"
                   : "bg-gray-300 hover:bg-purple-500"
@@ -79,7 +79,7 @@ const LessonSelection2 = () => {
         <button
           onClick={() => setPage((prev) => Math.min(prev + 1, totalPages - 1))}
           disabled={page === totalPages - 1}
-          className={`px-4 py-2 rounded-lg font-semibold text-white transition-all ${
+          className={`px-2 py-2 rounded-lg font-semibold text-white transition-all ${
             page === totalPages - 1
               ? "bg-gray-500 cursor-not-allowed"
               : "bg-green-800 hover:bg-blue-600"

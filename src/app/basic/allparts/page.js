@@ -60,13 +60,13 @@ const CategorySelection = () => {
         <button
           onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
           disabled={page === 0}
-          className={`px-4 py-2 rounded-lg font-semibold text-white transition-all ${
+          className={`px-2 py-2 rounded-lg font-semibold text-white transition-all ${
             page === 0
               ? "bg-yellow-700 cursor-not-allowed"
               : "bg-green-800 text-white hover:bg-blue-600"
           }`}
         >
-          Previous
+          Prev
         </button>
 
         {/* Page Numbers */}
@@ -96,7 +96,7 @@ const CategorySelection = () => {
             )
           }
           disabled={endIndex >= categories.length}
-          className={`px-4 py-2 rounded-lg font-semibold text-white transition-all ${
+          className={`px-2 py-2 rounded-lg font-semibold text-white transition-all ${
             endIndex >= categories.length
               ? "bg-yellow-700 cursor-not-allowed"
               : "bg-green-800 text-white hover:bg-blue-600"

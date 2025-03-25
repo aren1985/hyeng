@@ -52,13 +52,13 @@ const ThemeSelection = () => {
         <button
           onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
           disabled={page === 0}
-          className={`px-4 py-2 rounded-lg font-semibold text-white transition-all ${
+          className={`px-2 py-2 rounded-lg font-semibold text-white transition-all ${
             page === 0
               ? "bg-yellow-700 cursor-not-allowed"
               : "bg-green-800 text-white hover:bg-blue-600"
           }`}
         >
-          Previous
+          Prev
         </button>
 
         {/* Page Numbers */}
@@ -67,7 +67,7 @@ const ThemeSelection = () => {
             <button
               key={index}
               onClick={() => setPage(index)}
-              className={`px-4 py-2 rounded-lg font-semibold transition-all ${
+              className={`px-3 py-2 rounded-lg font-semibold transition-all ${
                 page === index
                   ? "bg-yellow-700 text-white"
                   : "bg-purple-800 text-white hover:bg-blue-600"
@@ -81,7 +81,7 @@ const ThemeSelection = () => {
         <button
           onClick={() => setPage((prev) => Math.min(prev + 1, totalPages - 1))}
           disabled={page === totalPages - 1}
-          className={`px-4 py-2 rounded-lg font-semibold text-white transition-all ${
+          className={`px-2 py-2 rounded-lg font-semibold text-white transition-all ${
             page === totalPages - 1
               ? "bg-purple-800 text-white"
               : "bg-gray-300 hover:bg-purple-500"
