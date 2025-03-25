@@ -23,7 +23,7 @@ const lessons = [
   // Add more lessons as needed with _id
 ];
 
-const ITEMS_PER_PAGE = 4; // You can change this to adjust the number of lessons per page
+const ITEMS_PER_PAGE = 2; // You can change this to adjust the number of lessons per page
 
 const LessonSelection = () => {
   const router = useRouter();
