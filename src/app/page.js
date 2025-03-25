@@ -25,7 +25,7 @@ const Homepage = () => {
       </div>
 
       {/* Main Content */}
-      <h1 className="md:text-4xl text-3xl text-center font-bold text-purple-900 mb-4  text-shadow-lg relative z-5">
+      <h1 className="md:text-4xl text-3xl text-center font-bold text-purple-800 mb-4  text-shadow-lg relative z-5">
         <em>Welcome to Our School</em>
       </h1>
 
