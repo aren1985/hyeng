@@ -54,7 +54,7 @@ const FreeLessons = () => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-10 w-full mt-10">
+    <div className="flex flex-col items-center gap-10 w-full mt-10 mb-10">
       <div className="text-lg font-semibold text-purple-800 text-center shadow-md">
         <p className="text-xl border-2 border-green-500 bg-gray-800 p-3 rounded">
           Free section to get acquainted with the class procedure
