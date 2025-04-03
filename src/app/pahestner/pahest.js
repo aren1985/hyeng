@@ -2,135 +2,97 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { FaBook, FaComments, FaRegFileAlt } from "react-icons/fa";
 
-const SelectionPage = () => {
+// Example of lessons with MongoDB _id and title
+const lessons = [
+  { _id: "60d9f7f2e4b0b4d85b97eaf8", title: "words for 1 day" },
+  { _id: "60d9f7f2e4b0b4d85b97eaf9", title: "words for 2 day" },
+
+  // Add more lessons as needed with _id
+];
+
+const ITEMS_PER_PAGE = 10; // You can change this to adjust the number of lessons per page
+
+const LessonSelection = () => {
   const router = useRouter();
-  const [activeCard, setActiveCard] = useState(null);
-  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [page, setPage] = useState(0);
 
-  const lessons = [
-    { _id: "60d9f7f2e4b0b4d85b97eaf8", title: "lesson1" },
-    { _id: "60d9f7f2e4b0b4d85b97eaf9", title: "lesson2" },
-  ];
-
-  const themes = [
-    { _id: "60d9f7f2e4b0b4d85b97eaf8", title: "meeting" },
-    { _id: "60d9f7f2e4b0b4d85b97eaf9", title: "meeting2" },
-  ];
-
-  const words = [
-    { _id: "60d9f7f2e4b0b4d85b97eaf8", title: "words for 1 day" },
-    { _id: "60d9f7f2e4b0b4d85b97eaf9", title: "words for 2 day" },
-  ];
-
-  const cardData = Array.from({ length: 2 }).map((_, index) => ({
-    day: `Day ${index + 1}`,
-    lesson: lessons[index],
-    theme: themes[index],
-    word: words[index],
-  }));
-
-  const handleSelect = (type, _id, title) => {
-    let path = "";
-
-    if (type === "lessons") {
-      path = `/lessons/lessvideo1?title=${encodeURIComponent(
-        title
-      )}&_id=${encodeURIComponent(_id)}`;
-    } else if (type === "themes") {
-      path = `/themes/theme1?title=${encodeURIComponent(
-        title
-      )}&_id=${encodeURIComponent(_id)}`;
-    } else if (type === "words") {
-      path = `/words/words1?title=${encodeURIComponent(
-        title
-      )}&_id=${encodeURIComponent(_id)}`;
-    }
-
-    router.push(path);
+  const handleLessonSelect = (lessonId, lessonTitle) => {
+    // Navigate to the Word Selection page with the title as a query param
+    router.push(
+      `/words/words1?title=${encodeURIComponent(
+        lessonTitle
+      )}&_id=${encodeURIComponent(lessonId)}`
+    );
   };
 
-  const handleClick = (index) => {
-    if (hoveredIndex !== index) {
-      setHoveredIndex(index);
-    } else {
-      setHoveredIndex(null);
-    }
-  };
+  const startIndex = page * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const paginatedLessons = lessons.slice(startIndex, endIndex);
+  const totalPages = Math.ceil(lessons.length / ITEMS_PER_PAGE);
 
   return (
     <div className="flex flex-col items-center p-6">
-      <h1 className="text-3xl md:text-4xl font-bold text-white mb-10 text-center transform-gpu shadow-2xl">
-        Select Categories
+      <h1 className="text-xl md:text-2xl px-6 py-1 rounded-lg bg-white font-bold text-purple-800 mb-8 text-center transform-gpu shadow-2xl">
+        Select a day
       </h1>
-
-      {/* Cards grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-4xl">
-        {cardData.map((card, index) => (
-          <div
-            key={index}
-            className="relative flex flex-col items-center w-64 h-64 cursor-pointer"
-            onClick={() => handleClick(index)}
+      <div className="flex flex-col gap-4 w-full max-w-md">
+        {paginatedLessons.map((lesson) => (
+          <button
+            key={lesson._id}
+            onClick={() => handleLessonSelect(lesson._id, lesson.title)}
+            className="bg-purple-800 hover:bg-blue-600 text-white font-semibold py-3 px-5 rounded-lg shadow-md transition duration-200 ease-in-out"
           >
-            {/* Card Front */}
-            <div
-              className={`absolute inset-0 bg-purple-700 flex flex-col justify-center items-center text-white text-xl font-bold rounded-lg shadow-md transition-transform duration-500 ${
-                hoveredIndex === index ? "rotate-y-180 opacity-0" : ""
+            {lesson.title}
+          </button>
+        ))}
+      </div>
+
+      {/* Pagination Buttons */}
+      <div className="flex justify-between mt-6 w-full max-w-md">
+        <button
+          onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
+          disabled={page === 0}
+          className={`px-2 py-2 rounded-lg font-semibold text-white transition-all ${
+            page === 0
+              ? "bg-yellow-700 cursor-not-allowed"
+              : "bg-green-800 text-white hover:bg-blue-600"
+          }`}
+        >
+          Prev
+        </button>
+
+        {/* Page Numbers */}
+        <div className="flex gap-1 items-center">
+          {Array.from({ length: totalPages }, (_, index) => (
+            <button
+              key={index}
+              onClick={() => setPage(index)}
+              className={`px-3 py-2 rounded-lg font-semibold transition-all ${
+                page === index
+                  ? "bg-purple-800 text-white"
+                  : "bg-gray-300 hover:bg-purple-500"
               }`}
             >
-              <p>{card.day}</p>
-              <p className="text-sm mt-2">Words, Lessons & Themes</p>
-            </div>
+              {index + 1}
+            </button>
+          ))}
+        </div>
 
-            {/* Card Back (Links) */}
-            {hoveredIndex === index && (
-              <div className="absolute inset-0 bg-white p-4 flex flex-col items-center justify-center rounded-lg shadow-md">
-                <ul className="space-y-2 text-center">
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation(); // Prevent card from closing when clicking button
-                      handleSelect(
-                        "lessons",
-                        card.lesson._id,
-                        card.lesson.title
-                      );
-                    }}
-                    className="flex items-center bg-gradient-to-r from-purple-700 to-purple-500 text-white font-semibold py-3 px-5 rounded-lg shadow-md hover:bg-gradient-to-l transition duration-200 ease-in-out mb-4"
-                  >
-                    <FaBook className="mr-3" />
-                    Lesson: {card.lesson.title}
-                  </button>
-
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation(); // Prevent card from closing when clicking button
-                      handleSelect("themes", card.theme._id, card.theme.title);
-                    }}
-                    className="flex items-center bg-gradient-to-r from-green-500 to-green-400 text-white font-semibold py-3 px-5 rounded-lg shadow-md hover:bg-gradient-to-l transition duration-200 ease-in-out mb-4"
-                  >
-                    <FaComments className="mr-3" />
-                    Theme: {card.theme.title}
-                  </button>
-
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation(); // Prevent card from closing when clicking button
-                      handleSelect("words", card.word._id, card.word.title);
-                    }}
-                    className="flex items-center bg-gradient-to-r from-yellow-500 to-yellow-400 text-white font-semibold py-3 px-5 rounded-lg shadow-md hover:bg-gradient-to-l transition duration-200 ease-in-out"
-                  >
-                    <FaRegFileAlt className="mr-3" />
-                    Word: {card.word.title}
-                  </button>
-                </ul>
-              </div>
-            )}
-          </div>
-        ))}
+        <button
+          onClick={() => setPage((prev) => Math.min(prev + 1, totalPages - 1))}
+          disabled={page === totalPages - 1}
+          className={`px-2 py-2 rounded-lg font-semibold text-white transition-all ${
+            page === totalPages - 1
+              ? "bg-yellow-700 cursor-not-allowed"
+              : "bg-green-800 text-white hover:bg-blue-600"
+          }`}
+        >
+          Next
+        </button>
       </div>
     </div>
   );
 };
 
-export default SelectionPage;
+export default LessonSelection;

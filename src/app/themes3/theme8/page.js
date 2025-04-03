@@ -138,7 +138,7 @@ const Theme8Page = () => {
       setIsCorrect(null);
       setShowModal(false);
     } else {
-      router.push("/themes3/allthemes3");
+      router.push("/levels/bonelevel");
     }
   };
 

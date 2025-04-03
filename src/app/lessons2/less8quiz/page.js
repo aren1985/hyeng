@@ -161,7 +161,7 @@ const Less8QuizPage = () => {
       setIsCorrect(null);
       setShowModal(false);
     } else {
-      router.push(`/lesson2/less2?title=${title}`);
+      router.push("/levels/atwolevel");
     }
   };
 

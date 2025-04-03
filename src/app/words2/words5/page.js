@@ -75,7 +75,7 @@ const Words5Page = () => {
       setSpokenWord(""); // Reset spoken word for next round
       setIsCorrect(null);
     } else {
-      router.push("/words2/allwords2");
+      router.push("/levels/atwolevel");
     }
 
     setModalVisible(false);

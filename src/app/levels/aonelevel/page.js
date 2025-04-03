@@ -92,7 +92,7 @@ const SelectionPage = () => {
 
   return (
     <div className="flex flex-col items-center p-6">
-      <h1 className="text-4xl font-bold text-purple-800 mb-10 text-center rounded transform-gpu">
+      <h1 className="text-3xl font-bold text-purple-800 bg-white py-2 px-6 mb-10 text-center rounded transform-gpu">
         Select Day
       </h1>
 
@@ -116,16 +116,16 @@ const SelectionPage = () => {
 
             {/* Card Back (Links) */}
             {hoveredIndex === index && (
-              <div className="absolute inset-0 bg-white p-4 flex flex-col items-center justify-center rounded-lg shadow-md">
-                <ul className="space-y-2 text-center">
+              <div className="absolute inset-0 bg-gray-300 p-4 flex flex-col items-center justify-center rounded-lg shadow-md">
+                <ul className="space-y-4 text-center">
                   <button
                     onClick={(e) => {
                       e.stopPropagation(); // Prevent card from closing when clicking button
                       handleSelect("words", card.word._id, card.word.title);
                     }}
-                    className="bg-gradient-to-r from-yellow-500 to-yellow-400 text-white font-semibold py-3 px-5 rounded-lg shadow-md hover:bg-gradient-to-l transition duration-200 ease-in-out w-full text-center"
+                    className="bg-orange-800 text-white font-semibold py-3 px-5 rounded-lg shadow-md hover:bg-gradient-to-l transition duration-200 ease-in-out w-full text-center"
                   >
-                    Word: {card.word.title}
+                    {card.word.title}
                   </button>
                   <button
                     onClick={(e) => {
@@ -136,9 +136,9 @@ const SelectionPage = () => {
                         card.lesson.title
                       );
                     }}
-                    className="bg-gradient-to-r from-purple-700 to-purple-500 text-white font-semibold py-3 px-5 rounded-lg shadow-md hover:bg-gradient-to-l transition duration-200 ease-in-out mb-4 w-full text-center"
+                    className="bg-blue-800 text-white font-semibold py-3 px-5 rounded-lg shadow-md hover:bg-gradient-to-l transition duration-200 ease-in-out mb-4 w-full text-center"
                   >
-                    Lesson: {card.lesson.title}
+                    {card.lesson.title}
                   </button>
 
                   <button
@@ -146,9 +146,9 @@ const SelectionPage = () => {
                       e.stopPropagation(); // Prevent card from closing when clicking button
                       handleSelect("themes", card.theme._id, card.theme.title);
                     }}
-                    className="bg-gradient-to-r from-green-500 to-green-400 text-white font-semibold py-3 px-5 rounded-lg shadow-md hover:bg-gradient-to-l transition duration-200 ease-in-out mb-4 w-full text-center"
+                    className="bg-green-800 text-white font-semibold py-3 px-5 rounded-lg shadow-md hover:bg-gradient-to-l transition duration-200 ease-in-out mb-4 w-full text-center"
                   >
-                    Theme: {card.theme.title}
+                    {card.theme.title}
                   </button>
                 </ul>
               </div>
