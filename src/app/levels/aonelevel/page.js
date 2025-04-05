@@ -54,7 +54,7 @@ const SelectionPage = () => {
     // Add more words as needed
   ];
 
-  const cardsPerPage = 4;
+  const cardsPerPage = 2;
   const totalPages = Math.ceil(lessons.length / cardsPerPage);
 
   // Determine which cards should be displayed based on the current page
