@@ -92,7 +92,7 @@ const SelectionPage = () => {
 
   return (
     <div className="flex flex-col items-center p-6">
-      <h1 className="text-3xl font-bold text-purple-800 mb-10 text-center py-2 px-6 rounded transform-gpu">
+      <h1 className="text-3xl font-bold text-purple-800 mb-10 text-center border-2 border-purple-800 py-2 px-6 rounded transform-gpu">
         Select Day
       </h1>
 

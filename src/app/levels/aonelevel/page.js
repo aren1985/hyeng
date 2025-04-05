@@ -12,11 +12,27 @@ const SelectionPage = () => {
   const lessons = [
     { _id: "60d9f7f2e4b0b4d85b97eaf8", title: "lesson1" },
     { _id: "60d9f7f2e4b0b4d85b97eaf9", title: "lesson2" },
+    { _id: "60d9f7f2e4b0b4d85b97eaf8", title: "lesson1" },
+    { _id: "60d9f7f2e4b0b4d85b97eaf9", title: "lesson2" },
+    { _id: "60d9f7f2e4b0b4d85b97eaf8", title: "lesson1" },
+    { _id: "60d9f7f2e4b0b4d85b97eaf9", title: "lesson2" },
+    { _id: "60d9f7f2e4b0b4d85b97eaf8", title: "lesson1" },
+    { _id: "60d9f7f2e4b0b4d85b97eaf9", title: "lesson2" },
+    { _id: "60d9f7f2e4b0b4d85b97eaf8", title: "lesson1" },
+    { _id: "60d9f7f2e4b0b4d85b97eaf9", title: "lesson2" },
 
     // Add more lessons as needed
   ];
 
   const themes = [
+    { _id: "60d9f7f2e4b0b4d85b97eaf8", title: "meeting" },
+    { _id: "60d9f7f2e4b0b4d85b97eaf9", title: "meeting2" },
+    { _id: "60d9f7f2e4b0b4d85b97eaf8", title: "meeting" },
+    { _id: "60d9f7f2e4b0b4d85b97eaf9", title: "meeting2" },
+    { _id: "60d9f7f2e4b0b4d85b97eaf8", title: "meeting" },
+    { _id: "60d9f7f2e4b0b4d85b97eaf9", title: "meeting2" },
+    { _id: "60d9f7f2e4b0b4d85b97eaf8", title: "meeting" },
+    { _id: "60d9f7f2e4b0b4d85b97eaf9", title: "meeting2" },
     { _id: "60d9f7f2e4b0b4d85b97eaf8", title: "meeting" },
     { _id: "60d9f7f2e4b0b4d85b97eaf9", title: "meeting2" },
 
@@ -26,11 +42,19 @@ const SelectionPage = () => {
   const words = [
     { _id: "60d9f7f2e4b0b4d85b97eaf8", title: "words for 1 day" },
     { _id: "60d9f7f2e4b0b4d85b97eaf9", title: "words for 2 day" },
+    { _id: "60d9f7f2e4b0b4d85b97eaf8", title: "words for 1 day" },
+    { _id: "60d9f7f2e4b0b4d85b97eaf9", title: "words for 2 day" },
+    { _id: "60d9f7f2e4b0b4d85b97eaf8", title: "words for 1 day" },
+    { _id: "60d9f7f2e4b0b4d85b97eaf9", title: "words for 2 day" },
+    { _id: "60d9f7f2e4b0b4d85b97eaf8", title: "words for 1 day" },
+    { _id: "60d9f7f2e4b0b4d85b97eaf9", title: "words for 2 day" },
+    { _id: "60d9f7f2e4b0b4d85b97eaf8", title: "words for 1 day" },
+    { _id: "60d9f7f2e4b0b4d85b97eaf9", title: "words for 2 day" },
 
     // Add more words as needed
   ];
 
-  const cardsPerPage = 10;
+  const cardsPerPage = 4;
   const totalPages = Math.ceil(lessons.length / cardsPerPage);
 
   // Determine which cards should be displayed based on the current page
@@ -92,7 +116,7 @@ const SelectionPage = () => {
 
   return (
     <div className="flex flex-col items-center p-6">
-      <h1 className="text-3xl font-bold text-purple-800 bg-white py-2 px-6 mb-10 text-center rounded transform-gpu">
+      <h1 className="text-3xl font-bold text-purple-800  border-2 border-purple-800 py-2 px-6 mb-10 text-center rounded transform-gpu">
         Select Day
       </h1>
 
