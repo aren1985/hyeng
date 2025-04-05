@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 const categories = [
   "animals",
   "drinks",
+  "clothes",
+  "clothes2",
   "transports",
   "home",
   "professions",
