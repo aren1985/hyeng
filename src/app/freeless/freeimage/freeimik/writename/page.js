@@ -70,7 +70,7 @@ const WriteName = () => {
   const speakImageName = (name) => {
     const utterance = new SpeechSynthesisUtterance(name);
     utterance.lang = "en-GB"; // Explicitly set language to US English
-    utterance.rate = 0.8;
+    utterance.rate = 0.9;
 
     // Get available voices
     const voices = window.speechSynthesis.getVoices();

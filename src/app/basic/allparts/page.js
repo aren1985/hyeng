@@ -8,6 +8,9 @@ const categories = [
   "drinks",
   "clothes",
   "clothes2",
+  "food",
+  "fruits",
+  "fruits2",
   "transports",
   "home",
   "professions",
@@ -21,6 +24,7 @@ const categories = [
   "buildings2",
   "buildings3",
   "buildings4",
+  "electronic equipments",
 ];
 
 const ITEMS_PER_PAGE = 10;

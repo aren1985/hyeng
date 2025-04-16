@@ -146,7 +146,7 @@ const SpeechToTextPage = () => {
         onClick={() => {
           const utterance = new SpeechSynthesisUtterance(currentImage.name);
           utterance.lang = "en-GB"; // Set language to British English (change as needed)
-          utterance.rate = 0.8; // Adjust speech rate to make it slower
+          utterance.rate = 1; // Adjust speech rate to make it slower
 
           // Get available voices and select a specific one
           const voices = window.speechSynthesis.getVoices();

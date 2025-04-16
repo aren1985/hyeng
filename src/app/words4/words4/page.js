@@ -66,8 +66,8 @@ const Words4Page = () => {
     window.speechSynthesis.cancel(); // Stop any ongoing speech
 
     const utterance = new SpeechSynthesisUtterance(word);
-    utterance.lang = "en-US";
-    utterance.rate = 0.8;
+    utterance.lang = "en-GB";
+    utterance.rate = 0.9;
 
     // Get available voices and select a preferred one (e.g., "Samantha" for iOS)
     const voices = window.speechSynthesis.getVoices();

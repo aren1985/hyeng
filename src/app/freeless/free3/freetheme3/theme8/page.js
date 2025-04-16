@@ -80,7 +80,7 @@ const Theme8Page = () => {
 
     const utterance = new SpeechSynthesisUtterance(sentence);
     utterance.lang = "en-GB"; // Set language to British English (or use "en-US" for American English)
-    utterance.rate = 0.9; // Adjust speech rate for clarity
+    utterance.rate = 1; // Adjust speech rate for clarity
 
     // Get available voices and select a specific one if desired
     const voices = window.speechSynthesis.getVoices();

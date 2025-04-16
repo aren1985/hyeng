@@ -67,7 +67,7 @@ const Words4Page = () => {
 
     const utterance = new SpeechSynthesisUtterance(word);
     utterance.lang = "en-US";
-    utterance.rate = 0.8;
+    utterance.rate = 0.9;
 
     // Get available voices and select a preferred one (e.g., "Samantha" for iOS)
     const voices = window.speechSynthesis.getVoices();

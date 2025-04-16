@@ -78,7 +78,7 @@ const Less8QuizPage = () => {
 
       const speech = new SpeechSynthesisUtterance(currentSentence.english);
       speech.lang = "en-GB"; // Adjust language to British English
-      speech.rate = 0.8; // Adjust speed for clarity
+      speech.rate = 1; // Adjust speed for clarity
 
       // Get available voices and select a specific one if needed
       const voices = window.speechSynthesis.getVoices();

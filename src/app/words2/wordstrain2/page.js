@@ -33,7 +33,7 @@ const Wordstrain = () => {
   const speakWord = (word) => {
     window.speechSynthesis.cancel(); // Stop any ongoing speech
     const utterance = new SpeechSynthesisUtterance(word);
-    utterance.lang = "en-US";
+    utterance.lang = "en-GB";
     utterance.rate = 0.8;
 
     // Get available voices and select a specific one
