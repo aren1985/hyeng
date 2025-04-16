@@ -5,6 +5,10 @@ import { useRouter } from "next/navigation";
 
 const categories = [
   "animals",
+  "animals2",
+  "animals3",
+  "animals4",
+  "birds",
   "drinks",
   "clothes",
   "clothes2",
