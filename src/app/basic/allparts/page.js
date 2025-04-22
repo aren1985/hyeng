@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
 const categories = [
+  "professions",
+  "professions2",
   "animals",
   "animals2",
   "animals3",
@@ -21,7 +23,7 @@ const categories = [
   "transports",
   "home",
   "furniture",
-  "professions",
+
   "nature",
   "nature1",
   "nature2",
