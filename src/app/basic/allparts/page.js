@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 const categories = [
   "professions",
   "professions2",
+  "fruits",
   "animals",
   "animals2",
   "animals3",
@@ -18,7 +19,7 @@ const categories = [
   "food",
   "food2",
   "food3",
-  "fruits",
+
   "fruits2",
   "transports",
   "home",
