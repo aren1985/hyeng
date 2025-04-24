@@ -7,6 +7,8 @@ const categories = [
   "professions",
   "professions2",
   "fruits",
+  "buildings",
+
   "animals",
   "animals2",
   "animals3",
@@ -31,7 +33,6 @@ const categories = [
   "nature3",
   "nature4",
   "nature5",
-  "buildings",
   "buildings2",
   "buildings3",
   "buildings4",
