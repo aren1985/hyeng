@@ -5,7 +5,7 @@ import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FaVolumeUp, FaMicrophone } from "react-icons/fa"; // Added microphone icon
 import Image from "next/image";
-
+import { toWords } from "number-to-words";
 import teachik from "../../images/Teachik.png";
 
 import correctImage from "../../images/newlike.webp";
@@ -115,10 +115,27 @@ const Theme8Page = () => {
     };
   };
 
+  const convertNumbersToWords = (text) => {
+    return text
+      .split(" ")
+      .map((word) => {
+        const number = Number(word);
+        if (!isNaN(number) && word.trim() !== "") {
+          return toWords(number);
+        }
+        return word;
+      })
+      .join(" ");
+  };
+
   const checkAnswer = () => {
     const correctAnswer = sentences[currentSentenceIndex]?.englishsentence;
-    const normalizedSpokenText = normalizeText(spokenText);
-    const normalizedCorrectAnswer = normalizeText(correctAnswer);
+
+    const spokenWithWords = convertNumbersToWords(spokenText);
+    const correctWithWords = convertNumbersToWords(correctAnswer);
+
+    const normalizedSpokenText = normalizeText(spokenWithWords);
+    const normalizedCorrectAnswer = normalizeText(correctWithWords);
 
     if (normalizedSpokenText === normalizedCorrectAnswer) {
       setIsCorrect(true);

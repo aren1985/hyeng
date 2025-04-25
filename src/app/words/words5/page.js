@@ -8,6 +8,7 @@ import correctImage from "../../images/newlike.webp";
 import incorrectImage from "../../images/dislike.webp";
 import Image from "next/image";
 import teachik from "../../images/Teachik.png";
+import { toWords } from "number-to-words";
 
 const Words5Page = () => {
   const [words, setWords] = useState([]);
@@ -59,14 +60,28 @@ const Words5Page = () => {
 
   const checkAnswer = () => {
     const correctAnswer = words[currentWordIndex]?.english.toLowerCase();
-    if (spokenWord.trim().toLowerCase() === correctAnswer) {
-      setIsCorrect(true);
-      setModalImage(correctImage);
-    } else {
-      setIsCorrect(false);
-      setModalImage(incorrectImage);
-    }
-    setModalVisible(true);
+    let userAnswer = spokenWord.trim().toLowerCase();
+
+    // Simulate .then().catch() style with Promise.resolve
+    Promise.resolve()
+      .then(() => {
+        if (!isNaN(userAnswer)) {
+          userAnswer = toWords(Number(userAnswer)).toLowerCase();
+        }
+      })
+      .catch((err) => {
+        console.error("Error converting number to words:", err);
+      })
+      .finally(() => {
+        if (userAnswer === correctAnswer) {
+          setIsCorrect(true);
+          setModalImage(correctImage);
+        } else {
+          setIsCorrect(false);
+          setModalImage(incorrectImage);
+        }
+        setModalVisible(true);
+      });
   };
 
   const nextWord = () => {

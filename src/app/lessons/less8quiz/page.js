@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { FaVolumeUp, FaMicrophoneAlt } from "react-icons/fa"; // React listen icon and mic icon
 import Image from "next/image"; // For modal images
 import teachik from "../../images/Teachik.png";
+import { toWords } from "number-to-words";
 
 // Import images for modal feedback
 import correctImage from "../../images/newlike.webp";
@@ -126,29 +127,62 @@ const Less8QuizPage = () => {
       setIsListening(false);
     };
   };
-
   const checkAnswer = () => {
     const correctSentence =
       lesson.themes[0].sentences[currentSentenceIndex].english;
 
-    // Normalize both the correct sentence and user spoken text
-    const normalize = (text) => {
-      return text
-        .replace(/[^\w\s]/gi, "")
-        .trim()
-        .toLowerCase(); // Remove punctuation and trim
+    const convertNumbersToWords = (text) => {
+      const numberPattern = /\b\d+\b/g;
+      const matches = text.match(numberPattern);
+
+      if (!matches) return Promise.resolve(text); // no numbers found
+
+      const promises = matches.map((num) =>
+        Promise.resolve()
+          .then(() => toWords(Number(num)).replace(/-/g, " "))
+          .catch((err) => {
+            console.error("Error converting number:", err);
+            return num;
+          })
+      );
+
+      return Promise.all(promises).then((convertedWords) => {
+        let result = text;
+        matches.forEach((num, index) => {
+          result = result.replace(num, convertedWords[index]);
+        });
+        return result;
+      });
     };
 
-    const normalizedUserSpokenText = normalize(userSpokenText);
-    const normalizedCorrectSentence = normalize(correctSentence);
+    const normalize = (text) => {
+      return text
+        .replace(/[^\w\s-]/gi, "")
+        .replace(/\band\b/g, "")
+        .replace(/-/g, " ")
+        .trim()
+        .toLowerCase();
+    };
 
-    if (normalizedUserSpokenText === normalizedCorrectSentence) {
-      setIsCorrect(true);
-      setShowModal(true); // Show modal when the answer is correct
-    } else {
-      setIsCorrect(false);
-      setShowModal(true); // Show modal even if the answer is incorrect
-    }
+    Promise.all([
+      convertNumbersToWords(userSpokenText),
+      convertNumbersToWords(correctSentence),
+    ])
+      .then(([convertedUserText, convertedCorrectText]) => {
+        const normalizedUserSpokenText = normalize(convertedUserText);
+        const normalizedCorrectSentence = normalize(convertedCorrectText);
+
+        if (normalizedUserSpokenText === normalizedCorrectSentence) {
+          setIsCorrect(true);
+        } else {
+          setIsCorrect(false);
+        }
+        setShowModal(true);
+      })
+      .catch((err) => {
+        setIsCorrect(false);
+        setShowModal(true);
+      });
   };
 
   const nextSentence = () => {

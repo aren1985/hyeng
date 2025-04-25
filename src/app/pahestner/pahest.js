@@ -1,98 +1,242 @@
 "use client";
 
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import React, { useState, useEffect, Suspense } from "react";
+import axios from "axios";
+import { useRouter, useSearchParams } from "next/navigation";
+import { FaVolumeUp, FaMicrophoneAlt } from "react-icons/fa"; // React listen icon and mic icon
+import Image from "next/image"; // For modal images
+import teachik from "../../images/Teachik.png";
 
-// Example of lessons with MongoDB _id and title
-const lessons = [
-  { _id: "60d9f7f2e4b0b4d85b97eaf8", title: "words for 1 day" },
-  { _id: "60d9f7f2e4b0b4d85b97eaf9", title: "words for 2 day" },
-
-  // Add more lessons as needed with _id
-];
-
-const ITEMS_PER_PAGE = 10; // You can change this to adjust the number of lessons per page
-
-const LessonSelection = () => {
-  const router = useRouter();
-  const [page, setPage] = useState(0);
-
-  const handleLessonSelect = (lessonId, lessonTitle) => {
-    // Navigate to the Word Selection page with the title as a query param
-    router.push(
-      `/words/words1?title=${encodeURIComponent(
-        lessonTitle
-      )}&_id=${encodeURIComponent(lessonId)}`
-    );
-  };
-
-  const startIndex = page * ITEMS_PER_PAGE;
-  const endIndex = startIndex + ITEMS_PER_PAGE;
-  const paginatedLessons = lessons.slice(startIndex, endIndex);
-  const totalPages = Math.ceil(lessons.length / ITEMS_PER_PAGE);
+// Import images for modal feedback
+import correctImage from "../../images/newlike.webp";
+import incorrectImage from "../../images/dislike.webp";
+const Modal = ({ visible, imageSrc, onNext, isCorrect }) => {
+  if (!visible) return null;
 
   return (
-    <div className="flex flex-col items-center p-6">
-      <h1 className="text-xl md:text-2xl px-6 py-1 rounded-lg bg-white font-bold text-purple-800 mb-8 text-center transform-gpu shadow-2xl">
-        Select a day
-      </h1>
-      <div className="flex flex-col gap-4 w-full max-w-md">
-        {paginatedLessons.map((lesson) => (
-          <button
-            key={lesson._id}
-            onClick={() => handleLessonSelect(lesson._id, lesson.title)}
-            className="bg-purple-800 hover:bg-blue-600 text-white font-semibold py-3 px-5 rounded-lg shadow-md transition duration-200 ease-in-out"
-          >
-            {lesson.title}
-          </button>
-        ))}
-      </div>
-
-      {/* Pagination Buttons */}
-      <div className="flex justify-between mt-6 w-full max-w-md">
+    <div
+      className={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50`}
+    >
+      <div
+        className={`p-6 rounded-lg flex flex-col items-center ${
+          isCorrect ? "bg-green-500" : "bg-red-500"
+        }`}
+      >
+        <Image src={imageSrc} alt="Feedback" width={200} height={200} />
         <button
-          onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
-          disabled={page === 0}
-          className={`px-2 py-2 rounded-lg font-semibold text-white transition-all ${
-            page === 0
-              ? "bg-yellow-700 cursor-not-allowed"
-              : "bg-green-800 text-white hover:bg-blue-600"
-          }`}
+          onClick={onNext}
+          className={`${
+            isCorrect ? "bg-green-500" : "bg-red-500"
+          } text-white py-2 rounded mt-4 text-lg w-full border-2 border-white`}
+          style={{ maxWidth: "200px" }}
         >
-          Prev
-        </button>
-
-        {/* Page Numbers */}
-        <div className="flex gap-1 items-center">
-          {Array.from({ length: totalPages }, (_, index) => (
-            <button
-              key={index}
-              onClick={() => setPage(index)}
-              className={`px-3 py-2 rounded-lg font-semibold transition-all ${
-                page === index
-                  ? "bg-purple-800 text-white"
-                  : "bg-gray-300 hover:bg-purple-500"
-              }`}
-            >
-              {index + 1}
-            </button>
-          ))}
-        </div>
-
-        <button
-          onClick={() => setPage((prev) => Math.min(prev + 1, totalPages - 1))}
-          disabled={page === totalPages - 1}
-          className={`px-2 py-2 rounded-lg font-semibold text-white transition-all ${
-            page === totalPages - 1
-              ? "bg-yellow-700 cursor-not-allowed"
-              : "bg-green-800 text-white hover:bg-blue-600"
-          }`}
-        >
-          Next
+          Next Sentence
         </button>
       </div>
     </div>
   );
 };
 
-export default LessonSelection;
+const Less8QuizPage = () => {
+  const [lesson, setLesson] = useState(null);
+  const [currentSentenceIndex, setCurrentSentenceIndex] = useState(0);
+  const [userSpokenText, setUserSpokenText] = useState(""); // Store the user’s spoken sentence
+  const [isCorrect, setIsCorrect] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [isListening, setIsListening] = useState(false); // Track if the sentence is being spoken
+  const searchParams = useSearchParams();
+  const title = searchParams.get("title");
+  const router = useRouter();
+
+  useEffect(() => {
+    if (title) {
+      axios
+        .get(
+          `${
+            process.env.NEXT_PUBLIC_API_URL
+          }/documents/lessdocuments/${encodeURIComponent(title)}`
+        )
+        .then((response) => {
+          if (response.data && response.data.length > 0) {
+            setLesson(response.data[0]);
+            setLoading(false);
+          } else {
+            setLoading(false);
+          }
+        })
+        .catch((err) => {
+          console.error("Error fetching lesson:", err);
+          setLoading(false);
+        });
+    }
+  }, [title]);
+
+  const handleAudioPlay = () => {
+    if (lesson) {
+      const currentSentence = lesson.themes[0].sentences[currentSentenceIndex];
+
+      const speech = new SpeechSynthesisUtterance(currentSentence.english);
+      speech.lang = "en-GB"; // Adjust language to British English
+      speech.rate = 1; // Adjust speed for clarity
+
+      // Get available voices and select a specific one if needed
+      const voices = window.speechSynthesis.getVoices();
+      const preferredVoice = voices.find(
+        (voice) => voice.name.includes("Samantha") // Change this to your preferred voice
+      );
+
+      if (preferredVoice) {
+        speech.voice = preferredVoice;
+      }
+
+      window.speechSynthesis.speak(speech);
+
+      setIsListening(true);
+      speech.onend = () => setIsListening(false);
+    }
+  };
+
+  const startListening = () => {
+    const SpeechRecognition =
+      window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+      alert("Your browser does not support speech recognition.");
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = "en-GB"; // Set language to British English for recognition
+    recognition.interimResults = true; // Get results as user speaks
+
+    recognition.start();
+
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript; // Get the spoken text
+      setUserSpokenText(transcript); // Update the spoken text
+    };
+
+    recognition.onerror = (event) => {
+      console.error("Speech Recognition Error:", event.error);
+      setIsListening(false);
+    };
+
+    recognition.onend = () => {
+      setIsListening(false);
+    };
+  };
+
+  const checkAnswer = () => {
+    const correctSentence =
+      lesson.themes[0].sentences[currentSentenceIndex].english;
+
+    // Normalize both the correct sentence and user spoken text
+    const normalize = (text) => {
+      return text
+        .replace(/[^\w\s]/gi, "")
+        .trim()
+        .toLowerCase(); // Remove punctuation and trim
+    };
+
+    const normalizedUserSpokenText = normalize(userSpokenText);
+    const normalizedCorrectSentence = normalize(correctSentence);
+
+    if (normalizedUserSpokenText === normalizedCorrectSentence) {
+      setIsCorrect(true);
+      setShowModal(true); // Show modal when the answer is correct
+    } else {
+      setIsCorrect(false);
+      setShowModal(true); // Show modal even if the answer is incorrect
+    }
+  };
+
+  const nextSentence = () => {
+    const sentences = lesson.themes[0].sentences;
+
+    if (currentSentenceIndex < sentences.length - 1) {
+      const nextIndex = currentSentenceIndex + 1;
+      setCurrentSentenceIndex(nextIndex);
+      setUserSpokenText(""); // Clear previous spoken text
+      setIsCorrect(null);
+      setShowModal(false);
+    } else {
+      router.push("/levels/aonelevel");
+    }
+  };
+
+  if (loading)
+    return (
+      <div className="flex flex-col items-center justify-center h-[50vh]">
+        <div className="relative">
+          <div className="w-16 h-16 border-4 border-blue-500 border-solid border-t-transparent rounded-full animate-spin"></div>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-6 h-6 bg-blue-500 rounded-full animate-ping"></div>
+          </div>
+        </div>
+        <p className="mt-4 text-gray-700 text-lg font-medium">Loading ...</p>
+      </div>
+    );
+  if (!lesson) return <p>No lesson found.</p>;
+
+  const currentSentence = lesson.themes[0].sentences[currentSentenceIndex];
+
+  return (
+    <div className="flex flex-col items-center p-6">
+      <h1 className="text-xl md:text-2xl text-purple-800 font-bold mb-4">
+        Speak the Sentence
+      </h1>
+
+      <button
+        onClick={handleAudioPlay}
+        className="px-4 py-2 bg-orange-500 text-white text-lg rounded mb-4 flex items-center font-semibold"
+        disabled={isListening}
+      >
+        <FaVolumeUp className="mr-2 text-2xl" />
+        {isListening ? "Listening..." : "Listen the Sentence"}
+      </button>
+      <div className="mb-2 flex flex-col items-center">
+        <div>
+          <Image src={teachik} alt="tete" width={100} height={100} />
+        </div>
+        <p className="text-lg text-white mt-2"> ~~You said~~</p>
+        <div className="mb-4 p-2 bg-gray-300 w-48">
+          <p className="text-lg p-2 text-green-900 font-semibold">
+            <em> {userSpokenText}</em>
+          </p>
+        </div>
+      </div>
+
+      <button
+        onClick={startListening}
+        className="px-4 py-2 bg-blue-600 text-white text-lg rounded mb-4 flex items-center font-semibold"
+        disabled={isListening}
+      >
+        <FaMicrophoneAlt className="mr-2 text-2xl" />
+        {isListening ? "Listening..." : "Speak the Sentence"}
+      </button>
+
+      <button
+        onClick={checkAnswer}
+        className="bg-purple-700 hover:bg-purple-500 text-white p-3 mt-10 w-full text-lg  rounded shadow-lg font-bold border-2 border-white"
+      >
+        Check Answer
+      </button>
+
+      <Modal
+        visible={showModal}
+        imageSrc={isCorrect ? correctImage : incorrectImage}
+        isCorrect={isCorrect}
+        onNext={nextSentence}
+      />
+    </div>
+  );
+};
+
+export default function L8p() {
+  return (
+    <Suspense>
+      <Less8QuizPage />
+    </Suspense>
+  );
+}
