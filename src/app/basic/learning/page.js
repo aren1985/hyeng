@@ -44,7 +44,7 @@ const ImagesPage = () => {
   const speakName = (name) => {
     const utterance = new SpeechSynthesisUtterance(name);
     utterance.lang = "en-GB"; // Explicitly set language to US English
-    utterance.rate = 0.8;
+    utterance.rate = 0.7;
 
     // Get available voices
     const voices = window.speechSynthesis.getVoices();
