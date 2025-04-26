@@ -31,7 +31,7 @@ const W1Page = () => {
     window.speechSynthesis.cancel(); // Stop any ongoing speech
     const utterance = new SpeechSynthesisUtterance(word);
     utterance.lang = "en-GB";
-    utterance.rate = 0.8;
+    utterance.rate = 0.7;
 
     // Get available voices and select a specific one
     const voices = window.speechSynthesis.getVoices();

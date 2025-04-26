@@ -22,12 +22,12 @@ const categories = [
   "food",
   "food2",
   "food3",
-
+  "tableware",
   "fruits2",
   "transports",
   "home",
   "furniture",
-
+  "household items",
   "nature",
   "nature1",
   "nature2",

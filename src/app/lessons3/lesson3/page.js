@@ -55,7 +55,7 @@ const LessonPage = () => {
     utterance.lang = "en-GB"; // Set language (British English)
 
     // Adjust the rate (speed) of speech
-    utterance.rate = 0.8;
+    utterance.rate = 0.7;
 
     // Get available voices and select a specific one
     const voices = window.speechSynthesis.getVoices();
