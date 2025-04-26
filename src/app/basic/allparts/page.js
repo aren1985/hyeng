@@ -9,6 +9,7 @@ const categories = [
   "fruits",
   "buildings",
   "stationery",
+  "natural life",
   "animals",
   "animals2",
   "animals3",
