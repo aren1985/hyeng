@@ -32,12 +32,16 @@ const categories = [
   "nature1",
   "nature2",
   "nature3",
+  "body parts",
   "nature4",
   "nature5",
   "buildings2",
   "buildings3",
   "buildings4",
+  "buildings5",
   "electronic equipments",
+  "hygiene items",
+  "jewelry",
 ];
 
 const ITEMS_PER_PAGE = 10;
