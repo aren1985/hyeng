@@ -33,6 +33,7 @@ const categories = [
   "nature2",
   "nature3",
   "body parts",
+  "body parts2",
   "nature4",
   "nature5",
   "buildings2",
@@ -42,6 +43,7 @@ const categories = [
   "electronic equipments",
   "hygiene items",
   "jewelry",
+  "daily items",
 ];
 
 const ITEMS_PER_PAGE = 10;
