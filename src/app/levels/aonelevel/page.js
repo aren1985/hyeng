@@ -17,7 +17,7 @@ const SelectionPage = () => {
   ];
 
   const themes = [
-    { _id: "68079be262d72d5b930975a4", title: "summery" },
+    { _id: "68079be262d72d5b930975a4", title: "summary" },
     { _id: "6808d0eda351bed2772c8ada", title: "family" },
     { _id: "68091cc2a351bed2772c8af9", title: "summary" },
     // Add more themes as needed
