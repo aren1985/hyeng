@@ -13,6 +13,10 @@ const SelectionPage = () => {
     { _id: "6807a72a62d72d5b930975ab", title: "lesson1" },
     { _id: "6808cbbba351bed2772c8aca", title: "lesson2" },
     { _id: "68090e35a351bed2772c8aea", title: "lesson3" },
+    { _id: "68090e35a351bed2772c8aea", title: "lesson4" },
+    { _id: "68090e35a351bed2772c8aea", title: "lesson5" },
+    { _id: "68090e35a351bed2772c8aea", title: "lesson6" },
+    { _id: "68090e35a351bed2772c8aea", title: "lesson7" },
     // Add more lessons as needed
   ];
 
@@ -20,6 +24,10 @@ const SelectionPage = () => {
     { _id: "68079be262d72d5b930975a4", title: "summary" },
     { _id: "6808d0eda351bed2772c8ada", title: "summary2" },
     { _id: "68091cc2a351bed2772c8af9", title: "summary3" },
+    { _id: "68091cc2a351bed2772c8af9", title: "summary4" },
+    { _id: "68091cc2a351bed2772c8af9", title: "summary5" },
+    { _id: "68091cc2a351bed2772c8af9", title: "summary6" },
+    { _id: "68091cc2a351bed2772c8af9", title: "summary7" },
     // Add more themes as needed
   ];
 
@@ -27,6 +35,10 @@ const SelectionPage = () => {
     { _id: "680672f9d4f6899b6173457c", title: "words for 1 day" },
     { _id: "6808b308a351bed2772c8ac2", title: "words for 2 day" },
     { _id: "6808f11ca351bed2772c8ae2", title: "words for 3 day" },
+    { _id: "6808f11ca351bed2772c8ae2", title: "words for 4 day" },
+    { _id: "6808f11ca351bed2772c8ae2", title: "words for 5 day" },
+    { _id: "6808f11ca351bed2772c8ae2", title: "words for 6 day" },
+    { _id: "6808f11ca351bed2772c8ae2", title: "words for 7 day" },
     // Add more words as needed
   ];
 
