@@ -7,12 +7,13 @@ const categories = [
   "professions",
   "professions2",
   "stationery",
+  "animals",
+  "animals2",
   "fruits",
   "buildings",
 
   "natural life",
-  "animals",
-  "animals2",
+
   "animals3",
   "animals4",
   "birds",
