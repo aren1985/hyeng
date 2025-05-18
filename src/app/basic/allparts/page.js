@@ -9,12 +9,14 @@ const categories = [
   "stationery",
   "animals",
   "animals2",
+  "household items",
   "fruits",
+  "animals3",
+
   "buildings",
 
   "natural life",
 
-  "animals3",
   "animals4",
   "birds",
   "birds2",
@@ -29,7 +31,7 @@ const categories = [
   "transports",
   "home",
   "furniture",
-  "household items",
+
   "nature",
   "nature1",
   "nature2",
