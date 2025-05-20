@@ -17,6 +17,7 @@ const SelectionPage = () => {
     { _id: "68090e35a351bed2772c8aea", title: "lesson5" },
     { _id: "68090e35a351bed2772c8aea", title: "lesson6" },
     { _id: "68090e35a351bed2772c8aea", title: "lesson7" },
+    { _id: "68090e35a351bed2772c8aea", title: "lesson8" },
     // Add more lessons as needed
   ];
 
@@ -28,6 +29,7 @@ const SelectionPage = () => {
     { _id: "68091cc2a351bed2772c8af9", title: "summary5" },
     { _id: "68091cc2a351bed2772c8af9", title: "summary6" },
     { _id: "68091cc2a351bed2772c8af9", title: "summary7" },
+    { _id: "68091cc2a351bed2772c8af9", title: "summary8" },
     // Add more themes as needed
   ];
 
@@ -39,6 +41,7 @@ const SelectionPage = () => {
     { _id: "6808f11ca351bed2772c8ae2", title: "words for 5 day" },
     { _id: "6808f11ca351bed2772c8ae2", title: "words for 6 day" },
     { _id: "6808f11ca351bed2772c8ae2", title: "words for 7 day" },
+    { _id: "6808f11ca351bed2772c8ae2", title: "words for 8 day" },
     // Add more words as needed
   ];
 
