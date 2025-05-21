@@ -3,30 +3,26 @@
 import React, { useState, useEffect, Suspense } from "react";
 import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
-import { FaVolumeUp, FaMicrophoneAlt } from "react-icons/fa"; // React listen icon and mic icon
-import Image from "next/image"; // For modal images
-import teachik from "../../images/Teachik.png";
+import Image from "next/image";
 
-// Import images for modal feedback
+// Import images directly from the Images folder
 import correctImage from "../../images/newlike.webp";
 import incorrectImage from "../../images/dislike.webp";
 const Modal = ({ visible, imageSrc, onNext, isCorrect }) => {
   if (!visible) return null;
 
   return (
-    <div
-      className={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50`}
-    >
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div
         className={`p-6 rounded-lg flex flex-col items-center ${
-          isCorrect ? "bg-green-500" : "bg-red-500"
+          isCorrect ? "bg-green-600" : "bg-red-600"
         }`}
       >
         <Image src={imageSrc} alt="Feedback" width={200} height={200} />
         <button
           onClick={onNext}
           className={`${
-            isCorrect ? "bg-green-500" : "bg-red-500"
+            isCorrect ? "bg-green-600" : "bg-red-600"
           } text-white py-2 rounded mt-4 text-lg w-full border-2 border-white`}
           style={{ maxWidth: "200px" }}
         >
@@ -37,14 +33,15 @@ const Modal = ({ visible, imageSrc, onNext, isCorrect }) => {
   );
 };
 
-const Less8QuizPage = () => {
-  const [lesson, setLesson] = useState(null);
+const Theme5Page = () => {
+  const [sentences, setSentences] = useState([]);
   const [currentSentenceIndex, setCurrentSentenceIndex] = useState(0);
-  const [userSpokenText, setUserSpokenText] = useState(""); // Store the user’s spoken sentence
+  const [wordPool, setWordPool] = useState([]);
+  const [selectedWords, setSelectedWords] = useState([]);
   const [isCorrect, setIsCorrect] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [modalImage, setModalImage] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [isListening, setIsListening] = useState(false); // Track if the sentence is being spoken
   const searchParams = useSearchParams();
   const title = searchParams.get("title");
   const router = useRouter();
@@ -52,116 +49,105 @@ const Less8QuizPage = () => {
   useEffect(() => {
     if (title) {
       axios
-        .get(
-          `${
-            process.env.NEXT_PUBLIC_API_URL
-          }/documents/lessdocuments/${encodeURIComponent(title)}`
-        )
+        .get(`${process.env.NEXT_PUBLIC_API_URL}/themes/themik/${title}`)
         .then((response) => {
-          if (response.data && response.data.length > 0) {
-            setLesson(response.data[0]);
+          if (response.data && response.data.sentences) {
+            const shuffledSentences = response.data.sentences.sort(
+              () => Math.random() - 0.5
+            );
+            setSentences(shuffledSentences);
+            initializePuzzle(shuffledSentences, 0); // Initialize puzzle with the first sentence
             setLoading(false);
           } else {
             setLoading(false);
           }
         })
         .catch((err) => {
-          console.error("Error fetching lesson:", err);
+          console.error("Error fetching sentences:", err);
           setLoading(false);
         });
     }
   }, [title]);
 
-  const handleAudioPlay = () => {
-    if (lesson) {
-      const currentSentence = lesson.themes[0].sentences[currentSentenceIndex];
+  const initializePuzzle = (sentences, sentenceIndex) => {
+    const currentSentence = sentences[sentenceIndex];
+    const correctWords = currentSentence.englishsentence.split(" ");
 
-      const speech = new SpeechSynthesisUtterance(currentSentence.english);
-      speech.lang = "en-GB"; // Adjust language to British English
-      speech.rate = 1; // Adjust speed for clarity
+    // Add distractor words
+    const distractorWords = getDistractorWords(
+      sentences,
+      sentenceIndex,
+      correctWords.length
+    );
 
-      // Get available voices and select a specific one if needed
-      const voices = window.speechSynthesis.getVoices();
-      const preferredVoice = voices.find(
-        (voice) => voice.name.includes("Samantha") // Change this to your preferred voice
-      );
+    // Combine correct words and distractors, ensuring uniqueness
+    const wordPoolSet = new Set([...correctWords, ...distractorWords]);
 
-      if (preferredVoice) {
-        speech.voice = preferredVoice;
+    // Shuffle the combined word pool (correct words + distractors)
+    const shuffledWordPool = Array.from(wordPoolSet).sort(
+      () => Math.random() - 0.5
+    );
+
+    setWordPool(shuffledWordPool);
+    setSelectedWords([]);
+  };
+
+  const getDistractorWords = (sentences, currentIndex, correctWordsCount) => {
+    const distractors = [];
+    const correctWords = sentences[currentIndex].englishsentence.split(" ");
+
+    sentences.forEach((sentence, index) => {
+      if (index !== currentIndex) {
+        // Add words from other sentences, but not the correct words
+        distractors.push(...sentence.englishsentence.split(" "));
       }
+    });
 
-      window.speechSynthesis.speak(speech);
+    // Filter out the correct words and limit distractors count
+    return [
+      ...new Set(distractors.filter((word) => !correctWords.includes(word))),
+    ].slice(0, correctWordsCount); // Limit the distractor words count
+  };
 
-      setIsListening(true);
-      speech.onend = () => setIsListening(false);
+  const handleWordClick = (word) => {
+    if (wordPool.includes(word)) {
+      setSelectedWords([...selectedWords, word]);
+      setWordPool(wordPool.filter((w) => w !== word));
     }
   };
 
-  const startListening = () => {
-    const SpeechRecognition =
-      window.SpeechRecognition || window.webkitSpeechRecognition;
-
-    if (!SpeechRecognition) {
-      alert("Your browser does not support speech recognition.");
-      return;
-    }
-
-    const recognition = new SpeechRecognition();
-    recognition.lang = "en-GB"; // Set language to British English for recognition
-    recognition.interimResults = true; // Get results as user speaks
-
-    recognition.start();
-
-    recognition.onresult = (event) => {
-      const transcript = event.results[0][0].transcript; // Get the spoken text
-      setUserSpokenText(transcript); // Update the spoken text
-    };
-
-    recognition.onerror = (event) => {
-      console.error("Speech Recognition Error:", event.error);
-      setIsListening(false);
-    };
-
-    recognition.onend = () => {
-      setIsListening(false);
-    };
+  const handleWordRemove = (word) => {
+    setWordPool([...wordPool, word]);
+    setSelectedWords(selectedWords.filter((w) => w !== word));
   };
 
   const checkAnswer = () => {
-    const correctSentence =
-      lesson.themes[0].sentences[currentSentenceIndex].english;
+    const correctAnswer = sentences[currentSentenceIndex].englishsentence
+      .split(" ")
+      .join(" ");
+    const userAnswer = selectedWords.join(" ");
 
-    // Normalize both the correct sentence and user spoken text
-    const normalize = (text) => {
-      return text
-        .replace(/[^\w\s]/gi, "")
-        .trim()
-        .toLowerCase(); // Remove punctuation and trim
-    };
-
-    const normalizedUserSpokenText = normalize(userSpokenText);
-    const normalizedCorrectSentence = normalize(correctSentence);
-
-    if (normalizedUserSpokenText === normalizedCorrectSentence) {
+    if (
+      userAnswer.trim().toLowerCase() === correctAnswer.trim().toLowerCase()
+    ) {
       setIsCorrect(true);
-      setShowModal(true); // Show modal when the answer is correct
+      setModalImage(correctImage);
     } else {
       setIsCorrect(false);
-      setShowModal(true); // Show modal even if the answer is incorrect
+      setModalImage(incorrectImage);
     }
+    setShowModal(true);
   };
 
   const nextSentence = () => {
-    const sentences = lesson.themes[0].sentences;
-
     if (currentSentenceIndex < sentences.length - 1) {
       const nextIndex = currentSentenceIndex + 1;
       setCurrentSentenceIndex(nextIndex);
-      setUserSpokenText(""); // Clear previous spoken text
+      initializePuzzle(sentences, nextIndex); // Initialize puzzle for the next sentence
       setIsCorrect(null);
       setShowModal(false);
     } else {
-      router.push("/levels/aonelevel");
+      router.push(`/themes/theme5?title=${title}`);
     }
   };
 
@@ -174,58 +160,65 @@ const Less8QuizPage = () => {
             <div className="w-6 h-6 bg-blue-500 rounded-full animate-ping"></div>
           </div>
         </div>
-        <p className="mt-4 text-gray-700 text-lg font-medium">Loading ...</p>
+        <p className="mt-4 text-gray-700 text-lg font-medium">
+          Loading theme...
+        </p>
       </div>
     );
-  if (!lesson) return <p>No lesson found.</p>;
+  if (!sentences || sentences.length === 0)
+    return <p className="text-center text-lg">No sentences available.</p>;
 
-  const currentSentence = lesson.themes[0].sentences[currentSentenceIndex];
+  const currentSentence = sentences[currentSentenceIndex];
 
   return (
     <div className="flex flex-col items-center p-6">
-      <h1 className="text-xl md:text-2xl text-purple-800 font-bold mb-4">
-        Speak the Sentence
+      <h1 className="text-xl md:text-2xl font-bold text-purple-800 mb-6">
+        Rearrange the Sentence
       </h1>
+      <p className="text-md md:text-lg rounded mb-4 py-2 px-3 bg-gray-800 shadow-md font-semibold text-white">
+        {currentSentence.armeniansentence}
+      </p>
 
-      <button
-        onClick={handleAudioPlay}
-        className="px-4 py-2 bg-orange-500 text-white text-lg rounded mb-4 flex items-center font-semibold"
-        disabled={isListening}
-      >
-        <FaVolumeUp className="mr-2 text-2xl" />
-        {isListening ? "Listening..." : "Listen the Sentence"}
-      </button>
-      <div className="mb-2 flex flex-col items-center">
-        <div>
-          <Image src={teachik} alt="tete" width={100} height={100} />
+      <div className="flex flex-col items-center w-full rounded-lg ">
+        <p className="text-md mb-4 text-gray-800">
+          Select the correct English words
+        </p>
+
+        <div className="flex flex-wrap gap-3 mb-6 border-b-2 pb-3">
+          {wordPool.map((word, index) => (
+            <button
+              key={index}
+              onClick={() => handleWordClick(word)}
+              className="px-3 py-2 text-md font-semibold bg-blue-700 text-white rounded hover:bg-blue-500 transition"
+            >
+              {word}
+            </button>
+          ))}
         </div>
-        <p className="text-lg text-white mt-2"> ~~You said~~</p>
-        <div className="mb-4 p-2 bg-gray-300 w-48">
-          <p className="text-lg p-2 text-green-900 font-semibold">
-            <em> {userSpokenText}</em>
-          </p>
+
+        <div className="flex flex-wrap gap-3 mb-6">
+          {selectedWords.map((word, index) => (
+            <button
+              key={index}
+              onClick={() => handleWordRemove(word)}
+              className="px-3 py-2 text-md font-semibold  bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition"
+            >
+              {word}
+            </button>
+          ))}
         </div>
+
+        <button
+          onClick={checkAnswer}
+          className="bg-purple-700 hover:bg-purple-500 text-white p-3 mt-10 w-full text-lg  rounded shadow-lg font-bold border-2 border-white"
+        >
+          Check Answer
+        </button>
       </div>
-
-      <button
-        onClick={startListening}
-        className="px-4 py-2 bg-blue-600 text-white text-lg rounded mb-4 flex items-center font-semibold"
-        disabled={isListening}
-      >
-        <FaMicrophoneAlt className="mr-2 text-2xl" />
-        {isListening ? "Listening..." : "Speak the Sentence"}
-      </button>
-
-      <button
-        onClick={checkAnswer}
-        className="bg-purple-700 hover:bg-purple-500 text-white p-3 mt-10 w-full text-lg  rounded shadow-lg font-bold border-2 border-white"
-      >
-        Check Answer
-      </button>
 
       <Modal
         visible={showModal}
-        imageSrc={isCorrect ? correctImage : incorrectImage}
+        imageSrc={modalImage}
         isCorrect={isCorrect}
         onNext={nextSentence}
       />
@@ -233,10 +226,10 @@ const Less8QuizPage = () => {
   );
 };
 
-export default function L8p() {
+export default function Th4p() {
   return (
     <Suspense>
-      <Less8QuizPage />
+      <Theme5Page />
     </Suspense>
   );
 }

@@ -73,52 +73,60 @@ const Theme5Page = () => {
     const currentSentence = sentences[sentenceIndex];
     const correctWords = currentSentence.englishsentence.split(" ");
 
-    // Add distractor words
+    // Get distractors (filtered, not including any correct words)
     const distractorWords = getDistractorWords(
       sentences,
       sentenceIndex,
-      correctWords.length
+      correctWords
     );
 
-    // Combine correct words and distractors, ensuring uniqueness
-    const wordPoolSet = new Set([...correctWords, ...distractorWords]);
+    // Combine correct words (with duplicates) + distractors
+    const combinedWords = [...correctWords, ...distractorWords];
 
-    // Shuffle the combined word pool (correct words + distractors)
-    const shuffledWordPool = Array.from(wordPoolSet).sort(
-      () => Math.random() - 0.5
-    );
+    // Shuffle the full pool
+    const shuffledWordPool = combinedWords.sort(() => Math.random() - 0.5);
 
     setWordPool(shuffledWordPool);
     setSelectedWords([]);
   };
 
-  const getDistractorWords = (sentences, currentIndex, correctWordsCount) => {
+  const getDistractorWords = (sentences, currentIndex, correctWords) => {
+    const correctWordSet = new Set(correctWords); // for filtering
     const distractors = [];
-    const correctWords = sentences[currentIndex].englishsentence.split(" ");
 
+    // Collect words from other sentences
     sentences.forEach((sentence, index) => {
       if (index !== currentIndex) {
-        // Add words from other sentences, but not the correct words
-        distractors.push(...sentence.englishsentence.split(" "));
+        const words = sentence.englishsentence.split(" ");
+        distractors.push(...words.filter((word) => !correctWordSet.has(word)));
       }
     });
 
-    // Filter out the correct words and limit distractors count
-    return [
-      ...new Set(distractors.filter((word) => !correctWords.includes(word))),
-    ].slice(0, correctWordsCount); // Limit the distractor words count
+    // Make distractors unique (no duplicates like ["run", "run", "go"])
+    const uniqueDistractors = [...new Set(distractors)];
+
+    // Limit distractors: e.g., up to 3 extra words
+    return uniqueDistractors.slice(0, 3); // you can change the number
   };
 
   const handleWordClick = (word) => {
-    if (wordPool.includes(word)) {
+    const index = wordPool.findIndex((w) => w === word);
+    if (index !== -1) {
+      const newPool = [...wordPool];
+      newPool.splice(index, 1); // հեռացնում ենք միայն առաջին համընկնողը
+      setWordPool(newPool);
       setSelectedWords([...selectedWords, word]);
-      setWordPool(wordPool.filter((w) => w !== word));
     }
   };
 
   const handleWordRemove = (word) => {
-    setWordPool([...wordPool, word]);
-    setSelectedWords(selectedWords.filter((w) => w !== word));
+    const index = selectedWords.findIndex((w) => w === word);
+    if (index !== -1) {
+      const newSelected = [...selectedWords];
+      newSelected.splice(index, 1);
+      setSelectedWords(newSelected);
+      setWordPool([...wordPool, word]); // նորից ավելացնում ենք բառապաշարին
+    }
   };
 
   const checkAnswer = () => {

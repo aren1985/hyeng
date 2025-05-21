@@ -93,9 +93,7 @@ const Less6QuizPage = () => {
 
     // Collect distractor words
     const distractorWords = getDistractorWords(lessonData, randomSentenceIndex);
-
-    // Combine correct words and distractors, remove duplicates
-    const wordPoolSet = new Set([...correctWords, ...distractorWords]);
+    const wordPoolSet = [...correctWords, ...distractorWords];
     const wordPool = Array.from(wordPoolSet).sort(() => Math.random() - 0.5);
 
     setWordPool(wordPool);
