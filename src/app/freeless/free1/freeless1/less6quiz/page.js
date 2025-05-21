@@ -89,14 +89,15 @@ const Less6QuizPage = () => {
     } while (usedIndexes.includes(randomSentenceIndex)); // Avoid used indexes
 
     const currentSentence = sentences[randomSentenceIndex];
-    const correctWords = currentSentence.english.split(" ");
+    const correctWords = currentSentence.english.trim().split(" "); // Allow duplicates
 
     // Collect distractor words
     const distractorWords = getDistractorWords(lessonData, randomSentenceIndex);
 
-    // Combine correct words and distractors, remove duplicates
-    const wordPoolSet = new Set([...correctWords, ...distractorWords]);
-    const wordPool = Array.from(wordPoolSet).sort(() => Math.random() - 0.5);
+    // Combine and shuffle (don't use Set to allow duplicates)
+    const wordPool = [...correctWords, ...distractorWords].sort(
+      () => Math.random() - 0.5
+    );
 
     setWordPool(wordPool);
     setSelectedWords([]);
@@ -112,24 +113,38 @@ const Less6QuizPage = () => {
 
     sentences.forEach((sentence, index) => {
       if (index !== currentIndex) {
-        distractors = [...distractors, ...sentence.english.split(" ")];
+        distractors = [...distractors, ...sentence.english.trim().split(" ")];
       }
     });
 
-    // Remove duplicates and limit distractor count
+    // Remove duplicates and limit to 5 distractors
     return [...new Set(distractors)].slice(0, 5);
   };
 
   const handleWordClick = (word) => {
-    if (wordPool.includes(word)) {
-      setSelectedWords([...selectedWords, word]);
-      setWordPool(wordPool.filter((w) => w !== word));
-    }
+    setSelectedWords((prev) => [...prev, word]);
+    setWordPool((prev) => {
+      const index = prev.indexOf(word);
+      if (index !== -1) {
+        const updated = [...prev];
+        updated.splice(index, 1); // Remove only one instance
+        return updated;
+      }
+      return prev;
+    });
   };
 
   const handleWordRemove = (word) => {
-    setWordPool([...wordPool, word]);
-    setSelectedWords(selectedWords.filter((w) => w !== word));
+    setWordPool((prev) => [...prev, word]); // Add back to pool
+    setSelectedWords((prev) => {
+      const index = prev.indexOf(word);
+      if (index !== -1) {
+        const updated = [...prev];
+        updated.splice(index, 1); // Remove only one instance
+        return updated;
+      }
+      return prev;
+    });
   };
 
   const checkAnswer = () => {

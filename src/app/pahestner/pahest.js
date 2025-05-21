@@ -3,26 +3,30 @@
 import React, { useState, useEffect, Suspense } from "react";
 import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
-import Image from "next/image";
+import { FaVolumeUp } from "react-icons/fa"; // React listen icon
+import Image from "next/image"; // For modal images
 
-// Import images directly from the Images folder
+// Import images from the Images folder
 import correctImage from "../../images/newlike.webp";
 import incorrectImage from "../../images/dislike.webp";
+// Reusable Modal component
 const Modal = ({ visible, imageSrc, onNext, isCorrect }) => {
   if (!visible) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div
+      className={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50`}
+    >
       <div
         className={`p-6 rounded-lg flex flex-col items-center ${
-          isCorrect ? "bg-green-600" : "bg-red-600"
+          isCorrect ? "bg-green-500" : "bg-red-500"
         }`}
       >
         <Image src={imageSrc} alt="Feedback" width={200} height={200} />
         <button
           onClick={onNext}
           className={`${
-            isCorrect ? "bg-green-600" : "bg-red-600"
+            isCorrect ? "bg-green-500" : "bg-red-500"
           } text-white py-2 rounded mt-4 text-lg w-full border-2 border-white`}
           style={{ maxWidth: "200px" }}
         >
@@ -33,15 +37,18 @@ const Modal = ({ visible, imageSrc, onNext, isCorrect }) => {
   );
 };
 
-const Theme5Page = () => {
-  const [sentences, setSentences] = useState([]);
+const Less7QuizPage = () => {
+  const [lesson, setLesson] = useState(null);
   const [currentSentenceIndex, setCurrentSentenceIndex] = useState(0);
   const [wordPool, setWordPool] = useState([]);
   const [selectedWords, setSelectedWords] = useState([]);
   const [isCorrect, setIsCorrect] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const [modalImage, setModalImage] = useState(null);
+  const [modalImage, setModalImage] = useState(null); // Modal image state
   const [loading, setLoading] = useState(true);
+  const [isListening, setIsListening] = useState(false);
+  const [spokenSentences, setSpokenSentences] = useState(new Set()); // Track spoken sentences
+  const [answeredSentences, setAnsweredSentences] = useState(new Set()); // Track answered sentences
   const searchParams = useSearchParams();
   const title = searchParams.get("title");
   const router = useRouter();
@@ -49,64 +56,50 @@ const Theme5Page = () => {
   useEffect(() => {
     if (title) {
       axios
-        .get(`${process.env.NEXT_PUBLIC_API_URL}/themes/themik/${title}`)
+        .get(
+          `${
+            process.env.NEXT_PUBLIC_API_URL
+          }/documents/lessdocuments/${encodeURIComponent(title)}`
+        )
         .then((response) => {
-          if (response.data && response.data.sentences) {
-            const shuffledSentences = response.data.sentences.sort(
-              () => Math.random() - 0.5
-            );
-            setSentences(shuffledSentences);
-            initializePuzzle(shuffledSentences, 0); // Initialize puzzle with the first sentence
+          if (response.data && response.data.length > 0) {
+            setLesson(response.data[0]);
+            initializePuzzle(response.data[0], 0);
             setLoading(false);
           } else {
             setLoading(false);
           }
         })
         .catch((err) => {
-          console.error("Error fetching sentences:", err);
+          console.error("Error fetching lesson:", err);
           setLoading(false);
         });
     }
   }, [title]);
 
-  const initializePuzzle = (sentences, sentenceIndex) => {
+  const initializePuzzle = (lessonData, sentenceIndex) => {
+    const sentences = lessonData.themes[0].sentences;
     const currentSentence = sentences[sentenceIndex];
-    const correctWords = currentSentence.englishsentence.split(" ");
+    const correctWords = currentSentence.english.split(" ");
+    const distractorWords = getDistractorWords(lessonData, sentenceIndex);
 
-    // Add distractor words
-    const distractorWords = getDistractorWords(
-      sentences,
-      sentenceIndex,
-      correctWords.length
-    );
-
-    // Combine correct words and distractors, ensuring uniqueness
     const wordPoolSet = new Set([...correctWords, ...distractorWords]);
+    const wordPool = Array.from(wordPoolSet).sort(() => Math.random() - 0.5);
 
-    // Shuffle the combined word pool (correct words + distractors)
-    const shuffledWordPool = Array.from(wordPoolSet).sort(
-      () => Math.random() - 0.5
-    );
-
-    setWordPool(shuffledWordPool);
+    setWordPool(wordPool);
     setSelectedWords([]);
+    setCurrentSentenceIndex(sentenceIndex);
   };
 
-  const getDistractorWords = (sentences, currentIndex, correctWordsCount) => {
-    const distractors = [];
-    const correctWords = sentences[currentIndex].englishsentence.split(" ");
-
+  const getDistractorWords = (lessonData, currentIndex) => {
+    const sentences = lessonData.themes[0].sentences;
+    let distractors = [];
     sentences.forEach((sentence, index) => {
       if (index !== currentIndex) {
-        // Add words from other sentences, but not the correct words
-        distractors.push(...sentence.englishsentence.split(" "));
+        distractors = [...distractors, ...sentence.english.split(" ")];
       }
     });
-
-    // Filter out the correct words and limit distractors count
-    return [
-      ...new Set(distractors.filter((word) => !correctWords.includes(word))),
-    ].slice(0, correctWordsCount); // Limit the distractor words count
+    return [...new Set(distractors)].slice(0, 5);
   };
 
   const handleWordClick = (word) => {
@@ -122,7 +115,9 @@ const Theme5Page = () => {
   };
 
   const checkAnswer = () => {
-    const correctAnswer = sentences[currentSentenceIndex].englishsentence
+    const correctAnswer = lesson.themes[0].sentences[
+      currentSentenceIndex
+    ].english
       .split(" ")
       .join(" ");
     const userAnswer = selectedWords.join(" ");
@@ -132,22 +127,68 @@ const Theme5Page = () => {
     ) {
       setIsCorrect(true);
       setModalImage(correctImage);
+      setShowModal(true);
+      setAnsweredSentences(
+        new Set([...answeredSentences, currentSentenceIndex])
+      );
     } else {
       setIsCorrect(false);
       setModalImage(incorrectImage);
+      setShowModal(true);
+      setAnsweredSentences(
+        new Set([...answeredSentences, currentSentenceIndex])
+      );
     }
-    setShowModal(true);
   };
 
   const nextSentence = () => {
-    if (currentSentenceIndex < sentences.length - 1) {
-      const nextIndex = currentSentenceIndex + 1;
-      setCurrentSentenceIndex(nextIndex);
-      initializePuzzle(sentences, nextIndex); // Initialize puzzle for the next sentence
-      setIsCorrect(null);
-      setShowModal(false);
-    } else {
-      router.push(`/themes/theme5?title=${title}`);
+    // Get all remaining sentences that haven't been spoken or answered yet
+    const remainingIndexes = lesson.themes[0].sentences
+      .map((_, index) => index)
+      .filter(
+        (index) => !spokenSentences.has(index) && !answeredSentences.has(index)
+      );
+
+    if (remainingIndexes.length === 0) {
+      // All sentences have been completed, navigate to the next quiz
+      router.push(`/lessons/less8quiz?title=${title}`);
+      return;
+    }
+
+    // Pick a random sentence from remaining ones
+    const nextIndex =
+      remainingIndexes[Math.floor(Math.random() * remainingIndexes.length)];
+    initializePuzzle(lesson, nextIndex);
+
+    // Add the picked sentence to the spoken sentences set
+    setSpokenSentences(new Set([...spokenSentences, nextIndex]));
+    setIsCorrect(null);
+    setShowModal(false);
+  };
+
+  const handleAudioPlay = () => {
+    if (lesson) {
+      const sentences = lesson.themes[0].sentences;
+      const currentSentence = sentences[currentSentenceIndex];
+
+      const speech = new SpeechSynthesisUtterance(currentSentence.english);
+      speech.lang = "en-GB"; // You can change this to "en-US" or any language/voice you prefer
+      speech.rate = 0.9; // Adjust speed for clarity
+
+      // Get available voices and select a specific one if you want
+      const voices = window.speechSynthesis.getVoices();
+      const preferredVoice = voices.find(
+        (voice) => voice.name.includes("Samantha") // Change this to your preferred voice
+      );
+
+      if (preferredVoice) {
+        speech.voice = preferredVoice;
+      }
+
+      window.speechSynthesis.speak(speech);
+
+      setIsListening(true);
+      speech.onend = () => setIsListening(false);
     }
   };
 
@@ -160,54 +201,49 @@ const Theme5Page = () => {
             <div className="w-6 h-6 bg-blue-500 rounded-full animate-ping"></div>
           </div>
         </div>
-        <p className="mt-4 text-gray-700 text-lg font-medium">
-          Loading theme...
-        </p>
+        <p className="mt-4 text-gray-700 text-lg font-medium">Loading ...</p>
       </div>
     );
-  if (!sentences || sentences.length === 0)
-    return <p className="text-center text-lg">No sentences available.</p>;
-
-  const currentSentence = sentences[currentSentenceIndex];
+  if (!lesson) return <p>No lesson found.</p>;
 
   return (
     <div className="flex flex-col items-center p-6">
-      <h1 className="text-xl md:text-2xl font-bold text-purple-800 mb-6">
+      <h1 className="text-xl md:text-2xl text-purple-800 font-bold mb-4">
         Rearrange the Sentence
       </h1>
-      <p className="text-md md:text-lg rounded mb-4 py-2 px-3 bg-gray-800 shadow-md font-semibold text-white">
-        {currentSentence.armeniansentence}
-      </p>
+      <button
+        onClick={handleAudioPlay}
+        className="px-4 py-2 bg-orange-600 text-white rounded mb-4 flex items-center font-semibold"
+        disabled={isListening}
+      >
+        <FaVolumeUp className="mr-2" />
+        {isListening ? "Listening..." : "Listen "}
+      </button>
 
-      <div className="flex flex-col items-center w-full rounded-lg ">
-        <p className="text-md mb-4 text-gray-800">
-          Select the correct English words
-        </p>
-
-        <div className="flex flex-wrap gap-3 mb-6 border-b-2 pb-3">
+      <div className="flex flex-col items-center w-full">
+        <p className="text-xl mb-4">Select the correct English words</p>
+        <div className="flex flex-wrap gap-2 mb-4 border-b-2 pb-3">
           {wordPool.map((word, index) => (
             <button
               key={index}
               onClick={() => handleWordClick(word)}
-              className="px-3 py-2 text-md font-semibold bg-blue-700 text-white rounded hover:bg-blue-500 transition"
+              className="px-4 py-2 bg-blue-800 text-white rounded font-semibold"
             >
               {word}
             </button>
           ))}
         </div>
-
-        <div className="flex flex-wrap gap-3 mb-6">
+        <div className="flex flex-wrap gap-2 mb-4">
           {selectedWords.map((word, index) => (
             <button
               key={index}
               onClick={() => handleWordRemove(word)}
-              className="px-3 py-2 text-md font-semibold  bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition"
+              className="px-4 py-2 bg-gray-300  text-black font-semibold rounded"
             >
               {word}
             </button>
           ))}
         </div>
-
         <button
           onClick={checkAnswer}
           className="bg-purple-700 hover:bg-purple-500 text-white p-3 mt-10 w-full text-lg  rounded shadow-lg font-bold border-2 border-white"
@@ -226,10 +262,10 @@ const Theme5Page = () => {
   );
 };
 
-export default function Th4p() {
+export default function Ltp() {
   return (
     <Suspense>
-      <Theme5Page />
+      <Less7QuizPage />
     </Suspense>
   );
 }

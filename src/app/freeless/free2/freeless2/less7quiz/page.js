@@ -83,8 +83,9 @@ const Less7QuizPage = () => {
     const correctWords = currentSentence.english.split(" ");
     const distractorWords = getDistractorWords(lessonData, sentenceIndex);
 
-    const wordPoolSet = new Set([...correctWords, ...distractorWords]);
-    const wordPool = Array.from(wordPoolSet).sort(() => Math.random() - 0.5);
+    const wordPool = [...correctWords, ...distractorWords].sort(
+      () => Math.random() - 0.5
+    );
 
     setWordPool(wordPool);
     setSelectedWords([]);
@@ -103,15 +104,24 @@ const Less7QuizPage = () => {
   };
 
   const handleWordClick = (word) => {
-    if (wordPool.includes(word)) {
+    const index = wordPool.indexOf(word);
+    if (index !== -1) {
+      const newPool = [...wordPool];
+      newPool.splice(index, 1); // հեռացնում ենք միայն առաջին հանդիպումը
+      setWordPool(newPool);
       setSelectedWords([...selectedWords, word]);
-      setWordPool(wordPool.filter((w) => w !== word));
     }
   };
 
   const handleWordRemove = (word) => {
-    setWordPool([...wordPool, word]);
-    setSelectedWords(selectedWords.filter((w) => w !== word));
+    const index = selectedWords.indexOf(word);
+    if (index !== -1) {
+      const newSelected = [...selectedWords];
+      newSelected.splice(index, 1);
+
+      setSelectedWords(newSelected);
+      setWordPool([...wordPool, word]); // կարող ես այստեղ էլ սարքել `splice`-ով, եթե կարգը կարևոր է
+    }
   };
 
   const checkAnswer = () => {
