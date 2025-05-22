@@ -94,13 +94,24 @@ const Less7QuizPage = () => {
 
   const getDistractorWords = (lessonData, currentIndex) => {
     const sentences = lessonData.themes[0].sentences;
-    let distractors = [];
+    const correctWords = new Set(
+      sentences[currentIndex].english.split(" ").map((w) => w.toLowerCase())
+    );
+
+    let distractors = new Set();
+
     sentences.forEach((sentence, index) => {
       if (index !== currentIndex) {
-        distractors = [...distractors, ...sentence.english.split(" ")];
+        sentence.english.split(" ").forEach((word) => {
+          const lowerWord = word.toLowerCase();
+          if (!correctWords.has(lowerWord)) {
+            distractors.add(word); // keep original casing
+          }
+        });
       }
     });
-    return [...new Set(distractors)].slice(0, 5);
+
+    return Array.from(distractors).slice(0, 3);
   };
 
   const handleWordClick = (word) => {

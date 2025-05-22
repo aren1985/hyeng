@@ -109,16 +109,28 @@ const Less6QuizPage = () => {
 
   const getDistractorWords = (lessonData, currentIndex) => {
     const sentences = lessonData.themes[0].sentences;
+    const currentSentenceWords = new Set(
+      sentences[currentIndex].english.trim().toLowerCase().split(" ")
+    );
+
     let distractors = [];
 
     sentences.forEach((sentence, index) => {
       if (index !== currentIndex) {
-        distractors = [...distractors, ...sentence.english.trim().split(" ")];
+        sentence.english
+          .trim()
+          .split(" ")
+          .forEach((word) => {
+            // Միայն այն բառերը, որոնք **չկան** ընթացիկ նախադասությունում
+            if (!currentSentenceWords.has(word.toLowerCase())) {
+              distractors.push(word);
+            }
+          });
       }
     });
 
-    // Remove duplicates and limit to 5 distractors
-    return [...new Set(distractors)].slice(0, 5);
+    // Հանենք կրկնություններ և սահմանափակում ենք մինչև 3 բառ
+    return [...new Set(distractors)].slice(0, 3);
   };
 
   const handleWordClick = (word) => {
