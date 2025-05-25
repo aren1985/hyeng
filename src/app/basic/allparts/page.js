@@ -8,13 +8,14 @@ const categories = [
   "professions2",
   "stationery",
   "animals",
-  "animals2",
+  "animals3",
   "household items",
   "fruits",
-  "animals3",
-
+  "animals2",
+  "nature",
+  "hygiene items",
   "buildings",
-
+  "tableware",
   "natural life",
 
   "animals4",
@@ -26,13 +27,12 @@ const categories = [
   "food",
   "food2",
   "food3",
-  "tableware",
+
   "fruits2",
   "transports",
   "home",
   "furniture",
 
-  "nature",
   "nature1",
   "nature2",
   "nature3",
@@ -45,7 +45,7 @@ const categories = [
   "buildings4",
   "buildings5",
   "electronic equipments",
-  "hygiene items",
+
   "jewelry",
   "daily items",
 ];
