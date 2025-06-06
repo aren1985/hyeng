@@ -11,19 +11,22 @@ const SelectionPage = () => {
 
   const lessons = [
     { _id: "6807a72a62d72d5b930975ab", title: "lesson1" },
-
+    { _id: "6807a72a62d72d5b930975ab", title: "lesson2" },
+    { _id: "6807a72a62d72d5b930975ab", title: "lesson3" },
     // Add more lessons as needed
   ];
 
   const themes = [
     { _id: "68079be262d72d5b930975a4", title: "summary" },
-
+    { _id: "68079be262d72d5b930975a4", title: "summary2" },
+    { _id: "68079be262d72d5b930975a4", title: "summary3" },
     // Add more themes as needed
   ];
 
   const words = [
     { _id: "680672f9d4f6899b6173457c", title: "words for 1 day" },
-
+    { _id: "680672f9d4f6899b6173457c", title: "words for 2 day" },
+    { _id: "680672f9d4f6899b6173457c", title: "words for 3 day" },
     // Add more words as needed
   ];
 
