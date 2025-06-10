@@ -161,7 +161,7 @@ const SelectionPage = () => {
       <div className="mt-6 flex justify-center items-center w-full max-w-4xl">
         <button
           onClick={prevPage}
-          className="bg-purple-700 text-white py-2 px-3 font-semibold rounded-lg hover:bg-purple-600 disabled:bg-gray-400"
+          className="bg-green-800 text-white py-2 px-2 font-semibold rounded-lg hover:bg-purple-600 disabled:bg-yellow-700"
           disabled={currentPage === 1}
         >
           Prev
@@ -173,7 +173,7 @@ const SelectionPage = () => {
             <button
               key={pageNumber}
               onClick={() => goToPage(pageNumber + 1)}
-              className={`py-2 px-3 rounded-lg ${
+              className={`py-1 px-3 rounded-lg ${
                 currentPage === pageNumber + 1
                   ? "bg-purple-700 text-white"
                   : "bg-gray-200 text-black hover:bg-purple-600"
@@ -186,7 +186,7 @@ const SelectionPage = () => {
 
         <button
           onClick={nextPage}
-          className="bg-purple-700 text-white py-2 px-3 font-semibold rounded-lg hover:bg-purple-600 disabled:bg-gray-400"
+          className="bg-green-800 text-white py-2 px-2 font-semibold rounded-lg hover:bg-purple-600 disabled:bg-yellow-700"
           disabled={currentPage === totalPages}
         >
           Next
